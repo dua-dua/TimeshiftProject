@@ -1,12 +1,16 @@
 package com.example.dua.timeshiftproject;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import com.parse.Parse;
+import com.parse.ParsePushBroadcastReceiver;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -15,9 +19,12 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Parse.initialize(this, "SA9jwfkPdiIKsPOoqusnHkedPe2c0IkjLUFdxy1a", "QRA0WKerWCfSNKlLwL0lapuG2EZQM3XFwaVnD8kY");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.v("bytag","derp");
+
 
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
 
@@ -28,6 +35,18 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+    public class Receiver extends ParsePushBroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent){
+            Intent i = new Intent(context, MainActivity.class);
+            Log.v("tag","derp");
+
+
+        }
+
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
