@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import com.parse.Parse;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -14,6 +15,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Parse.initialize(this, "SA9jwfkPdiIKsPOoqusnHkedPe2c0IkjLUFdxy1a", "QRA0WKerWCfSNKlLwL0lapuG2EZQM3XFwaVnD8kY");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
