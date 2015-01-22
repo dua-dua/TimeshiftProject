@@ -1,51 +1,45 @@
 package com.example.dua.timeshiftproject;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import com.parse.Parse;
-import com.parse.ParsePushBroadcastReceiver;
+import com.parse.ParseInstallation;
+import com.parse.ParseObject;
+import com.parse.PushService;
 
-
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     private WebView mWebView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Parse.initialize(this, "SA9jwfkPdiIKsPOoqusnHkedPe2c0IkjLUFdxy1a", "QRA0WKerWCfSNKlLwL0lapuG2EZQM3XFwaVnD8kY");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.v("bytag","derp");
 
-
-        mWebView = (WebView) findViewById(R.id.activity_main_webview);
-
-        WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-
-        mWebView.loadUrl("file:///android_asset/www/index.html");
-
+        Parse.initialize(this, "0qwu1NjJN6Omb7C6JhpAML7ltY2y1dYG2dp6O92L", "RYc9OPFFWIMiorIGFa2Sh2xvLCqwleS7QZNzTZFI");
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
+        PushService.setDefaultPushCallback(this, MainActivity.class);
+        ParseInstallation.getCurrentInstallation().saveInBackground();
     }
 
-    public class Receiver extends ParsePushBroadcastReceiver{
-        @Override
-        public void onReceive(Context context, Intent intent){
-            Intent i = new Intent(context, MainActivity.class);
-            Log.v("tag","derp");
-
-
-        }
-
-
-
+    // broadcast a custom intent.
+    public void broadcastIntent(View view)
+    {
+        Intent intent = new Intent();
+        intent.setAction("com.tutorialspoint.CUSTOM_INTENT");
+        //intent.setAction("com.tutorialspoint.OTHER_CUSTOM_INTENT");
+        sendBroadcast(intent);
     }
 
     @Override
@@ -69,4 +63,24 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void push(View view){
+        PushFragment frag = new PushFragment();
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.maincontainer, frag);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void pushed(View view){
+        PushedFragment frag = new PushedFragment();
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.maincontainer, frag);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 }

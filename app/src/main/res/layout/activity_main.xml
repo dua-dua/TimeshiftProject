@@ -1,15 +1,29 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:id="@+id/maincontainer">
 
-    <WebView
-        android:id="@+id/activity_main_webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <Button android:id="@+id/btnStartService"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/broadcast_intent"
+        android:onClick="broadcastIntent"/>
 
-</RelativeLayout>
+    <Button android:id="@+id/btnPushService"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/push_intent"
+        android:onClick="push"
+        android:layout_below="@+id/btnStartService"/>
+
+    <Button android:id="@+id/btnViewList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pushed_list"
+        android:onClick="pushed"
+        android:layout_below="@+id/btnPushService"/>
+
+</LinearLayout>
