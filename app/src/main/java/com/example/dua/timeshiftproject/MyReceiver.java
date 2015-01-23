@@ -25,18 +25,6 @@ public class MyReceiver extends BroadcastReceiver {
         Toast.makeText(context, name+val, Toast.LENGTH_LONG).show();
         Log.v("tag",name);
         Log.v("tag",val);
-
-        //String val = inData.getString("value");
-        //Log.v("tag","Received: "+"val");
-        /*Bundle inData = intent.getExtras();
-            if(inData.getString("com.parse.Data") == null){
-                Log.v("tag","null");
-            }else{
-                Log.v("tag","not null");
-            }
-            String dataString = inData.getString("com.parse.Data");
-            Toast.makeText(context, dataString, Toast.LENGTH_LONG).show();
-            */
     }
 
 }

@@ -44,8 +44,7 @@ public class PushFragment extends Fragment {
                 JSONObject data = null;
 
                 try {
-                    data = new JSONObject("{\"alert\": \"alert\"," +
-                                          "\"value\": \"123\"}");
+                    data = new JSONObject("{\"name\": \"jonas\"}");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
