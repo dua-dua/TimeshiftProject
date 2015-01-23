@@ -2,6 +2,7 @@ package com.example.dua.timeshiftproject;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.ParseObject;
+import com.parse.ParsePush;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class PushFragment extends Fragment {
@@ -36,11 +41,27 @@ public class PushFragment extends Fragment {
                 EditText editText = (EditText)getView().findViewById(R.id.pushText);
                 String pushText = editText.getText().toString();
 
+                JSONObject data = null;
+
+                try {
+                    data = new JSONObject("{\"alert\": \"alert\"," +
+                                          "\"value\": \"123\"}");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                ParsePush push = new ParsePush();
+                push.setChannel("channel");
+                push.setData(data);
+                push.sendInBackground();
+                Log.v("tag","Sent JSON");
+
                 ParseObject pushedText = new ParseObject("PushedText");
                 pushedText.put("Test", pushText);
                 pushedText.saveInBackground();
 
-                Toast toast = Toast.makeText(getActivity(), "Item pushed", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getActivity(), "Items pushed", Toast.LENGTH_LONG);
                 toast.show();
                 ((EditText)getView().findViewById(R.id.pushText)).setText("");
             }

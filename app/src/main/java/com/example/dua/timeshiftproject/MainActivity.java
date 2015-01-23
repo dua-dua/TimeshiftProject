@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.PushService;
 
 public class MainActivity extends Activity {
@@ -29,17 +30,28 @@ public class MainActivity extends Activity {
         ParseObject testObject = new ParseObject("TestObject");
         testObject.put("foo", "bar");
         testObject.saveInBackground();
+        ParsePush.subscribeInBackground("channel");
         PushService.setDefaultPushCallback(this, MainActivity.class);
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        //ParseInstallation.getCurrentInstallation().saveInBackground();
     }
+
+
 
     // broadcast a custom intent.
     public void broadcastIntent(View view)
     {
         Intent intent = new Intent();
+        intent.putExtra("name","jonas");
+        intent.putExtra("age","24");
         intent.setAction("com.tutorialspoint.CUSTOM_INTENT");
         //intent.setAction("com.tutorialspoint.OTHER_CUSTOM_INTENT");
-        sendBroadcast(intent);
+
+        Intent intent2 = new Intent();
+        intent.putExtra("name","jonas");
+        intent.putExtra("age","24");
+        intent.setAction("com.parse.push.intent.CUSTOM_RECEIVE");
+
+        sendBroadcast(intent2);
     }
 
     @Override

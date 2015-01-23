@@ -63,11 +63,11 @@
                 <category android:name="com.example.dua.timeshiftproject" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver" android:exported="false">
+        <receiver android:name="com.example.dua.timeshiftproject.MyParseReceiver" android:exported="false">
             <intent-filter>
-                <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
                 <action android:name="com.parse.push.intent.OPEN" />
+                <action android:name="com.parse.push.intent.RECEIVE" />
             </intent-filter>
         </receiver>
     </application>
