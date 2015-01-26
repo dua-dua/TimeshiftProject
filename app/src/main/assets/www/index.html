@@ -11,8 +11,8 @@
             <a href="quizcode.html">
                 <button type="button" class="btn btn-default menuButton">New Game</button>
             </a>
-            <a href="">
-                <button type="button" class="btn btn-default menuButton">Friends</button>
+            <a onclick="startSomething()">
+                <button type="button" class="btn btn-default menuButton" id="knapp">Friends</button>
             </a>
             <a onclick="exit()">
                 <button type="button" class="btn btn-default menuButton">Exit</button>
@@ -21,7 +21,13 @@
 
             </div>
         </div>
+        <script>
+            function startSomething(){
+                window.document.getElementById("knapp").innerHTML = "yoyo";
+                window.JSInterface.doSomething();
 
+            }
+        </script>
         <script src="../js/js.js"></script>
         <script src="../js/bootstrap.js"></script>
         <script src="../js/bootstrap.min.js"></script>
