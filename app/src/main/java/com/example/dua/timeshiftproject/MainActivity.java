@@ -95,4 +95,8 @@ public class MainActivity extends Activity {
         transaction.commit();
     }
 
+    public void exit(){
+        System.exit(0);
+    }
+
 }
