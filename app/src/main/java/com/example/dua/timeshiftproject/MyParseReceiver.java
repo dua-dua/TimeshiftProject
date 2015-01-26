@@ -2,13 +2,8 @@ package com.example.dua.timeshiftproject;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
-
-import com.parse.ParseBroadcastReceiver;
 import com.parse.ParsePushBroadcastReceiver;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

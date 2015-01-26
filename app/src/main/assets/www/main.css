@@ -1,0 +1,30 @@
+body {
+    background-color: black;
+}
+
+.menuButton {
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    border-color: white;
+    width: 200px;
+    height: 50px;
+    font-size: 1.2em;
+    font-family: monospace;
+
+}
+
+.menuButton:hover {
+    background-color: black;
+    color: green;
+    border-color: green;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.codeButton {
+    margin-top: 20px;
+}

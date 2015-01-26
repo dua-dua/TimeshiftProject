@@ -1,0 +1,11 @@
+body {
+    background-color: #5AB2DD;
+}
+
+.menuButton {
+    margin-bottom: 20px;
+    background-color: #5a71dd;
+    color: white;
+    border-color: #5a71dd;
+    text-align: center;
+}
