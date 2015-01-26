@@ -35,13 +35,5 @@ public class JavaScriptInterface {
         push.sendInBackground();
         Log.v("tag","Sent JSON");
 
-
-
-        Log.v("derp", "derp");
-        Intent intent = new Intent();
-        intent.setAction("com.tutorialspoint.OTHER_CUSTOM_INTENT");
-        activity.startActivity(intent);
-
-
     }
 }
