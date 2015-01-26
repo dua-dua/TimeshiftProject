@@ -7,6 +7,7 @@
     </head>
     <body>
         <div align="center" class="container center">
+
             <div class="container">
                 <div class="row">
                     <a href="quizcode.html">
@@ -14,8 +15,8 @@
                     </a>
                 </div>
                 <div class="row">
-                    <a href="">
-                        <button type="button" class="btn btn-default standardButton">Friends</button>
+                    <a onclick="startSomething()">
+                        <button type="button" class="btn btn-default standardButton" id="knapp">Friends</button>
                     </a>
                 </div>
                 <div class="row">
@@ -26,7 +27,13 @@
 
             </div>
         </div>
+        <script>
+            function startSomething(){
+                window.document.getElementById("knapp").innerHTML = "yoyo";
+                window.JSInterface.doSomething();
 
+            }
+        </script>
         <script src="../js/js.js"></script>
         <script src="../js/bootstrap.js"></script>
         <script src="../js/bootstrap.min.js"></script>

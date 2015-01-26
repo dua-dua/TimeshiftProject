@@ -21,6 +21,7 @@ public class MyReceiver extends BroadcastReceiver {
 
         name = intent.getStringExtra("name");
         val = intent.getStringExtra("age");
+        Log.v("derp", "kommet frem");
 
         Toast.makeText(context, name+val, Toast.LENGTH_LONG).show();
         Log.v("tag",name);

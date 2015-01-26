@@ -21,12 +21,20 @@ import com.parse.PushService;
 
 public class MainActivity extends Activity {
 
-    private WebView mWebView;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        WebView mWebView = (WebView)findViewById(R.id.webview1);
+        mWebView.loadUrl("file:///android_asset/www/index.html");
+        JavaScriptInterface jsInterface = new JavaScriptInterface(this);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.addJavascriptInterface(jsInterface, "JSInterface");
         Parse.initialize(this, "0qwu1NjJN6Omb7C6JhpAML7ltY2y1dYG2dp6O92L", "RYc9OPFFWIMiorIGFa2Sh2xvLCqwleS7QZNzTZFI");
         ParseObject testObject = new ParseObject("TestObject");
         testObject.put("foo", "bar");
