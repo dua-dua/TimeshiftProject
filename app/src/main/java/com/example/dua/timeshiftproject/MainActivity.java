@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import com.parse.Parse;
@@ -38,8 +39,7 @@ public class MainActivity extends Activity {
 
 
     // broadcast a custom intent.
-    public void broadcastIntent(View view)
-    {
+    public void broadcastIntent(View view) {
         Intent intent = new Intent();
         intent.putExtra("name","jonas");
         intent.putExtra("age","24");
@@ -98,5 +98,7 @@ public class MainActivity extends Activity {
     public void exit(){
         System.exit(0);
     }
+
+
 
 }
