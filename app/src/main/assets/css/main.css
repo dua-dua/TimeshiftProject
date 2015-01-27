@@ -1,36 +1,66 @@
 body {
     @dark: #0369B1;
+    @darker: #035a98;
+    @darkest: #034b7f;
     @light: #0497CB;
     background-color: #0497CB;
 
 }
 
-h1, h2, h3 {
+h1, h2, h3, li {
+    font-family: monospace;
+    color: #034b7f;
+    margin-bottom: 5px;
 }
 
 h3 {
     font-size: 2em;
-    font-family: monospace;
-    color: white;
-    margin-bottom: 5px;
 }
 
 input{
     width: 200px;
     height: 30px;
-    margin-left: 5px;
+    margin-left: 2px;
+    margin-top: 5px;
     font-family: monospace;
-    font-size: 1.2em;
-    background-color: white;
-    border: 1px solid black;
-    color: #0369B1;
+    font-size: 1em;
+    background-color: #0497CB;
+    border: 1px solid white;
+    color: #034b7f;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #034b7f;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #034b7f;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #034b7f;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #034b7f;
+}
+
+ul{
+    list-style-type: none;
+    color: #034b7f;
+}
+
+#newUserText {
+    color: white;
+    margin-top: 20px;
+    font-size: 0.8em;
 }
 
 .standardButton {
     margin-top: 20px;
-    background-color: #0369B1;
+    margin-bottom: 10px;
+    background-color: #034b7f;
     color: white;
-    border-color: #0369B1;
+    border-color: #034b7f;
     width: 200px;
     height: 50px;
     font-size: 1.2em;
@@ -41,16 +71,16 @@ input{
 }
 
 .standardButton:hover {
-    background-color: #0369B1;
+    background-color: #034b7f;
     color: white;
     border-color: white;
 }
 
 .answerButton {
     margin-top: 5px;
-    background-color: #0369B1;
+    background-color: #034b7f;
     color: white;
-    border-color: #0369B1;
+    border-color: #034b7f;
     width: 45%;
     height: 25.3125%;
     font-size: 1.2em;
@@ -61,7 +91,7 @@ input{
 }
 
 .answerButton:hover {
-    background-color: #0369B1;
+    background-color: #034b7f;
     color: white;
     border-color: white;
 }
@@ -69,4 +99,10 @@ input{
 .center {
     margin-left: auto;
     margin-right: auto;
+}
+
+.verticalCentering {
+    position: relative;
+    top: 35%;
+    transform: translateY(-35%);
 }
