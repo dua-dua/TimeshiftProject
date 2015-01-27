@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 
 
         WebView mWebView = (WebView)findViewById(R.id.webview1);
-        mWebView.loadUrl("file:///android_asset/www/index.html");
+        mWebView.loadUrl("file:///android_asset/www/login.html");
         JavaScriptInterface jsInterface = new JavaScriptInterface(this);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.addJavascriptInterface(jsInterface, "JSInterface");
