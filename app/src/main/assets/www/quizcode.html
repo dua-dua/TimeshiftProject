@@ -1,21 +1,23 @@
 <html>
     <head>
-        <script src="../js/js.js"></script>
+        <script src="../js/quizcode.js"></script>
         <script src="../js/bootstrap.js"></script>
         <script src="../js/bootstrap.min.js"></script>
+        <script src="//www.parsecdn.com/js/parse-1.3.4.min.js"></script>
         <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="bootstrap.css">
         <link rel="stylesheet" type="text/css" href="main.css">
     </head>
     <body>
         <div align="center" class="container">
-            <h3>Enter code:</h3>
+            <h3 id="test" onclick="findLobby()">Enter code:</h3>
             
             <input type="text" placeholder="Insert code..">
             <br>
             <a href="quiz.html">
-                <button type="submit" class="btn btn-default standardButton"> Submit </button>
+                <button type="submit" class="btn btn-default standardButton" onclick="findLobby"> Submit </button>
             </a>
         </div>
+
     </body>
 </html>
