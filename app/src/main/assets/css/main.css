@@ -6,24 +6,46 @@ body {
 }
 
 h1, h2, h3 {
+    font-family: monospace;
+    color: #0369B1;
+    margin-bottom: 5px;
 }
 
 h3 {
     font-size: 2em;
-    font-family: monospace;
-    color: white;
-    margin-bottom: 5px;
+
 }
 
 input{
     width: 200px;
     height: 30px;
     margin-left: 5px;
+    margin-top: 5px;
     font-family: monospace;
-    font-size: 1.2em;
-    background-color: white;
-    border: 1px solid black;
+    font-size: 1em;
+    background-color: #0497CB;
+    border: 1px solid white;
     color: #0369B1;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #0369B1;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #0369B1;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #0369B1;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #0369B1;
+}
+
+#forgotPasswordText {
+    color: white;
+    font-size: 0.8em;
 }
 
 .standardButton {
@@ -69,4 +91,10 @@ input{
 .center {
     margin-left: auto;
     margin-right: auto;
+}
+
+.verticalCentering {
+    position: relative;
+    top: 35%;
+    transform: translateY(-35%);
 }

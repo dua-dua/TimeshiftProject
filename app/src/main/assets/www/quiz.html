@@ -4,15 +4,19 @@
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../css/main.css">
+        <link rel="stylesheet" type="text/css" href="../css/progressbar.css">
 
     </head>
     <body>
         <div align="center" class="container">
-            <h2>Question text</h2>
-            <br>
             <a href="scorescreen.html">
-                <h2>--timer--</h2>
+                <h2>Question text</h2>
             </a>
+            <br>
+            <h3 id="notification" class="h3 small" onclick="progressbar()">Waiting for first answer</h3>
+        </div>
+            <progress class="hidez" id="progressbar" value="0" max="1000"></progress>
+        <div align="center" class="container">
             <br>
             <div class="row">
                 <button class="answerButton">A</button>
@@ -27,6 +31,9 @@
         <script src="../js/js.js"></script>
         <script src="../js/bootstrap.js"></script>
         <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery-1.11.2.min.js"></script>
+        <script src="../js/countdown.js"></script>
+        <script src="../js/main.js"></script>
 
     </body>
 </html>
