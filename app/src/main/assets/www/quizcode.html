@@ -4,18 +4,21 @@
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../css/main.css">
+
     </head>
     <body>
         <div align="center" class="container verticalCentering">
-            <h3>Enter code:</h3>
+            <h3 id="test" onclick="findLobby()">Enter code:</h3>
+
             
             <input type="text" placeholder="Insert code..">
             <br>
             <a href="quiz.html">
-                <button type="submit" class="btn btn-default standardButton"> Submit </button>
+                <button type="submit" class="btn btn-default standardButton" onclick="findLobby"> Submit </button>
             </a>
         </div>
-        <script src="../js/js.js"></script>
+
+        <script src="../js/quizcode.js"></script>
         <script src="../js/bootstrap.js"></script>
         <script src="../js/bootstrap.min.js"></script>
     </body>

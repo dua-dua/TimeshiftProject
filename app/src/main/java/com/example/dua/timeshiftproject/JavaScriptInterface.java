@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
+import com.parse.ParseObject;
 import com.parse.ParsePush;
 
 import org.json.JSONException;
@@ -21,9 +22,7 @@ public class JavaScriptInterface {
     }
     @JavascriptInterface
     public void doSomething(){
-
         JSONObject data = null;
-
         try {
             data = new JSONObject("{\"name\": \"jonas\"}");
         } catch (JSONException e) {
@@ -34,6 +33,15 @@ public class JavaScriptInterface {
         push.setData(data);
         push.sendInBackground();
         Log.v("tag","Sent JSON");
+    }
+    @JavascriptInterface
+    public String getVal(){
+        return "string";
+    }
+
+    @JavascriptInterface
+    public boolean isLobby(){
+        return true;
 
     }
 }
