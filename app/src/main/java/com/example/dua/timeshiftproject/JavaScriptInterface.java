@@ -5,11 +5,17 @@ import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
+import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.ParseException;
 
 /**
  * Created by dualap on 26.01.2015.
@@ -43,5 +49,20 @@ public class JavaScriptInterface {
     public boolean isLobby(){
         return true;
 
+    }
+
+    @JavascriptInterface
+    public void createUser(String name, String password){
+        ParseUser user = new ParseUser();
+        user.setUsername(name);
+        user.setPassword(password);
+        user.signUpInBackground();
+        Log.v("tag","created user");
+    }
+
+    @JavascriptInterface
+    public void logUser(String name, String password){
+
+        Log.v("tag","logged in user: "+name);
     }
 }
