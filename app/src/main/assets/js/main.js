@@ -42,13 +42,15 @@ function randomNumber(min,max){
 }
 
 function addBots(amount){
-	botNames = ["Anne", "Arne", "Are" , "Alex" , "Amalie" , "Berit" , "Bernt" , "Charlotte" , "Carl" , "Desire" , "Daniel" , "Dagrun" , "Erik" , "Eirill" , "Fredrik" , "Geir" , "Guro" , "Gerd" , "Heidi" , "Hallvard" , "Isa" , "Jonas" , "Jon" , "Josefine" , "Klaus" , "Kari" , "Line" , "Lars" , "Magnus" , "Mari" , "Nils" , "Nora" , "Oskar" , "Olivia" , "Per" , "Pernille" , "Rasmus" , "Reidun" , "Stian" , "Solvei" , "Thea" , "Thomas" , "Vilde" , "Vegar" , "Øystein" , "Åse" , "Ådmund"]
+	botNames = ["Anne", "Arne", "Are" , "Alex" , "Amalie" , "Berit" , "Bernt" , "Charlotte" , "Carl" , "Desire" , "Daniel" , "Dagrun" , "Erik" , "Eirill" , "Fredrik" , "Geir" , "Guro" , "Gerd" , "Heidi" , "Hallvard" , "Isa" , "Jonas" , "Jon" , "Josefine" , "Klaus" , "Kari" , "Line" , "Lars" , "Magnus" , "Mari" , "Nils" , "Nora" , "Oskar" , "Olivia" , "Per" , "Pernille" , "Rasmus" , "Reidun" , "Stian" , "Solveig" , "Thea" , "Thomas" , "Vilde" , "Vegar" , "Øystein" , "Åse" , "Ådmund"]
 	var name;
 	var scores = ["0"];
 	var wait;
 	
 	for(i = 0; i < amount; i++){
-		name = botNames[Math.floor(Math.random()*botNames.length)];
+	    num = Math.floor(Math.random()*botNames.length);
+		name = botNames[num];
+		botNames.splice(num, 1);
 		wait = randomNumber(200, 800);
 		for(j = 0; j<5; j++){
 			scores.push(randomNumber(0, 975).toString());
@@ -60,7 +62,7 @@ function addBots(amount){
 
 function addToList(name, scores, wait){
 	console.log("Added bot " + name + ". Joining in " + wait + " ms. with this score array: " + scores);
-	setTimeout(function(){$("#playerList").append('<li class="lobbyList "><span class="glyphicon glyphicon-user"></span><span class="tab"> ' + name +'</span></li>')}, wait);
+	setTimeout(function(){$("#playerList").append('<li class="lobbyList "><span class="tab"> ' + name +'</span></li>')}, wait);
 }
 
 function notifyPlayer(){
