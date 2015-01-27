@@ -18,6 +18,7 @@ import java.text.ParseException;
  */
 public class JavaScriptInterface {
     private Activity activity;
+    private boolean isLobby;
 
     public JavaScriptInterface(Activity act){
         this.activity= act;
@@ -43,25 +44,28 @@ public class JavaScriptInterface {
 
     @JavascriptInterface
     public boolean isLobby(String lobbyId){
+        Log.v("test", "test");
+        if (lobbyId.length()==0){
+            Log.v("test", "empty String");
+            return false;
+        }
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
-
         int numb = Integer.parseInt(lobbyId);
-
         query.whereEqualTo("lobbyId",numb);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
-                if(parseObject==null){
+                if (parseObject == null) {
                     Log.v("test", "no such obj");
-                }
-                else{
+                    isLobby = false;
+                } else {
                     Log.v("test", "here`s the object");
+                    isLobby = true;
                 }
-
             }
         });
-        return true;
 
+        return isLobby;
     }
 
     @JavascriptInterface

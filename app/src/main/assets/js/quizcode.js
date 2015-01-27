@@ -6,6 +6,7 @@ function findLobby(){
 }
 function isLobby(){
     lobbyId = document.getElementById("code").value;
-    window.JSInterface.isLobby(lobbyId);
-
+    exists = window.JSInterface.isLobby(lobbyId);
+    document.getElementById("test").innerHTML = exists;
 }
+
