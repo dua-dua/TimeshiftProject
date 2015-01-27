@@ -41,6 +41,7 @@ public class JavaScriptInterface {
 
     @JavascriptInterface
     public boolean isLobby(){
+        return true;
 
     }
 }
