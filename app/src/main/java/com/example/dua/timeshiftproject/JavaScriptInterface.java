@@ -3,14 +3,8 @@ package com.example.dua.timeshiftproject;
 import android.app.Activity;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
-<<<<<<< HEAD
-import android.widget.Toast;
-
 import com.parse.LogInCallback;
-=======
 import android.webkit.WebView;
-
->>>>>>> origin/master
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseUser;
