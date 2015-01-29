@@ -1,0 +1,43 @@
+TODO:
+-----
+- Lage og joine lobby, for single og multi
+- Scripte startSequence lobby / ready button
+- Hente ut quiz
+- Sende inn svar på quiz
+- Sende notification med JSON
+- Lage tempScore view
+- Hente ut tempScores
+- Hente ut finalScores
+-----
+
+
+Extras:
+-------
+- Friends list
+- Challenge friends
+- Quiz maker
+-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
