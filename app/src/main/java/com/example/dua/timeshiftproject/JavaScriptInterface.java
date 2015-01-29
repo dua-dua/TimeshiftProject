@@ -3,9 +3,14 @@ package com.example.dua.timeshiftproject;
 import android.app.Activity;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+<<<<<<< HEAD
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
+=======
+import android.webkit.WebView;
+
+>>>>>>> origin/master
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseUser;
@@ -21,9 +26,13 @@ import java.text.ParseException;
  */
 public class JavaScriptInterface {
     private Activity activity;
+    private boolean isLobby;
+    private WebView webView;
 
-    public JavaScriptInterface(Activity act){
+
+    public JavaScriptInterface(Activity act, WebView webView){
         this.activity= act;
+        this.webView = webView;
     }
     @JavascriptInterface
     public void doSomething(){
@@ -46,14 +55,32 @@ public class JavaScriptInterface {
 
     @JavascriptInterface
     public boolean isLobby(String lobbyId){
+        Log.v("test", "test");
+        if (lobbyId.length()==0){
+            Log.v("test", "empty String");
+            return false;
+        }
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
-
         int numb = Integer.parseInt(lobbyId);
-
         query.whereEqualTo("lobbyId",numb);
-        query.getFirstInBackground();
-        return true;
 
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, com.parse.ParseException e) {
+                if (parseObject == null) {
+                    Log.v("test", "no such obj");
+
+                    isLobby = false;
+                } else {
+                    Log.v("test", "here`s the object");
+                    isLobby = true;
+                }
+            }
+
+
+        });
+
+        return isLobby;
     }
 
     @JavascriptInterface
@@ -81,5 +108,17 @@ public class JavaScriptInterface {
                 }
             }
         });
+    }
+    @JavascriptInterface
+    public void redir(){
+        Log.v("test", "redir");
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                //webView.loadUrl("file:///android_asset/www/index.html");
+                webView.loadUrl("javascript:yoyo()");
+            }
+        });
+
     }
 }

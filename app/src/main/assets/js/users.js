@@ -9,3 +9,10 @@ function logInUser(){
     pass = window.document.getElementById("password").value;
     window.JSInterface.logUser(user, pass);
 }
+
+function redir(){
+    window.JSInterface.redir();
+}
+function yoyo(){
+    document.getElementById("derp").innerHTML = "yoyo";
+}
