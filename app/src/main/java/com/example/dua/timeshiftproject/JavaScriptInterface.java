@@ -3,6 +3,8 @@ package com.example.dua.timeshiftproject;
 import android.app.Activity;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
+
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseUser;
@@ -19,9 +21,12 @@ import java.text.ParseException;
 public class JavaScriptInterface {
     private Activity activity;
     private boolean isLobby;
+    private WebView webView;
 
-    public JavaScriptInterface(Activity act){
+
+    public JavaScriptInterface(Activity act, WebView webView){
         this.activity= act;
+        this.webView = webView;
     }
     @JavascriptInterface
     public void doSomething(){
@@ -54,15 +59,18 @@ public class JavaScriptInterface {
         query.whereEqualTo("lobbyId",numb);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
-            public void done(ParseObject parseObject, ParseException e) {
+            public void done(ParseObject parseObject, com.parse.ParseException e) {
                 if (parseObject == null) {
                     Log.v("test", "no such obj");
+
                     isLobby = false;
                 } else {
                     Log.v("test", "here`s the object");
                     isLobby = true;
                 }
             }
+
+
         });
 
         return isLobby;
@@ -81,5 +89,17 @@ public class JavaScriptInterface {
     public void logUser(String name, String password){
 
         Log.v("tag","logged in user: "+name);
+    }
+    @JavascriptInterface
+    public void redir(){
+        Log.v("test", "redir");
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                //webView.loadUrl("file:///android_asset/www/index.html");
+                webView.loadUrl("javascript:yoyo()");
+            }
+        });
+
     }
 }

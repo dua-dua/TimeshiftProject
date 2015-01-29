@@ -9,4 +9,8 @@ function isLobby(){
     exists = window.JSInterface.isLobby(lobbyId);
     document.getElementById("test").innerHTML = exists;
 }
+function test(){
+    document.getElementById("code").value = "test";
+
+}
 

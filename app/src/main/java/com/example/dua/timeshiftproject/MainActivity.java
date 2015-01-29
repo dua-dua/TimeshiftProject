@@ -20,7 +20,7 @@ import com.parse.ParsePush;
 import com.parse.PushService;
 
 public class MainActivity extends Activity {
-
+    private WebView mWebView;
 
 
 
@@ -30,9 +30,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 
-        WebView mWebView = (WebView)findViewById(R.id.webview1);
+        mWebView = (WebView)findViewById(R.id.webview1);
         mWebView.loadUrl("file:///android_asset/www/login.html");
-        JavaScriptInterface jsInterface = new JavaScriptInterface(this);
+        JavaScriptInterface jsInterface = new JavaScriptInterface(this, mWebView);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.addJavascriptInterface(jsInterface, "JSInterface");
         Parse.initialize(this, "0qwu1NjJN6Omb7C6JhpAML7ltY2y1dYG2dp6O92L", "RYc9OPFFWIMiorIGFa2Sh2xvLCqwleS7QZNzTZFI");
@@ -60,6 +60,13 @@ public class MainActivity extends Activity {
         intent.setAction("com.parse.push.intent.CUSTOM_RECEIVE");
 
         sendBroadcast(intent2);
+    }
+    public void redir(){
+    mWebView.loadUrl("file:///android_asset/www/index.html");
+
+}
+    public void test(){
+
     }
 
     @Override
@@ -102,6 +109,7 @@ public class MainActivity extends Activity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 
     public void exit(){
         System.exit(0);
