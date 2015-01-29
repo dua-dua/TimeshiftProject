@@ -11,8 +11,10 @@ function logInUser(){
 }
 
 function redir(){
-    window.JSInterface.redir();
+    window.JSInterface.redir("file:///android_asset/www/index.html");
 }
-function yoyo(){
-    document.getElementById("derp").innerHTML = "yoyo";
+function wrongInput(){
+    $("#errortext").fadeIn(1000);
+    setTimeout(function(){
+    $("#errortext").fadeOut(1000)},3000);
 }
