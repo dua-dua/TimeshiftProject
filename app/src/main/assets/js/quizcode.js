@@ -6,11 +6,14 @@ function findLobby(){
 }
 function isLobby(){
     lobbyId = document.getElementById("code").value;
-    exists = window.JSInterface.isLobby(lobbyId);
-    document.getElementById("test").innerHTML = exists;
+    exists = window.QuizCodeInterface.isLobby(lobbyId);
+    /*document.getElementById("test").innerHTML = exists;*/
 }
 function test(){
     document.getElementById("code").value = "test";
 
+}
+function check(){
+    document.getElementById("test").innerHTML = "check";
 }
 

@@ -20,7 +20,6 @@ import java.text.ParseException;
  */
 public class JavaScriptInterface {
     private Activity activity;
-    private boolean isLobby;
     private WebView webView;
 
 
@@ -49,35 +48,6 @@ public class JavaScriptInterface {
         return "string";
     }
 
-    @JavascriptInterface
-    public boolean isLobby(String lobbyId) {
-        Log.v("test", "test");
-        if (lobbyId.length() == 0) {
-            Log.v("test", "empty String");
-            return false;
-        }
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
-        int numb = Integer.parseInt(lobbyId);
-        query.whereEqualTo("lobbyId", numb);
-
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject parseObject, com.parse.ParseException e) {
-                if (parseObject == null) {
-                    Log.v("test", "no such obj");
-
-                    isLobby = false;
-                } else {
-                    Log.v("test", "here`s the object");
-                    isLobby = true;
-                }
-            }
-
-
-        });
-
-        return isLobby;
-    }
 
     @JavascriptInterface
     public void createUser(String name, String password) {
