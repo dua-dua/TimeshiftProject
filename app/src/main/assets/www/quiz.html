@@ -13,18 +13,20 @@
                 <h2>Question text</h2>
             </a>
             <br>
-            <h3 id="notification" class="h3 small" onclick="progressbar()">Waiting for first answer</h3>
+            <div onclick="progressbar()">
+                <span id="notificationText" onclick="notification()">Waiting for first answer..</span>
+            </div>
         </div>
             <progress class="hidez" id="progressbar" value="0" max="1000"></progress>
         <div align="center" class="container">
             <br>
             <div class="row">
-                <button class="answerButton">A</button>
-                <button class="answerButton">B</button>
+                <button class="btn btn-default answerButton">A</button>
+                <button class="btn btn-default answerButton">B</button>
             </div>
             <div class="row">
-                <button class="answerButton">C</button>
-                <button class="answerButton">D</button>
+                <button class="btn btn-default answerButton">C</button>
+                <button class="btn btn-default answerButton">D</button>
             </div>
         </div>
 
@@ -33,6 +35,7 @@
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/jquery-1.11.2.min.js"></script>
         <script src="../js/main.js"></script>
+        <script src="../js/users.js"></script>
 
     </body>
 </html>

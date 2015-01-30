@@ -7,6 +7,10 @@ body {
 
 }
 
+html, body {
+    height: 100%;
+}
+
 h1, h2, h3, li {
     font-family: monospace;
     color: #034b7f;
@@ -53,6 +57,23 @@ ul{
     color: white;
     margin-top: 20px;
     font-size: 0.8em;
+}
+
+#playerList {
+    margin-left: -40px;
+    margin-right: auto;
+    text-align: center;
+}
+
+#errorText {
+    margin-top: 250px;
+    font-family: monospace;
+    color: #034b7f;
+}
+
+#notificationText {
+    font-family: monospace;
+    color: #034b7f;
 }
 
 .standardButton {
@@ -106,3 +127,16 @@ ul{
     top: 35%;
     transform: translateY(-35%);
 }
+
+.contentWrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
+}
+.footer, .push {
+    height: 100px; /* .push must be the same height as .footer */
+}
+
+
+

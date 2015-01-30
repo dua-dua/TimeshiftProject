@@ -13,8 +13,17 @@ function logInUser(){
 function redir(){
     window.JSInterface.redir("file:///android_asset/www/index.html");
 }
+
 function wrongInput(){
-    $("#errortext").fadeIn(1000);
+    $("#errorText").fadeIn(1000);
     setTimeout(function(){
-    $("#errortext").fadeOut(1000)},3000);
+    $("#errorText").fadeOut(1000)},3000);
+}
+
+function notification(){
+    $("#notificationText").hide();
+    $("#notificationText").text("Jonas has answered!");
+    $("#notificationText").fadeIn(500);
+    setTimeout(function(){
+    $("#notificationText").fadeOut(500)},1500);
 }
