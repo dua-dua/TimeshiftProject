@@ -7,12 +7,7 @@ function altClicked(){
 }
 
 function readyClicked(){
-	console.log("Clicked ready");
-	document.getElementById("userLine").className = document.getElementById("userLine").className.replace( /(?:^|\s)glyphicon-remove(?!\S)/g , '' );
-	document.getElementById("userLine").className = document.getElementById("userLine").className.replace( /(?:^|\s)glyphiconRed(?!\S)/g , '' );
-	document.getElementById("userLine").className += " glyphicon-ok";
-	document.getElementById("userLine").className += " glyphiconGreen";
-	$("#readyIcon").show();
+	document.getElementById("readyText").className += "glyphicon glyphicon-ok glyphiconGreen";
 }
 
 function showSignup(){
