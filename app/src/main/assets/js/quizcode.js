@@ -17,3 +17,8 @@ function check(){
     document.getElementById("test").innerHTML = "check";
 }
 
+function toLobby(){
+    window.QuizCodeInterface.toLobby();
+
+}
+

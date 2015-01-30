@@ -6,7 +6,9 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 
 /**
@@ -23,16 +25,16 @@ public class QuizCodeInterface {
     }
 
     @JavascriptInterface
-    public boolean isLobby(String lobbyId) {
+    public void isLobby(final String lobbyId) {
         Log.v("test", "test");
+        Log.v("test", lobbyId);
         if (lobbyId.length() == 0) {
             Log.v("test", "empty String");
-            return false;
+            webView.loadUrl("javascript:check()");
         }
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
-        int numb = Integer.parseInt(lobbyId);
-        query.whereEqualTo("lobbyId", numb);
 
+        query.whereEqualTo("lobbyId", lobbyId);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, com.parse.ParseException e) {
@@ -45,16 +47,25 @@ public class QuizCodeInterface {
                         }
                     });
 
-                    isLobby = false;
                 } else {
                     Log.v("test", "here`s the object");
-                    isLobby = true;
+                    webView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ParsePush.subscribeInBackground(lobbyId);
+                            webView.loadUrl("file:///android_asset/www/lobby.html");
+                        }
+                    });
+
                 }
             }
 
 
         });
 
-        return isLobby;
+    }
+    @JavascriptInterface
+    public void toLobby(){
+
     }
 }
