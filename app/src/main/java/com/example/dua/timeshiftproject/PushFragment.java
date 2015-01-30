@@ -56,9 +56,9 @@ public class PushFragment extends Fragment {
                 push.sendInBackground();
                 Log.v("tag","Sent JSON");
 
-                ParseObject pushedText = new ParseObject("PushedText");
+                /*ParseObject pushedText = new ParseObject("PushedText");
                 pushedText.put("Test", pushText);
-                pushedText.saveInBackground();
+                pushedText.saveInBackground();*/
 
                 Toast toast = Toast.makeText(getActivity(), "Items pushed", Toast.LENGTH_LONG);
                 toast.show();
