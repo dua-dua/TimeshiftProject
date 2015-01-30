@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebView;
 import android.widget.Toast;
 import com.parse.ParsePushBroadcastReceiver;
 import org.json.JSONException;
@@ -34,11 +32,23 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
                 break;
             case "userReady": userReady(context, obj);
                 break;
+            case "joinedLobby": userJoinedLobby(context, obj);
+                break;
             case "test": runTest(context);
                 break;
             default: Toast.makeText(context, "Did not recognize the JSON D:", Toast.LENGTH_LONG).show();
                 break;
         }
+    }
+
+    private void userJoinedLobby(Context context, JSONObject obj) {
+        String name = "";
+        try {
+            name = obj.getString("name").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void userAnswer(Context context, JSONObject obj) {
