@@ -50,9 +50,6 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
         }
 
         JavaScriptInterface.sendHTMLNotification(name);
-
-        Toast.makeText(context, name+" answered!", Toast.LENGTH_LONG).show();
-
     }
 
     private void userReady(Context context, JSONObject obj) {
