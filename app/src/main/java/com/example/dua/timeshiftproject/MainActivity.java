@@ -40,9 +40,6 @@ public class MainActivity extends Activity {
         mWebView.addJavascriptInterface(loginInterface, "LoginInterface");
         mWebView.addJavascriptInterface(quizCodeInterface, "QuizCodeInterface");
         Parse.initialize(this, "0qwu1NjJN6Omb7C6JhpAML7ltY2y1dYG2dp6O92L", "RYc9OPFFWIMiorIGFa2Sh2xvLCqwleS7QZNzTZFI");
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
         ParsePush.subscribeInBackground("channel");
         PushService.setDefaultPushCallback(this, MainActivity.class);
         //ParseInstallation.getCurrentInstallation().saveInBackground();
