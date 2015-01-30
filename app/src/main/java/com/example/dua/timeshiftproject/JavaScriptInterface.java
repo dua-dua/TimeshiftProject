@@ -24,12 +24,13 @@ public class JavaScriptInterface {
     private WebView webView;
 
 
-    public JavaScriptInterface(Activity act, WebView webView){
-        this.activity= act;
+    public JavaScriptInterface(Activity act, WebView webView) {
+        this.activity = act;
         this.webView = webView;
     }
+
     @JavascriptInterface
-    public void doSomething(){
+    public void doSomething() {
         JSONObject data = null;
         try {
             data = new JSONObject("{\"name\": \"jonas\"}");
@@ -40,23 +41,24 @@ public class JavaScriptInterface {
         push.setChannel("channel");
         push.setData(data);
         push.sendInBackground();
-        Log.v("tag","Sent JSON");
+        Log.v("tag", "Sent JSON");
     }
+
     @JavascriptInterface
-    public String getVal(){
+    public String getVal() {
         return "string";
     }
 
     @JavascriptInterface
-    public boolean isLobby(String lobbyId){
+    public boolean isLobby(String lobbyId) {
         Log.v("test", "test");
-        if (lobbyId.length()==0){
+        if (lobbyId.length() == 0) {
             Log.v("test", "empty String");
             return false;
         }
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
         int numb = Integer.parseInt(lobbyId);
-        query.whereEqualTo("lobbyId",numb);
+        query.whereEqualTo("lobbyId", numb);
 
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
@@ -78,48 +80,13 @@ public class JavaScriptInterface {
     }
 
     @JavascriptInterface
-    public void createUser(String name, String password){
-        Log.v("tag","Entered create user");
+    public void createUser(String name, String password) {
+        Log.v("tag", "Entered create user");
         ParseUser user = new ParseUser();
         user.setUsername(name);
         user.setPassword(password);
         user.signUpInBackground();
-        Log.v("tag","created user: "+name+", "+password);
+        Log.v("tag", "created user: " + name + ", " + password);
     }
 
-    @JavascriptInterface
-    public void logUser(String name, String password){
-
-        ParseUser.logInInBackground(name, password, new LogInCallback() {
-            @Override
-            public void done(ParseUser user, com.parse.ParseException e) {
-                if (user != null) {
-                    Log.v("tag", "logged in user");
-                    //redirect to index.html
-                    redir("file:///android_asset/www/index.html");
-
-                } else {
-                    Log.v("tag", "Did not log in user");
-                    webView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            webView.loadUrl("javascript:wrongInput()");
-                        }
-                    });
-                }
-            }
-        });
-    }
-    @JavascriptInterface
-    public void redir(final String url){
-        Log.v("test", "redir");
-        webView.post(new Runnable() {
-            @Override
-            public void run() {
-                webView.loadUrl(url);
-                //webView.loadUrl("javascript:yoyo()");
-            }
-        });
-
-    }
 }

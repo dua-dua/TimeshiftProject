@@ -7,7 +7,7 @@ function createNewUser(){
 function logInUser(){
     user = window.document.getElementById("username").value;
     pass = window.document.getElementById("password").value;
-    window.JSInterface.logUser(user, pass);
+    window.LoginInterface.logUser(user, pass);
 }
 
 function redir(){
