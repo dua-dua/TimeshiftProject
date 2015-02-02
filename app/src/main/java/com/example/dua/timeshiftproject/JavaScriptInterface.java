@@ -86,9 +86,10 @@ public class JavaScriptInterface {
         push.setChannel("channel");
         push.setData(data);
         push.sendInBackground();
-        Log.v("tag", "Sent JSON from doSomething");
+        Log.v("tag", "Sent JSON from sendJSONNotification");
     }
 
+    @JavascriptInterface
     public static void sendHTMLNotification(final String name) {
         final String user = name;
 

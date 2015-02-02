@@ -9,9 +9,7 @@ function logInUser(){
     pass = window.document.getElementById("password").value;
     window.LoginInterface.logUser(user, pass);
 }
-function sendNotification(){
-    window.JSInterface.sendJSONNotification()
-}
+
 
 function redir(){
     window.JSInterface.redir("file:///android_asset/www/index.html");

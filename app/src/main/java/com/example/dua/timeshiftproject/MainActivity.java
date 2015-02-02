@@ -35,17 +35,16 @@ public class MainActivity extends Activity {
         JavaScriptInterface jsInterface = new JavaScriptInterface(this, mWebView);
         LoginInterface loginInterface = new LoginInterface(this, mWebView);
         QuizCodeInterface quizCodeInterface = new QuizCodeInterface(this, mWebView);
+        LobbyInterface lobbyInterface = new LobbyInterface(this, mWebView);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.addJavascriptInterface(jsInterface, "JSInterface");
         mWebView.addJavascriptInterface(loginInterface, "LoginInterface");
         mWebView.addJavascriptInterface(quizCodeInterface, "QuizCodeInterface");
+        mWebView.addJavascriptInterface(lobbyInterface, "LobbyInterface");
         Parse.initialize(this, "0qwu1NjJN6Omb7C6JhpAML7ltY2y1dYG2dp6O92L", "RYc9OPFFWIMiorIGFa2Sh2xvLCqwleS7QZNzTZFI");
-        ParsePush.subscribeInBackground("channel");
         PushService.setDefaultPushCallback(this, MainActivity.class);
         //ParseInstallation.getCurrentInstallation().saveInBackground();
     }
-
-
 
     // broadcast a custom intent.
     public void broadcastIntent(View view) {
@@ -62,10 +61,10 @@ public class MainActivity extends Activity {
 
         sendBroadcast(intent2);
     }
-    public void redir(){
-    mWebView.loadUrl("file:///android_asset/www/index.html");
 
-}
+    public void redir(){
+        mWebView.loadUrl("file:///android_asset/www/index.html");
+    }
     public void test(){
 
     }

@@ -6,11 +6,6 @@ function altClicked(){
 	getScore();
 }
 
-function readyClicked(){
-	document.getElementById("readyText").className += "glyphicon glyphicon-ok glyphiconGreen";
-    window.JSInterface.doSomething();
-}
-
 function showSignup(){
 	$("#signupForm").show();
 	$("#showsignuptext").hide();

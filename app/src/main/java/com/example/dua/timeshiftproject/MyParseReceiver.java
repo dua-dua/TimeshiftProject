@@ -63,7 +63,15 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
     }
 
     private void userReady(Context context, JSONObject obj) {
-        Toast.makeText(context, "Received userReady!", Toast.LENGTH_LONG).show();
+        String name = "";
+        try {
+            name = obj.getString("name").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        //Toast.makeText(context, name+" is ready!", Toast.LENGTH_LONG).show();
     }
 
     private void runTest(Context context) {
