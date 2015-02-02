@@ -13,8 +13,8 @@ function test(){
     document.getElementById("code").value = "test";
 
 }
-function check(){
-    document.getElementById("test").innerHTML = "check";
+function check(names){
+    document.getElementById("test").innerHTML = names;
 }
 
 function toLobby(){
