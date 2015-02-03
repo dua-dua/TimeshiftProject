@@ -26,7 +26,7 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.v("tag", "this far");
+
         switch (type){
             case "userAnswer": userAnswer(context, obj);
                 break;
@@ -78,7 +78,8 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
     }
 
     private void runTest(Context context) {
-        QuizInterface.getQuestionArray("test");
         Toast.makeText(context, "Received test!", Toast.LENGTH_LONG).show();
+        QuizInterface.getQuestionArray("test");
+        Toast.makeText(context, "Did something cool without crashing!", Toast.LENGTH_LONG).show();
     }
 }

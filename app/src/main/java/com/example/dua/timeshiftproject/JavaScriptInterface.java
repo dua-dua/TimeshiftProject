@@ -33,19 +33,18 @@ public class JavaScriptInterface {
     }
 
     @JavascriptInterface
-    public void doSomething(String userName) {
+    public void doSomething() {
         JSONObject data = null;
 
         try {
             data = new JSONObject();
             data.put("type","test");
-            data.put("name","jonas");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         ParsePush push = new ParsePush();
-        push.setChannel("channel");
+        push.setChannel("test");
         push.setData(data);
         push.sendInBackground();
         Log.v("tag", "Sent JSON from doSomething");
