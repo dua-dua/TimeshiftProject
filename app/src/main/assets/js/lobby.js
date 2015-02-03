@@ -3,7 +3,11 @@ function readyClicked(){
     window.LobbyInterface.playerReady();
 }
 function printPlayers(name){
-    $("#tester").append("<li>"+name+"</li>");
+    $("#playerList").append("<li>"+name+"<span id="+name+"></span></li>");
+}
+function isReady(name){
+    $("#"+name).addClass("glyphicon glyphicon-ok glyphiconGreen");
+
 }
 $(function(){
     window.LobbyInterface.getPlayers();

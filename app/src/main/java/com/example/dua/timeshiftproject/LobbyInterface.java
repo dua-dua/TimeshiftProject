@@ -62,6 +62,7 @@ public class LobbyInterface {
     }
     @JavascriptInterface
     public void getPlayers(){
+        Log.v("wtf", "wtf");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         List channelList = installation.getList("channels");
@@ -88,10 +89,14 @@ public class LobbyInterface {
                 push.setChannel(channel);
                 push.setData(data);
                 push.sendInBackground();
-
                 List<String> players = parseObject.getList("players");
-                for(int a=0; a<players.size(); a++){
-                    webView.loadUrl("javascript:printPlayers(\""+ players.get(a) +"\")");
+                for(int a=0; a<players.size(); a++) {
+                    if (players.get(a) != user.getUsername()) {
+                        Log.v("test", "hva skjer");
+                        Log.v("test", players.get(a));
+                        Log.v("test", user.getUsername());
+                        webView.loadUrl("javascript:printPlayers(\"" + players.get(a) + "\")");
+                    }
                 }
             }
         });
@@ -100,5 +105,11 @@ public class LobbyInterface {
     public static void joinedLobby(String name){
         webView.loadUrl("javascript:printPlayers(\""+ name +"\")");
 
+    }
+
+    public static void isReady(String name) {
+        Log.v("test", "isReady");
+        Log.v("test", name);
+        webView.loadUrl("javascript:isReady(\""+ name +"\")");
     }
 }

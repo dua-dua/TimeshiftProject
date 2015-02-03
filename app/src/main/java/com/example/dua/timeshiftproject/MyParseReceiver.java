@@ -72,8 +72,7 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
+        LobbyInterface.isReady(name);
         //Toast.makeText(context, name+" is ready!", Toast.LENGTH_LONG).show();
     }
 
