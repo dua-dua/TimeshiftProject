@@ -26,7 +26,7 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        Log.v("tag", "this far");
         switch (type){
             case "userAnswer": userAnswer(context, obj);
                 break;
@@ -42,12 +42,15 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
     }
 
     private void userJoinedLobby(Context context, JSONObject obj) {
+        Log.v("test", "inReceiver");
         String name = "";
         try {
             name = obj.getString("name").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        LobbyInterface.joinedLobby(name);
 
     }
 

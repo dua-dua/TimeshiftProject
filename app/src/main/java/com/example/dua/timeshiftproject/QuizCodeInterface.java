@@ -71,10 +71,9 @@ public class QuizCodeInterface {
                             ArrayList<String> names = (ArrayList<String>) parseObject.get("players");
                             for(int a = 0; names.size() > a; a++){
                                 Log.v("test",names.get(a));
-
                             }
-
                             webView.loadUrl("file:///android_asset/www/lobby.html");
+
                         }
                     });
                 }
