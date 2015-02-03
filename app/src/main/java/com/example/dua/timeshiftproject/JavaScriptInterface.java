@@ -7,6 +7,7 @@ import com.parse.LogInCallback;
 import android.webkit.WebView;
 
 import com.parse.Parse;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseUser;
@@ -15,6 +16,7 @@ import com.parse.ParseQuery;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.text.ParseException;
+import java.util.List;
 
 
 /**
@@ -100,5 +102,12 @@ public class JavaScriptInterface {
                 Log.v("tag", "Completed sendHTMLNotification");
             }
         });
+    }
+
+    @JavascriptInterface
+    public static String getCurrentChannel(){
+        ParseInstallation inst = ParseInstallation.getCurrentInstallation();
+        List channels = inst.getList("channels");
+        return channels.get(0).toString();
     }
 }

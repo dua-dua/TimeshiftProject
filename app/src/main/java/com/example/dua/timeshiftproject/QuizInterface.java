@@ -8,6 +8,9 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.Arrays;
 import java.util.List;
 
 public class QuizInterface {
@@ -26,7 +29,6 @@ public class QuizInterface {
     @JavascriptInterface
     public static void getQuestionArray(String quizcode){
         Log.v("tag","Started qetQuestionArray");
-        //Find quiz with quizcode
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Quiz");
         query.whereEqualTo("code", quizcode);
         Log.v("tag","made query");
@@ -50,7 +52,6 @@ public class QuizInterface {
 
     @JavascriptInterface
     public static void getQuestion(String objectId){
-        final ParseObject[] obj = {};
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Question");
         query.whereEqualTo("objectId", objectId);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -74,5 +75,23 @@ public class QuizInterface {
         });
     }
 
-
+    @JavascriptInterface
+    public static void playerAnswered(){
+        Log.v("tag","Entered playerAnswered");
+        /*
+        query(finnes det score fra før? quizid == channel && userid == user)
+            true -> append score
+            false -> create new scoreObject
+        */
+        String user = ParseUser.getCurrentUser().getUsername();
+        boolean b = false;
+        String channel = JavaScriptInterface.getCurrentChannel();
+        String[] scores = {"123","456"};
+        ParseObject score = new ParseObject("Scores");
+        score.put("bot", b);
+        score.put("quizid", channel);
+        score.put("scores", Arrays.asList(scores));
+        score.put("userid", user);
+        score.saveInBackground();
+    }
 }

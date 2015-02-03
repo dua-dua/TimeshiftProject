@@ -1,7 +1,6 @@
 TODO:
 -----
 - Ready button
-- Hente ut quiz
 - Sende inn svar på quiz
 - Lage tempScore view
 - Hente ut tempScores
