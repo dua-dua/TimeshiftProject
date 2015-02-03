@@ -73,19 +73,15 @@ public class QuizCodeInterface {
                                 Log.v("test",names.get(a));
 
                             }
-                            String derp = "lol";
-                            //webView.loadUrl("javascript:check(\""+names+"\")");
-                            //webView.loadUrl("javascript:printNames(\""+navn+"\")");
+
                             webView.loadUrl("file:///android_asset/www/lobby.html");
                         }
                     });
-
                 }
             }
 
 
         });
-
     }
     @JavascriptInterface
     public void toLobby(){

@@ -18,6 +18,7 @@ import com.parse.ParseUser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -63,5 +64,24 @@ public class LobbyInterface {
 
         Log.v("tag", "User "+name+" is ready in channel "+channel);
 
+    }
+    @JavascriptInterface
+    public void getPlayers(){
+        ParseQuery <ParseObject> query = ParseQuery.getQuery("LobbyList");
+        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+        List channelList = installation.getList("channels");
+        String channel = channelList.get(0).toString();
+        Log.v("test", channel);
+        Log.v("test", installation.getInstallationId());
+        query.whereEqualTo("lobbyId", channel);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                List<String> players = parseObject.getList("players");
+                for(int a=0; a<players.size(); a++){
+                    webView.loadUrl("javascript:printPlayers(\""+ players.get(a) +"\")");
+                }
+            }
+        });
     }
 }
