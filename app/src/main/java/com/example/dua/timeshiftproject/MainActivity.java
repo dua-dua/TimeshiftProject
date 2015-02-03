@@ -36,11 +36,13 @@ public class MainActivity extends Activity {
         LoginInterface loginInterface = new LoginInterface(this, mWebView);
         QuizCodeInterface quizCodeInterface = new QuizCodeInterface(this, mWebView);
         LobbyInterface lobbyInterface = new LobbyInterface(this, mWebView);
+        QuizInterface quizInterface = new QuizInterface(this, mWebView);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.addJavascriptInterface(jsInterface, "JSInterface");
         mWebView.addJavascriptInterface(loginInterface, "LoginInterface");
         mWebView.addJavascriptInterface(quizCodeInterface, "QuizCodeInterface");
         mWebView.addJavascriptInterface(lobbyInterface, "LobbyInterface");
+        mWebView.addJavascriptInterface(quizInterface, "QuizInterface");
         Parse.initialize(this, "0qwu1NjJN6Omb7C6JhpAML7ltY2y1dYG2dp6O92L", "RYc9OPFFWIMiorIGFa2Sh2xvLCqwleS7QZNzTZFI");
         PushService.setDefaultPushCallback(this, MainActivity.class);
         //ParseInstallation.getCurrentInstallation().saveInBackground();

@@ -1,6 +1,6 @@
 TODO:
 -----
-- Scripte startSequence lobby / ready button
+- Ready button
 - Hente ut quiz
 - Sende inn svar på quiz
 - Lage tempScore view

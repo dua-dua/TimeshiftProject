@@ -38,7 +38,7 @@ public class JavaScriptInterface {
 
         try {
             data = new JSONObject();
-            data.put("type","userAnswer");
+            data.put("type","test");
             data.put("name","jonas");
         } catch (JSONException e) {
             e.printStackTrace();

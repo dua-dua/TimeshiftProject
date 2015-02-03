@@ -78,6 +78,7 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
     }
 
     private void runTest(Context context) {
+        QuizInterface.getQuestionArray("test");
         Toast.makeText(context, "Received test!", Toast.LENGTH_LONG).show();
     }
 }
