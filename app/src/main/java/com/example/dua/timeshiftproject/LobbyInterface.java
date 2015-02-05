@@ -24,6 +24,9 @@ public class LobbyInterface {
     private static WebView webViewStatic;
     private Activity activity;
     private static WebView webView;
+    private static ArrayList<String> playerList = new ArrayList<String>();
+    private static ArrayList<String> readyList = new ArrayList<String>();
+    private static boolean isMaster = false;
 
 
     public LobbyInterface(Activity act, WebView webView) {
@@ -89,12 +92,14 @@ public class LobbyInterface {
                 push.setChannel(channel);
                 push.setData(data);
                 push.sendInBackground();
+
                 List<String> players = parseObject.getList("players");
+                if( players.size()==1){
+                    isMaster=true;
+                }
+                playerList.addAll(players);
                 for(int a=0; a<players.size(); a++) {
                     if (players.get(a) != user.getUsername()) {
-                        Log.v("test", "hva skjer");
-                        Log.v("test", players.get(a));
-                        Log.v("test", user.getUsername());
                         webView.loadUrl("javascript:printPlayers(\"" + players.get(a) + "\")");
                     }
                 }
@@ -103,13 +108,47 @@ public class LobbyInterface {
     }
 
     public static void joinedLobby(String name){
-        webView.loadUrl("javascript:printPlayers(\""+ name +"\")");
-
+        if (!name.equals(ParseUser.getCurrentUser().getUsername())) {
+            playerList.add(name);
+            webView.loadUrl("javascript:printPlayers(\"" + name + "\")");
+        }
     }
 
+    public static void startQuiz() {
+        Log.v("test", "startQuiz");
+        webView.loadUrl("file:///android_asset/www/quiz.html");
+    }
     public static void isReady(String name) {
-        Log.v("test", "isReady");
-        Log.v("test", name);
         webView.loadUrl("javascript:isReady(\""+ name +"\")");
+        readyList.add(name);
+        if(isMaster){
+            allReady();
+        }
     }
+    public static void allReady(){
+        Log.v("test", "InallReady");
+        if(readyList.containsAll(playerList)){
+            ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+            List channelList = installation.getList("channels");
+            final String channel = channelList.get(0).toString();
+            Log.v("test", "allReady");
+            JSONObject data = null;
+
+            try {
+                data = new JSONObject();
+                data.put("type", "startQuiz");
+                data.put("channel", channel);
+            }
+            catch (JSONException e1) {
+                e1.printStackTrace();
+            }
+            ParsePush push = new ParsePush();
+            push.setChannel(channel);
+            push.setData(data);
+            push.sendInBackground();
+
+        }
+    }
+
+
 }

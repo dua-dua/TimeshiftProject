@@ -42,7 +42,6 @@ public class QuizCodeInterface {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
 
         query.whereEqualTo("lobbyId", lobbyId);
-        //query(hent ut alle spillere i lobby + skrive ut i HTML)
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(final ParseObject parseObject, com.parse.ParseException e) {
@@ -69,8 +68,18 @@ public class QuizCodeInterface {
                                 e1.printStackTrace();
                             }
                             ArrayList<String> names = (ArrayList<String>) parseObject.get("players");
+                            if(names.size()==1){
+                                Log.v("test", "setMaster");
+                                parseObject.put("master", ParseUser.getCurrentUser().getUsername());
+
+                                    parseObject.saveInBackground();
+
+                            }
                             for(int a = 0; names.size() > a; a++){
-                                Log.v("test",names.get(a));
+                                if(names.get(a)!=ParseUser.getCurrentUser().getUsername()){
+                                    Log.v("test",names.get(a));
+                                }
+
 
                             }
 

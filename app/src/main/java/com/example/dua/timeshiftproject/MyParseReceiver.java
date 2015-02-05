@@ -36,11 +36,15 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
                 break;
             case "test": runTest(context);
                 break;
+            case "startQuiz": startQuiz();
+                break;
             default: Toast.makeText(context, "Did not recognize the JSON D:", Toast.LENGTH_LONG).show();
                 break;
         }
     }
-
+    private void startQuiz(){
+        LobbyInterface.startQuiz();
+    }
     private void userJoinedLobby(Context context, JSONObject obj) {
         Log.v("test", "inReceiver");
         String name = "";
