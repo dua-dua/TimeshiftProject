@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -114,8 +115,11 @@ public class LobbyInterface {
         }
     }
 
-    public static void startQuiz() {
+    public static void startQuiz(long startTime) {
         Log.v("test", "startQuiz");
+        while(System.currentTimeMillis()<startTime){
+            Log.v("test", "stillWaiting");
+        }
         webView.loadUrl("file:///android_asset/www/quiz.html");
     }
     public static void isReady(String name) {
@@ -127,16 +131,23 @@ public class LobbyInterface {
     }
     public static void allReady(){
         Log.v("test", "InallReady");
+        String rl = String.valueOf(readyList.size());
+        String pl = String.valueOf(playerList.size());
+        Log.v("test", rl);
+        Log.v("test", pl);
         if(readyList.containsAll(playerList)){
             ParseInstallation installation = ParseInstallation.getCurrentInstallation();
             List channelList = installation.getList("channels");
             final String channel = channelList.get(0).toString();
             Log.v("test", "allReady");
             JSONObject data = null;
+            Date date = new Date();
+
 
             try {
                 data = new JSONObject();
                 data.put("type", "startQuiz");
+                data.put("startTime", System.currentTimeMillis()+10000);
                 data.put("channel", channel);
             }
             catch (JSONException e1) {
