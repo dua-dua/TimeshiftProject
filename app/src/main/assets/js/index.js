@@ -5,5 +5,5 @@ function startSomething(){
 
 function testFunc(){
     console.log("hei");
-    window.JSInterface.doSomething();
+
 }
