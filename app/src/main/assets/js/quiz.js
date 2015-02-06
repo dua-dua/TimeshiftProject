@@ -9,3 +9,12 @@ function userAnswer(id){
     var ans = $(id).text();
     window.QuizInterface.playerAnswered(score, bot, ans);
 }
+
+
+function notification(name){
+    $("#notificationText").hide();
+    $("#notificationText").text(name + " has answered!");
+    $("#notificationText").fadeIn(500);
+    setTimeout(function(){
+    $("#notificationText").fadeOut(500)},1500);
+}

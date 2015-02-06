@@ -20,11 +20,3 @@ function wrongInput(){
     setTimeout(function(){
     $("#errorText").fadeOut(1000)},3000);
 }
-
-function notification(name){
-    $("#notificationText").hide();
-    $("#notificationText").text(name + " has answered!");
-    $("#notificationText").fadeIn(500);
-    setTimeout(function(){
-    $("#notificationText").fadeOut(500)},1500);
-}
