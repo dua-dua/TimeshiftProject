@@ -6,8 +6,7 @@ function findLobby(){
 }
 function isLobby(){
     lobbyId = document.getElementById("code").value;
-    exists = window.QuizCodeInterface.isLobby(lobbyId);
-    window.LoginInterface.redir("file:///android_asset/www/lobby.html")
+    window.QuizCodeInterface.isLobby(lobbyId);
     /*document.getElementById("test").innerHTML = exists;*/
 }
 function test(){
