@@ -73,7 +73,7 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
             e.printStackTrace();
         }
 
-        JavaScriptInterface.sendHTMLNotification(name);
+        QuizInterface.sendHTMLNotification(name);
     }
 
     private void userReady(Context context, JSONObject obj) {

@@ -7,8 +7,12 @@ import android.webkit.WebView;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -78,9 +82,10 @@ public class QuizInterface {
     @JavascriptInterface
     public static void playerAnswered(final int numScore, final boolean isBot, final String answer){
         Log.v("tag","Entered playerAnswered with answer "+answer);
+
         final String channel = JavaScriptInterface.getCurrentChannel();
         final String user = ParseUser.getCurrentUser().getUsername();
-
+        sendJSONNotification();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
         query.whereEqualTo("quizid", channel);
         query.whereEqualTo("userid", user);
@@ -115,5 +120,42 @@ public class QuizInterface {
                 }
             }
         });
+    }
+
+    @JavascriptInterface
+    public static void sendHTMLNotification(final String name) {
+        final String user = name;
+
+        Log.v("tag", "Entered sendHTMLNotification");
+        webViewStatic.post(new Runnable() {
+            @Override
+            public void run() {
+                webViewStatic.loadUrl("javascript:notification(\""+user+"\")");
+                Log.v("tag", "Completed sendHTMLNotification");
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public static void sendJSONNotification() {
+        ParseUser pUser = ParseUser.getCurrentUser();
+        String name = "";
+
+        name = pUser.getUsername();
+        JSONObject data = null;
+
+        try {
+            data = new JSONObject();
+            data.put("type","userAnswer");
+            data.put("name",name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ParsePush push = new ParsePush();
+        push.setChannel("channel");
+        push.setData(data);
+        push.sendInBackground();
+        Log.v("tag", "Sent JSON from sendJSONNotification");
     }
 }

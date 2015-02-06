@@ -18,10 +18,6 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.List;
 
-
-/**
- * Created by dualap on 26.01.2015.
- */
 public class JavaScriptInterface {
     private static android.webkit.WebView webViewStatic;
     private Activity activity;
@@ -65,43 +61,6 @@ public class JavaScriptInterface {
         user.setPassword(password);
         user.signUpInBackground();
         Log.v("tag", "created user: " + name + ", " + password);
-    }
-
-    @JavascriptInterface
-    public void sendJSONNotification() {
-        ParseUser pUser = ParseUser.getCurrentUser();
-        String name = "";
-
-        name = pUser.getUsername();
-        JSONObject data = null;
-
-        try {
-            data = new JSONObject();
-            data.put("type","userAnswer");
-            data.put("name",name);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        ParsePush push = new ParsePush();
-        push.setChannel("channel");
-        push.setData(data);
-        push.sendInBackground();
-        Log.v("tag", "Sent JSON from sendJSONNotification");
-    }
-
-    @JavascriptInterface
-    public static void sendHTMLNotification(final String name) {
-        final String user = name;
-
-        Log.v("tag", "Entered sendHTMLNotification");
-        webViewStatic.post(new Runnable() {
-            @Override
-            public void run() {
-                webViewStatic.loadUrl("javascript:notification(\""+user+"\")");
-                Log.v("tag", "Completed sendHTMLNotification");
-            }
-        });
     }
 
     @JavascriptInterface
