@@ -81,9 +81,6 @@ public class LobbyInterface {
                 ParseUser user = ParseUser.getCurrentUser();
                 String name = user.getUsername();
 
-                Log.v("test", "sending push");
-
-
                 List<String> players = parseObject.getList("players");
                 if( players.size()==1){
                     isMaster=true;
@@ -123,7 +120,8 @@ public class LobbyInterface {
 
     public static void startQuiz(long startTime) {
         Log.v("test", "startQuiz");
-        while(System.currentTimeMillis()<startTime){
+        Date date = new Date();
+        while(date.getTime()<startTime){
             Log.v("test", "stillWaiting");
         }
         webView.post(new Runnable() {
@@ -159,7 +157,7 @@ public class LobbyInterface {
             try {
                 data = new JSONObject();
                 data.put("type", "startQuiz");
-                data.put("startTime", System.currentTimeMillis()+10000);
+                data.put("startTime", date.getTime()+10000);
                 data.put("channel", channel);
             }
             catch (JSONException e1) {
