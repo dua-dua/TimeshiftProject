@@ -7,6 +7,7 @@ function findLobby(){
 function isLobby(){
     lobbyId = document.getElementById("code").value;
     exists = window.QuizCodeInterface.isLobby(lobbyId);
+    window.LoginInterface.redir("file:///android_asset/www/lobby.html")
     /*document.getElementById("test").innerHTML = exists;*/
 }
 function test(){
@@ -17,9 +18,6 @@ function check(names){
     document.getElementById("test").innerHTML = names;
 }
 
-function toLobby(){
-    window.QuizCodeInterface.toLobby();
 
-}
 
 

@@ -42,6 +42,7 @@ public class LoginInterface {
             }
         });
     }
+
     @JavascriptInterface
     public void redir(final String url){
         Log.v("test", "redir");

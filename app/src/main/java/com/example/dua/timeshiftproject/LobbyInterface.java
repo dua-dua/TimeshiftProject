@@ -120,7 +120,13 @@ public class LobbyInterface {
         while(System.currentTimeMillis()<startTime){
             Log.v("test", "stillWaiting");
         }
-        webView.loadUrl("file:///android_asset/www/quiz.html");
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadUrl("file:///android_asset/www/quiz.html");
+                //webView.loadUrl("javascript:yoyo()");
+            }
+        });
     }
     public static void isReady(String name) {
         webView.loadUrl("javascript:isReady(\""+ name +"\")");

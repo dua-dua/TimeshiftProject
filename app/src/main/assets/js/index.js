@@ -7,3 +7,7 @@ function testFunc(){
     console.log("hei");
 
 }
+
+function redirQuizcode(){
+    window.LoginInterface.redir("file:///android_asset/www/quizcode.html")
+}
