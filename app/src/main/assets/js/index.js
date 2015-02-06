@@ -5,7 +5,8 @@ function startSomething(){
 
 function testFunc(){
     console.log("hei");
-
+    window.QuizInterface.getQuestionArray("test");
+    window.QuizInterface.getQuestionFromLocal(0);
 }
 
 function redirQuizcode(){

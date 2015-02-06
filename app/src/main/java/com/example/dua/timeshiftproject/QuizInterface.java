@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+
+import com.parse.DeleteCallback;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -24,6 +27,7 @@ public class QuizInterface {
     private static WebView webView;
 
 
+
     public QuizInterface(Activity act, WebView webView) {
         this.activity = act;
         this.webView = webView;
@@ -32,23 +36,36 @@ public class QuizInterface {
 
     @JavascriptInterface
     public static void getQuestionArray(String quizcode){
+        final String QUIZ = "quiz";
         Log.v("tag","Started qetQuestionArray");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Quiz");
         query.whereEqualTo("code", quizcode);
         Log.v("tag","made query");
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
+        query.findInBackground(new FindCallback<ParseObject>() {
 
             @Override
-            public void done(ParseObject parseObject, ParseException e) {
-                if(parseObject == null){
-                    Log.v("tag","null");
-                }else{
-                    Log.v("tag","not null");
-                    List<String> list = parseObject.getList("questions");
-                    Log.v("tag","List:");
-                    for(int i = 0; i < list.size(); i++){
-                        getQuestion(list.get(i));
+            public void done(final List<ParseObject> list, ParseException e) {
+                if (list == null) {
+                    Log.v("tag", "null");
+                } else {
+                    Log.v("tag", "not null");
+                    //final List<String> list = parseObject.getList("questions");
+                    Log.v("tag", "List:");
+                    for (int i = 0; i < list.size(); i++) {
+                        getQuestion(list.get(i).getObjectId());
                     }
+                    ParseObject.unpinAllInBackground(QUIZ, list, new DeleteCallback() {
+                        public void done(ParseException e) {
+                            if (e != null) {
+                                Log.v("tag", "error in local");
+                                return;
+                            }
+
+                            // Add the latest results for this query to the cache.
+                            ParseObject.pinAllInBackground(QUIZ, list);
+                        }
+                    });
+
                 }
             }
         });
@@ -58,6 +75,45 @@ public class QuizInterface {
     public static void getQuestion(String objectId){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Question");
         query.whereEqualTo("objectId", objectId);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(final ParseObject parseObject, com.parse.ParseException e) {
+                if (parseObject == null) {
+                    Log.v("tag", "No matching question with that code");
+                } else {
+                    Log.v("tag", "Found question");
+                    String text = parseObject.getString("text");
+                    List<String> answers = parseObject.getList("answers");
+                    String correctAnswer = parseObject.getString("correctAnswer");
+
+                    Log.v("tag","Text: "+text);
+                    for( int i = 0; i<answers.size(); i++){
+                        Log.v("tag","Answer"+i+" :"+answers.get(i));
+                    }
+                    Log.v("tag","Correct: "+correctAnswer);
+                }
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public static void getQuestionFromLocal(final int i){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Question");
+        query.fromLocalDatastore();
+        //query.whereEqualTo("objectId", objectId);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(final List<ParseObject> list, ParseException e) {
+                if (e == null) {
+                    // Results were successfully found from the local datastore.
+                    Log.v("tag", "no result in local");
+                    List l = list.get(i).getList("questions");
+
+                    Log.v("tag","got questions from local: "+l);
+                } else {
+                    Log.v("tag","inner error");
+                }
+            }
+        });
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(final ParseObject parseObject, com.parse.ParseException e) {
