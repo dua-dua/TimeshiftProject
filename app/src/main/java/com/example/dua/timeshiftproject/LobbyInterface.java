@@ -117,11 +117,18 @@ public class LobbyInterface {
             Log.v("test", "received own name" + name);
         }
     }
-
+    public static long checkTime(){
+        Date date = new Date();
+        return date.getTime();
+    }
     public static void startQuiz(long startTime) {
         Log.v("test", "startQuiz");
         Date date = new Date();
-        while(date.getTime()<startTime){
+        Log.v("tid", String.valueOf(startTime));
+        Log.v("tid", String.valueOf(date.getTime()));
+        long tid = date.getTime();
+        while(tid<startTime){
+            tid=checkTime();
             Log.v("test", "stillWaiting");
         }
         webView.post(new Runnable() {
@@ -157,7 +164,7 @@ public class LobbyInterface {
             try {
                 data = new JSONObject();
                 data.put("type", "startQuiz");
-                data.put("startTime", date.getTime()+10000);
+                data.put("startTime", date.getTime()+30000);
                 data.put("channel", channel);
             }
             catch (JSONException e1) {
