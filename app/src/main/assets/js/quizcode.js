@@ -6,8 +6,7 @@ function findLobby(){
 }
 function isLobby(){
     lobbyId = document.getElementById("code").value;
-    exists = window.QuizCodeInterface.isLobby(lobbyId);
-
+    window.QuizCodeInterface.isLobby(lobbyId);
     /*document.getElementById("test").innerHTML = exists;*/
 }
 function test(){

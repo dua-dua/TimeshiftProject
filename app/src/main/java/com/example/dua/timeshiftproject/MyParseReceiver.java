@@ -52,10 +52,11 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
 
         LobbyInterface.startQuiz(startTime);
     }
-    private void userJoinedLobby(Context context, JSONObject obj) {
-        Log.v("test", "inReceiver");
+    private void userJoinedLobby(Context context, JSONObject obj)  {
+
         String name = "";
         try {
+            Log.v("test", "inReceiver"+obj.getString("name").toString());
             name = obj.getString("name").toString();
         } catch (JSONException e) {
             e.printStackTrace();

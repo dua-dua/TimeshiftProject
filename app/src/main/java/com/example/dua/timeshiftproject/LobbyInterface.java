@@ -80,6 +80,20 @@ public class LobbyInterface {
                 JSONObject data = null;
                 ParseUser user = ParseUser.getCurrentUser();
                 String name = user.getUsername();
+
+                Log.v("test", "sending push");
+
+
+                List<String> players = parseObject.getList("players");
+                if( players.size()==1){
+                    isMaster=true;
+                }
+                playerList.addAll(players);
+                for(int a=0; a<players.size(); a++) {
+                    if (players.get(a) != user.getUsername()) {
+                        webView.loadUrl("javascript:printPlayers(\"" + players.get(a) + "\")");
+                    }
+                }
                 try {
                     data = new JSONObject();
                     data.put("type", "joinedLobby");
@@ -93,17 +107,6 @@ public class LobbyInterface {
                 push.setChannel(channel);
                 push.setData(data);
                 push.sendInBackground();
-
-                List<String> players = parseObject.getList("players");
-                if( players.size()==1){
-                    isMaster=true;
-                }
-                playerList.addAll(players);
-                for(int a=0; a<players.size(); a++) {
-                    if (players.get(a) != user.getUsername()) {
-                        webView.loadUrl("javascript:printPlayers(\"" + players.get(a) + "\")");
-                    }
-                }
             }
         });
     }
@@ -112,6 +115,9 @@ public class LobbyInterface {
         if (!name.equals(ParseUser.getCurrentUser().getUsername())) {
             playerList.add(name);
             webView.loadUrl("javascript:printPlayers(\"" + name + "\")");
+        }
+        else{
+            Log.v("test", "received own name" + name);
         }
     }
 
