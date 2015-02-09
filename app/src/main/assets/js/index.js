@@ -5,8 +5,8 @@ function startSomething(){
 
 function testFunc(){
     console.log("hei");
-    window.QuizInterface.getQuestionArray("test");
-    window.QuizInterface.getQuestionFromLocal(0);
+    window.QuizInterface.getQuizAndSaveLocal("test");
+
 }
 function getTime(){
     s = window.JSInterface.getTime();

@@ -1,15 +1,11 @@
 TODO:
 -----
 - Ready button
-- Sende inn svar på quiz
+- Hente ut quiz og lagre i local
 - Lage tempScore view
 - Hente ut tempScores
 - Hente ut finalScores
 -----
-
-BUG:
------
-LoginInterface.redir() fungerer på htc one mini, men ikke href.. teste ut dette mer og se om man MÅ bruke redir
 
 Extras:
 -------

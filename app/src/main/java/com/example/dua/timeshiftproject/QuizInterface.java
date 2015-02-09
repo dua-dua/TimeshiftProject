@@ -8,6 +8,7 @@ import android.webkit.WebView;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
@@ -36,36 +37,22 @@ public class QuizInterface {
 
     @JavascriptInterface
     public static void getQuestionArray(String quizcode){
-        final String QUIZ = "quiz";
         Log.v("tag","Started qetQuestionArray");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Quiz");
         query.whereEqualTo("code", quizcode);
         Log.v("tag","made query");
-        query.findInBackground(new FindCallback<ParseObject>() {
-
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
-            public void done(final List<ParseObject> list, ParseException e) {
-                if (list == null) {
+            public void done(ParseObject parseObject, ParseException e) {
+                if (parseObject == null) {
                     Log.v("tag", "null");
                 } else {
                     Log.v("tag", "not null");
-                    //final List<String> list = parseObject.getList("questions");
-                    Log.v("tag", "List:");
+                    List<String> list = parseObject.getList("questions");
+
                     for (int i = 0; i < list.size(); i++) {
-                        getQuestion(list.get(i).getObjectId());
+                        getQuestion(list.get(i));
                     }
-                    ParseObject.unpinAllInBackground(QUIZ, list, new DeleteCallback() {
-                        public void done(ParseException e) {
-                            if (e != null) {
-                                Log.v("tag", "error in local");
-                                return;
-                            }
-
-                            // Add the latest results for this query to the cache.
-                            ParseObject.pinAllInBackground(QUIZ, list);
-                        }
-                    });
-
                 }
             }
         });
@@ -88,7 +75,7 @@ public class QuizInterface {
 
                     Log.v("tag","Text: "+text);
                     for( int i = 0; i<answers.size(); i++){
-                        Log.v("tag","Answer"+i+" :"+answers.get(i));
+                        Log.v("tag","Answer "+i+": "+answers.get(i));
                     }
                     Log.v("tag","Correct: "+correctAnswer);
                 }
@@ -97,42 +84,71 @@ public class QuizInterface {
     }
 
     @JavascriptInterface
-    public static void getQuestionFromLocal(final int i){
+    public static void getQuestionsFromLocal(String objectId){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Question");
+        query.whereEqualTo("objectId", objectId);
         query.fromLocalDatastore();
-        //query.whereEqualTo("objectId", objectId);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(final List<ParseObject> list, ParseException e) {
                 if (e == null) {
                     // Results were successfully found from the local datastore.
-                    Log.v("tag", "no result in local");
-                    List l = list.get(i).getList("questions");
-
-                    Log.v("tag","got questions from local: "+l);
-                } else {
-                    Log.v("tag","inner error");
-                }
-            }
-        });
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(final ParseObject parseObject, com.parse.ParseException e) {
-                if (parseObject == null) {
-                    Log.v("tag", "No matching question with that code");
-                } else {
-                    Log.v("tag", "Found question");
+                    ParseObject parseObject = list.get(0);
                     String text = parseObject.getString("text");
                     List<String> answers = parseObject.getList("answers");
                     String correctAnswer = parseObject.getString("correctAnswer");
 
                     Log.v("tag","Text: "+text);
                     for( int i = 0; i<answers.size(); i++){
-                        Log.v("tag","Answer"+i+" :"+answers.get(i));
+                        Log.v("tag","Answer "+i+": "+answers.get(i));
                     }
                     Log.v("tag","Correct: "+correctAnswer);
+                    Log.v("tag","Found something");
+                } else {
+                    // There was an error.
+                    Log.v("tag","Error in local get");
                 }
             }
         });
+    }
+
+    @JavascriptInterface
+    public static void getQuizAndSaveLocal(String quizcode){
+
+        //Hent quiz basert på quizcode
+        //Hente alle questions fra quiz
+        //Lage parseObject for hvert question i local storage
+
+        final String QUIZ_LABEL = "quiz";
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Quiz");
+        query.whereEqualTo("code", quizcode);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(final List<ParseObject> list, ParseException e) {
+                if (e != null) {
+                    // There was an error or the network wasn't available.
+                    return;
+                }
+
+                // Release any objects previously pinned for this query.
+                ParseObject.unpinAllInBackground(QUIZ_LABEL, list, new DeleteCallback() {
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            // There was some error.
+                            return;
+                        }
+
+                        // Lagre quizObject i en liste
+                        ParseObject.pinAllInBackground(QUIZ_LABEL, list);
+                        List<String> questionList = list.get(0).getList("questions");
+
+                        for (int i = 0; i < list.size(); i++) {
+                            //getQuestionsFromLocal(list.get(0).getList("questions"));
+                        }
+                    }
+                });
+            }
+        });
+
+
     }
 
     @JavascriptInterface
