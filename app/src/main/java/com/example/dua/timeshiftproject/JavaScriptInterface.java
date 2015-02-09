@@ -16,6 +16,7 @@ import com.parse.ParseQuery;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 public class JavaScriptInterface {
@@ -29,7 +30,11 @@ public class JavaScriptInterface {
         this.webView = webView;
         webViewStatic = webView;
     }
-
+    @JavascriptInterface
+    public String getTime(){
+        Date date = new Date();
+        return String.valueOf(date.getTime());
+    }
     @JavascriptInterface
     public void doSomething() {
         JSONObject data = null;

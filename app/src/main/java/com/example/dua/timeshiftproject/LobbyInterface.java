@@ -145,6 +145,9 @@ public class LobbyInterface {
         if(isMaster){
             allReady();
         }
+        else{
+            Log.v("test", "Im not the master");
+        }
     }
     public static void allReady(){
         Log.v("test", "InallReady");
