@@ -121,21 +121,12 @@ public class LobbyInterface {
         Date date = new Date();
         return date.getTime();
     }
-    public static void startQuiz(long startTime) {
-        Log.v("test", "startQuiz");
-        Date date = new Date();
-        Log.v("tid", String.valueOf(startTime));
-        Log.v("tid", String.valueOf(date.getTime()));
-        long tid = date.getTime();
-        while(tid<startTime){
-            tid=checkTime();
-            Log.v("test", "stillWaiting");
-        }
+    public static void startQuiz() {
+
         webView.post(new Runnable() {
             @Override
             public void run() {
                 webView.loadUrl("file:///android_asset/www/quiz.html");
-                //webView.loadUrl("javascript:yoyo()");
             }
         });
     }
@@ -167,7 +158,7 @@ public class LobbyInterface {
             try {
                 data = new JSONObject();
                 data.put("type", "startQuiz");
-                data.put("startTime", date.getTime()+30000);
+                //data.put("startTime", date.getTime()+30000);
                 data.put("channel", channel);
             }
             catch (JSONException e1) {
