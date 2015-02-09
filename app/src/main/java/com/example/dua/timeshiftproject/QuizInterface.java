@@ -26,6 +26,7 @@ public class QuizInterface {
     private static WebView webViewStatic;
     private Activity activity;
     private static WebView webView;
+    private static List<String> list;
 
 
 
@@ -48,7 +49,7 @@ public class QuizInterface {
                     Log.v("tag", "null");
                 } else {
                     Log.v("tag", "not null");
-                    List<String> list = parseObject.getList("questions");
+                    list = parseObject.getList("questions");
 
                     for (int i = 0; i < list.size(); i++) {
                         getQuestion(list.get(i));
@@ -85,30 +86,7 @@ public class QuizInterface {
 
     @JavascriptInterface
     public static void getQuestionsFromLocal(String objectId){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Question");
-        query.whereEqualTo("objectId", objectId);
-        query.fromLocalDatastore();
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(final List<ParseObject> list, ParseException e) {
-                if (e == null) {
-                    // Results were successfully found from the local datastore.
-                    ParseObject parseObject = list.get(0);
-                    String text = parseObject.getString("text");
-                    List<String> answers = parseObject.getList("answers");
-                    String correctAnswer = parseObject.getString("correctAnswer");
 
-                    Log.v("tag","Text: "+text);
-                    for( int i = 0; i<answers.size(); i++){
-                        Log.v("tag","Answer "+i+": "+answers.get(i));
-                    }
-                    Log.v("tag","Correct: "+correctAnswer);
-                    Log.v("tag","Found something");
-                } else {
-                    // There was an error.
-                    Log.v("tag","Error in local get");
-                }
-            }
-        });
     }
 
     @JavascriptInterface
@@ -126,6 +104,7 @@ public class QuizInterface {
                 if (e != null) {
                     // There was an error or the network wasn't available.
                     return;
+
                 }
 
                 // Release any objects previously pinned for this query.
@@ -137,11 +116,11 @@ public class QuizInterface {
                         }
 
                         // Lagre quizObject i en liste
-                        ParseObject.pinAllInBackground(QUIZ_LABEL, list);
+                        //ParseObject.pinAllInBackground(QUIZ_LABEL, list);
                         List<String> questionList = list.get(0).getList("questions");
-
-                        for (int i = 0; i < list.size(); i++) {
-                            //getQuestionsFromLocal(list.get(0).getList("questions"));
+                        Log.v("tag","saved in local");
+                        for(int i = 0; i<questionList.size(); i++){
+                            Log.v("tag",questionList.get(i).toString());
                         }
                     }
                 });

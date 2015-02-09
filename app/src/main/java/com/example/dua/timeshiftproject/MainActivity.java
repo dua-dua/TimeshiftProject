@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 
 
         mWebView = (WebView)findViewById(R.id.webview1);
-        mWebView.loadUrl("file:///android_asset/www/login.html");
+        mWebView.loadUrl("file:///android_asset/www/index.html");
         JavaScriptInterface jsInterface = new JavaScriptInterface(this, mWebView);
         LoginInterface loginInterface = new LoginInterface(this, mWebView);
         QuizCodeInterface quizCodeInterface = new QuizCodeInterface(this, mWebView);
