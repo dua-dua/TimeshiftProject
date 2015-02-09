@@ -70,9 +70,12 @@ public class QuizInterface {
                     Log.v("tag", "No matching question with that code");
                 } else {
                     Log.v("tag", "Found question");
+
                     String text = parseObject.getString("text");
+
                     List<String> answers = parseObject.getList("answers");
                     String correctAnswer = parseObject.getString("correctAnswer");
+                    setText(text, answers.get(0), answers.get(1), answers.get(2), answers.get(3));
 
                     Log.v("tag", "Text: " + text);
                     for (int i = 0; i < answers.size(); i++) {

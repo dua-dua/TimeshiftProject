@@ -34,7 +34,7 @@ function notification(name){
     $("#notificationText").fadeOut(500)},1500);
 }
 $(function(){
-    window.QuizInterface.setText("question", "a", "b", "c", "d");
+    window.QuizInterface.getQuestion("MFF6EmKrGd");
 
 
 });
