@@ -9,6 +9,21 @@ function userAnswer(id){
     var ans = $(id).text();
     window.QuizInterface.playerAnswered(score, bot, ans);
 }
+function setQuestion(question){
+    $("#question").text(question);
+}
+function setA1(a){
+    $("#button0").text(a);
+}
+function setA2(a){
+    $("#button1").text(a);
+}
+function setA3(a){
+    $("#button2").text(a);
+}
+function setA4(a){
+    $("#button3").text(a);
+}
 
 
 function notification(name){
@@ -18,3 +33,8 @@ function notification(name){
     setTimeout(function(){
     $("#notificationText").fadeOut(500)},1500);
 }
+$(function(){
+    window.QuizInterface.setText("question", "a", "b", "c", "d");
+
+
+});

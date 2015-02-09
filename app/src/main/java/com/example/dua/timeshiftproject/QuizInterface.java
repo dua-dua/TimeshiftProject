@@ -73,11 +73,11 @@ public class QuizInterface {
                     List<String> answers = parseObject.getList("answers");
                     String correctAnswer = parseObject.getString("correctAnswer");
 
-                    Log.v("tag","Text: "+text);
-                    for( int i = 0; i<answers.size(); i++){
-                        Log.v("tag","Answer "+i+": "+answers.get(i));
+                    Log.v("tag", "Text: " + text);
+                    for (int i = 0; i < answers.size(); i++) {
+                        Log.v("tag", "Answer " + i + ": " + answers.get(i));
                     }
-                    Log.v("tag","Correct: "+correctAnswer);
+                    Log.v("tag", "Correct: " + correctAnswer);
                 }
             }
         });
@@ -97,15 +97,15 @@ public class QuizInterface {
                     List<String> answers = parseObject.getList("answers");
                     String correctAnswer = parseObject.getString("correctAnswer");
 
-                    Log.v("tag","Text: "+text);
-                    for( int i = 0; i<answers.size(); i++){
-                        Log.v("tag","Answer "+i+": "+answers.get(i));
+                    Log.v("tag", "Text: " + text);
+                    for (int i = 0; i < answers.size(); i++) {
+                        Log.v("tag", "Answer " + i + ": " + answers.get(i));
                     }
-                    Log.v("tag","Correct: "+correctAnswer);
-                    Log.v("tag","Found something");
+                    Log.v("tag", "Correct: " + correctAnswer);
+                    Log.v("tag", "Found something");
                 } else {
                     // There was an error.
-                    Log.v("tag","Error in local get");
+                    Log.v("tag", "Error in local get");
                 }
             }
         });
@@ -229,5 +229,20 @@ public class QuizInterface {
         push.setData(data);
         push.sendInBackground();
         Log.v("tag", "Sent JSON from sendJSONNotification");
+    }
+    @JavascriptInterface
+    public static void setText(final String question, final String a1, final String a2, final String a3, final String a4){
+
+        webViewStatic.post(new Runnable() {
+            @Override
+            public void run() {
+                webViewStatic.loadUrl("javascript:setQuestion(\"" + question + "\")");
+                webViewStatic.loadUrl("javascript:setA1(\"" + a1 + "\")");
+                webViewStatic.loadUrl("javascript:setA2(\"" + a2 + "\")");
+                webViewStatic.loadUrl("javascript:setA3(\"" + a3 + "\")");
+                webViewStatic.loadUrl("javascript:setA4(\"" + a4 + "\")");
+                Log.v("tag", "text set");
+            }
+        });
     }
 }

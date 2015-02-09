@@ -10,7 +10,7 @@ function testFunc(){
 }
 function getTime(){
     s = window.JSInterface.getTime();
-    $("#exit").text(s).button("refresh");
+    $("#exit").text(s)
 }
 
 function redirQuizcode(){
