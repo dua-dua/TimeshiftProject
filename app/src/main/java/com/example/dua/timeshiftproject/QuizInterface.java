@@ -37,7 +37,7 @@ public class QuizInterface {
     }
 
     @JavascriptInterface
-    public static void getQuestionArray(String quizcode){
+    public static void getQuestionArray(String quizcode, final int count){
         Log.v("tag","Started qetQuestionArray");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Quiz");
         query.whereEqualTo("code", quizcode);
@@ -50,10 +50,7 @@ public class QuizInterface {
                 } else {
                     Log.v("tag", "not null");
                     list = parseObject.getList("questions");
-
-                    for (int i = 0; i < list.size(); i++) {
-                        getQuestion(list.get(i));
-                    }
+                    getQuestion(list.get(count).toString());
                 }
             }
         });
@@ -209,6 +206,7 @@ public class QuizInterface {
         push.sendInBackground();
         Log.v("tag", "Sent JSON from sendJSONNotification");
     }
+
     @JavascriptInterface
     public static void setText(final String question, final String a1, final String a2, final String a3, final String a4){
 
@@ -221,6 +219,24 @@ public class QuizInterface {
                 webViewStatic.loadUrl("javascript:setA3(\"" + a3 + "\")");
                 webViewStatic.loadUrl("javascript:setA4(\"" + a4 + "\")");
                 Log.v("tag", "text set");
+            }
+        });
+    }
+
+    public int getNextQuestion(){
+        final String channel = JavaScriptInterface.getCurrentChannel();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
+        query.whereEqualTo("quizid", channel);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, com.parse.ParseException e) {
+                if (parseObject == null) {
+                    Log.v("tag", "No matching lobby. This should NEVER happen");
+
+                } else {
+                    Log.v("tag","Found lobby, getting count");
+                    getQuestionArray(channel, parseObject.getInt("counter"));
+                }
             }
         });
     }

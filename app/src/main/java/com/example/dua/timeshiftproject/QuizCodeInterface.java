@@ -61,7 +61,7 @@ public class QuizCodeInterface {
                         public void run() {
                             ParsePush.subscribeInBackground(lobbyId);
                             parseObject.add("players", ParseUser.getCurrentUser().get("username"));
-
+                            parseObject.put("counter",0);
                             try {
                                 parseObject.save();
                             } catch (ParseException e1) {
