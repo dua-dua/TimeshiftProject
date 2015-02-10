@@ -27,6 +27,7 @@ public class QuizInterface {
     private Activity activity;
     private static WebView webView;
     private static List<String> list;
+    private static boolean hasAnswered = false;
 
 
 
@@ -130,7 +131,7 @@ public class QuizInterface {
     @JavascriptInterface
     public static void playerAnswered(final int numScore, final boolean isBot, final String answer){
         Log.v("tag","Entered playerAnswered with answer "+answer);
-
+        hasAnswered=true;
         final String channel = JavaScriptInterface.getCurrentChannel();
         final String user = ParseUser.getCurrentUser().getUsername();
         sendJSONNotification();
@@ -249,8 +250,10 @@ public class QuizInterface {
     @JavascriptInterface
     public void toScore(){
         Log.v("test", "toScore");
+        if(hasAnswered==false){
+            playerAnswered(0, false, null);
+        }
         webViewStatic.post(new Runnable() {
-
             @Override
             public void run() {
                 webViewStatic.loadUrl("file:///android_asset/www/scorescreen.html");
