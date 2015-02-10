@@ -238,8 +238,10 @@ public class QuizInterface {
                 } else {
                     Log.v("tag","Found lobby, getting count");
                     getQuestionArray(channel, parseObject.getInt("counter"));
-                    parseObject.increment("counter");
-                    parseObject.saveInBackground();
+                    if(parseObject.getString("master") == ParseUser.getCurrentUser().toString()){
+                        parseObject.increment("counter");
+                        parseObject.saveInBackground();
+                    }
                 }
             }
         });
