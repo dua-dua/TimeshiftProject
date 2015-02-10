@@ -189,6 +189,7 @@ public class QuizInterface {
         String name = "";
 
         name = pUser.getUsername();
+        String channel = JavaScriptInterface.getCurrentChannel();
         JSONObject data = null;
 
         try {
@@ -200,7 +201,7 @@ public class QuizInterface {
         }
 
         ParsePush push = new ParsePush();
-        push.setChannel("test");
+        push.setChannel(channel);
         push.setData(data);
         push.sendInBackground();
         Log.v("tag", "Sent JSON from sendJSONNotification");
