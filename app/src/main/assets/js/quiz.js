@@ -31,9 +31,35 @@ function notification(name){
     $("#notificationText").text(name + " has answered!");
     $("#notificationText").fadeIn(500);
     setTimeout(function(){
-    $("#notificationText").fadeOut(500)},1500);
+    $("#notificationText").fadeTo(500, 0 )},1500);
+    $("#notifivationText").text(" ")
+}
+function progressbar(){
+	$("#progressbar").show();
+	answer = false;
+	clearInterval(animate);
+	var progressbar = $('#progressbar'),
+	max = progressbar.attr('max'),
+	time = (1000/max)*20,
+	value = 0;
+
+	var loading = function() {
+		value += 1;
+		var val = progressbar.val(value);
+
+		$('.progress-value').html(value + '%');
+
+		if (value == max) {
+			clearInterval(animate);
+	        $('.progress-value').html(max + '%');
+	    }
+	};
+	var animate = setInterval(function() {
+		loading();
+	}, time);
 }
 
 $(function(){
     window.QuizInterface.getNextQuestion();
+    progressbar();
 });
