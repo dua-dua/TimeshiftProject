@@ -67,6 +67,7 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.v("tag", "received answer in parsereceiver");
 
         QuizInterface.sendHTMLNotification(name);
     }
