@@ -58,8 +58,13 @@ function progressbar(){
 		loading();
 	}, time);
 }
+function toScore(){
+    $("#notificationText").text("toScore");
+    QuizInterface.toScore();
+}
 
 $(function(){
     window.QuizInterface.getNextQuestion();
     progressbar();
+    setTimeout(toScore, 22500);
 });

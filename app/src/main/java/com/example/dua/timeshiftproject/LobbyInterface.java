@@ -144,8 +144,6 @@ public class LobbyInterface {
         Log.v("test", "InallReady");
         String rl = String.valueOf(readyList.size());
         String pl = String.valueOf(playerList.size());
-        Log.v("test", rl);
-        Log.v("test", pl);
         if(readyList.containsAll(playerList)){
             ParseInstallation installation = ParseInstallation.getCurrentInstallation();
             List channelList = installation.getList("channels");
@@ -153,6 +151,7 @@ public class LobbyInterface {
             Log.v("test", "allReady");
             JSONObject data = null;
             Date date = new Date();
+
 
 
             try {

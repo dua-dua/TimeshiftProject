@@ -236,14 +236,27 @@ public class QuizInterface {
                     Log.v("tag", "No matching lobby. This should NEVER happen");
 
                 } else {
-                    Log.v("tag","Found lobby, getting count");
+                    Log.v("tag", "Found lobby, getting count");
                     getQuestionArray(channel, parseObject.getInt("counter"));
-                    if(parseObject.getString("master") == ParseUser.getCurrentUser().toString()){
+                    if (parseObject.getString("master") == ParseUser.getCurrentUser().toString()) {
                         parseObject.increment("counter");
                         parseObject.saveInBackground();
                     }
                 }
             }
         });
+    }
+    @JavascriptInterface
+    public void toScore(){
+        Log.v("test", "toScore");
+        webViewStatic.post(new Runnable() {
+
+            @Override
+            public void run() {
+                webViewStatic.loadUrl("file:///android_asset/www/scorescreen.html");
+            }
+        });
+
+
     }
 }
