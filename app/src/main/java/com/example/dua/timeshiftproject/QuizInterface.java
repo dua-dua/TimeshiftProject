@@ -172,13 +172,12 @@ public class QuizInterface {
 
     @JavascriptInterface
     public static void sendHTMLNotification(final String name) {
-        final String user = name;
 
         Log.v("tag", "Entered sendHTMLNotification");
         webViewStatic.post(new Runnable() {
             @Override
             public void run() {
-                webViewStatic.loadUrl("javascript:notification(\""+user+"\")");
+                webViewStatic.loadUrl("javascript:notification(\""+name+"\")");
                 Log.v("tag", "Completed sendHTMLNotification");
             }
         });

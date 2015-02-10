@@ -27,13 +27,13 @@ function setA4(a){
 
 
 function notification(name){
-    $("#notificationText").hide();
+
     $("#notificationText").text(name + " has answered!");
-    $("#notificationText").fadeIn(500);
+    $("#notificationText").fadeTo(500, 1);
     setTimeout(function(){
     $("#notificationText").fadeTo(500, 0 )},1500);
-    $("#notifivationText").text(" ")
 }
+
 function progressbar(){
 	$("#progressbar").show();
 	answer = false;
