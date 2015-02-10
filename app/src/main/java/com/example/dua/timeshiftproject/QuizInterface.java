@@ -201,7 +201,7 @@ public class QuizInterface {
         }
 
         ParsePush push = new ParsePush();
-        push.setChannel("channel");
+        push.setChannel("test");
         push.setData(data);
         push.sendInBackground();
         Log.v("tag", "Sent JSON from sendJSONNotification");
