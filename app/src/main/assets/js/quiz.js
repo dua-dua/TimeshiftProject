@@ -33,8 +33,7 @@ function notification(name){
     setTimeout(function(){
     $("#notificationText").fadeOut(500)},1500);
 }
+
 $(function(){
-    window.QuizInterface.getQuestion("MFF6EmKrGd");
-
-
+    window.QuizInterface.getNextQuestion();
 });

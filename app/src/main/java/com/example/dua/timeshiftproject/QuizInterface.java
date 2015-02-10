@@ -223,10 +223,12 @@ public class QuizInterface {
         });
     }
 
-    public int getNextQuestion(){
+    @JavascriptInterface
+    public void getNextQuestion(){
+        Log.v("tag","start getnextq");
         final String channel = JavaScriptInterface.getCurrentChannel();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
-        query.whereEqualTo("quizid", channel);
+        query.whereEqualTo("lobbyId", channel);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, com.parse.ParseException e) {
@@ -236,6 +238,8 @@ public class QuizInterface {
                 } else {
                     Log.v("tag","Found lobby, getting count");
                     getQuestionArray(channel, parseObject.getInt("counter"));
+                    parseObject.increment("counter");
+                    parseObject.saveInBackground();
                 }
             }
         });
