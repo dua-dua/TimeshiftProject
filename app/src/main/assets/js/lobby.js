@@ -9,6 +9,11 @@ function isReady(name){
     $("#"+name).addClass("glyphicon glyphicon-ok glyphiconGreen");
 
 }
+
+function redirQuiz(){
+    window.LoginInterface.redir("file:///android_asset/www/quiz.html")
+}
+
 $(function(){
     window.LobbyInterface.getPlayers();
     $("#tester").text("testy");
