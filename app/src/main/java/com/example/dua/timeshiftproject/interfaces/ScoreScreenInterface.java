@@ -1,4 +1,4 @@
-package com.example.dua.timeshiftproject;
+package com.example.dua.timeshiftproject.interfaces;
 
 import android.app.Activity;
 import android.util.Log;
