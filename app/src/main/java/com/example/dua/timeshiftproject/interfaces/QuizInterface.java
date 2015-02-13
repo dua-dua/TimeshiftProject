@@ -74,7 +74,7 @@ public class QuizInterface {
 
                     List<String> answers = parseObject.getList("answers");
                     String correctAnswer = parseObject.getString("correctAnswer");
-                    setText(text, answers.get(0), answers.get(1), answers.get(2), answers.get(3));
+                    setText(text, answers.get(0), answers.get(1), answers.get(2), answers.get(3), correctAnswer);
 
                     Log.v("tag", "Text: " + text);
                     for (int i = 0; i < answers.size(); i++) {
@@ -173,6 +173,11 @@ public class QuizInterface {
         });
     }
 
+    public void getCorrectAnswer(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Question");
+
+    }
+
     @JavascriptInterface
     public static void sendHTMLNotification(final String name) {
 
@@ -211,7 +216,7 @@ public class QuizInterface {
     }
 
     @JavascriptInterface
-    public static void setText(final String question, final String a1, final String a2, final String a3, final String a4){
+    public static void setText(final String question, final String a1, final String a2, final String a3, final String a4, final String correct){
 
         webViewStatic.post(new Runnable() {
             @Override
@@ -221,6 +226,8 @@ public class QuizInterface {
                 webViewStatic.loadUrl("javascript:setA2(\"" + a2 + "\")");
                 webViewStatic.loadUrl("javascript:setA3(\"" + a3 + "\")");
                 webViewStatic.loadUrl("javascript:setA4(\"" + a4 + "\")");
+                Log.v("tag","correct = "+correct);
+                webViewStatic.loadUrl("javascript:setAnswerText(\""+correct+"\")");
                 Log.v("tag", "text set");
             }
         });
@@ -249,6 +256,7 @@ public class QuizInterface {
             }
         });
     }
+
     @JavascriptInterface
     public void toScore(){
         Log.v("test", "toScore");
@@ -257,6 +265,5 @@ public class QuizInterface {
         }
         Intent intent = new Intent(activity, ScoreActivity.class);
         activity.startActivity(intent);
-
     }
 }

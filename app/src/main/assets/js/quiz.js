@@ -3,10 +3,15 @@ function sendNotification(){
 }
 
 function userAnswer(id){
-    var score = 1000-$("#progressbar").val();
+    var score = 0;
     var bot = false;
     var id = "#button"+id;
     var ans = $(id).text();
+    var correct = $("#correct").text();
+    if(ans == correct){
+        score = 1000-$("#progressbar").val();
+        alert("correct");
+    }
     window.QuizInterface.playerAnswered(score, bot, ans);
 }
 function setQuestion(question){
@@ -23,6 +28,10 @@ function setA3(a){
 }
 function setA4(a){
     $("#button3").text(a);
+}
+
+function setAnswerText(ans){
+    $("#correct").text(ans);
 }
 
 function notification(name){

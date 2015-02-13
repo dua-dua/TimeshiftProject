@@ -1,10 +1,11 @@
 TODO:
 -----
 - Fikse sekvens for question -> tempScore -> newQuestion
-- Lage tempScore view
-- Hente ut tempScores
-- Hente ut finalScores
-- setText på score views
+- Lagre master
+- Rydde i database mellom hver quiz
+- Logikk for adding av bots basert på antall players
+- Notification når bot svarer (master tar seg av å sende JSON når en bot svarer)
+-
 -----
 
 Extras:
