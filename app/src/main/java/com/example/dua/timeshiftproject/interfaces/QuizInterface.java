@@ -6,6 +6,7 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.example.dua.timeshiftproject.activites.QuizActivity;
 import com.example.dua.timeshiftproject.activites.ScoreActivity;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -25,14 +26,14 @@ import java.util.List;
 public class QuizInterface {
 
     private static WebView webViewStatic;
-    private Activity activity;
+    private QuizActivity activity;
     private static WebView webView;
     private static List<String> list;
     private static boolean hasAnswered = false;
 
 
 
-    public QuizInterface(Activity act, WebView webView) {
+    public QuizInterface(QuizActivity act, WebView webView) {
         this.activity = act;
         this.webView = webView;
         webViewStatic = webView;
@@ -259,6 +260,7 @@ public class QuizInterface {
 
     @JavascriptInterface
     public void toScore(){
+        activity.test();
         Log.v("test", "toScore");
         if(hasAnswered==false){
             playerAnswered(0, false, null);

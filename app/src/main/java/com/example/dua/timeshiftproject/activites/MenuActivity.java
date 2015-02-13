@@ -20,11 +20,11 @@ public class MenuActivity extends Activity{
         menuWebView = (WebView)findViewById(R.id.webview3);
         menuWebView.loadUrl("file:///android_asset/www/index.html");
         JavaScriptInterface jsInterface = new JavaScriptInterface(this, menuWebView);
-        LoginInterface loginInterface = new LoginInterface(this, menuWebView);
+
 
         menuWebView.getSettings().setJavaScriptEnabled(true);
         menuWebView.addJavascriptInterface(jsInterface, "JSInterface");
-        menuWebView.addJavascriptInterface(loginInterface, "LoginInterface");
+
 
     }
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.example.dua.timeshiftproject.activites.LoginActivity;
 import com.example.dua.timeshiftproject.activites.MenuActivity;
 import com.parse.LogInCallback;
 import com.parse.ParseUser;
@@ -14,10 +15,10 @@ import com.parse.ParseUser;
  * Created by dualap on 30.01.2015.
  */
 public class LoginInterface {
-    private Activity activity;
+    private LoginActivity activity;
     private WebView webView;
 
-    public LoginInterface(Activity act, WebView webView){
+    public LoginInterface(LoginActivity act, WebView webView){
         this.activity = act;
         this.webView  = webView;
     }

@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MyParseReceiver extends ParsePushBroadcastReceiver {
-
     @Override
     protected void onPushReceive(Context context, Intent intent) {
         getObjectType(context, intent);

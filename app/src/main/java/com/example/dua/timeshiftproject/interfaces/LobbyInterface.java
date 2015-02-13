@@ -25,7 +25,8 @@ import java.util.List;
 
 public class LobbyInterface {
     private static WebView webViewStatic;
-    private static Activity activity;
+    private static Activity staticActivity;
+    private Activity activity;
     private static WebView webView;
     private static ArrayList<String> playerList = new ArrayList<String>();
     private static ArrayList<String> readyList = new ArrayList<String>();
@@ -36,6 +37,7 @@ public class LobbyInterface {
         this.activity = act;
         this.webView = webView;
         webViewStatic = webView;
+        staticActivity = act;
     }
 
     @JavascriptInterface
@@ -129,8 +131,8 @@ public class LobbyInterface {
 
     public static void startQuiz() {
 
-      Intent intent = new Intent(activity, QuizActivity.class);
-      activity.startActivity(intent);
+      Intent intent = new Intent(staticActivity, QuizActivity.class);
+      staticActivity.startActivity(intent);
     }
     public static void isReady(String name) {
         webView.loadUrl("javascript:isReady(\""+ name +"\")");

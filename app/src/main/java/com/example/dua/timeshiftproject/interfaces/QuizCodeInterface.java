@@ -7,6 +7,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import com.example.dua.timeshiftproject.activites.LobbyActivity;
+import com.example.dua.timeshiftproject.activites.QuizCodeActivity;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -20,11 +21,11 @@ import java.util.ArrayList;
  * Created by dualap on 30.01.2015.
  */
 public class QuizCodeInterface {
-    private Activity activity;
+    private QuizCodeActivity activity;
     private WebView webView;
     private boolean isLobby;
 
-    public QuizCodeInterface(Activity act, WebView webView){
+    public QuizCodeInterface(QuizCodeActivity act, WebView webView){
         this.activity = act;
         this.webView = webView;
     }

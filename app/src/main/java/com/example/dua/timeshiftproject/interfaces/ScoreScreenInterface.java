@@ -5,6 +5,7 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.example.dua.timeshiftproject.activites.ScoreActivity;
 import com.example.dua.timeshiftproject.interfaces.JavaScriptInterface;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -23,12 +24,12 @@ import java.util.TreeSet;
 
 public class ScoreScreenInterface {
 
-    private Activity activity;
+    private ScoreActivity activity;
     private WebView webView;
     private static WebView webViewStatic;
 
 
-    public ScoreScreenInterface(Activity act, WebView webView) {
+    public ScoreScreenInterface(ScoreActivity act, WebView webView) {
         this.activity = act;
         this.webView = webView;
         webViewStatic = webView;
