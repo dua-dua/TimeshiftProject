@@ -29,13 +29,9 @@ public class MainActivity extends Activity {
         mWebView = (WebView)findViewById(R.id.webview1);
         mWebView.loadUrl("file:///android_asset/www/index.html");
         JavaScriptInterface jsInterface = new JavaScriptInterface(this, mWebView);
-
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.addJavascriptInterface(jsInterface, "JSInterface");
-
-
 
 
         //ParseInstallation.getCurrentInstallation().saveInBackground();
@@ -85,7 +81,6 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     public void push(View view){
         PushFragment frag = new PushFragment();

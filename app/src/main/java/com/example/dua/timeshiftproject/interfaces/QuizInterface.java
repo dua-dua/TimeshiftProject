@@ -156,6 +156,7 @@ public class QuizInterface {
                     score.put("userid", user);
                     score.saveInBackground();
                     Log.v("tag","Done creating new score");
+
                 //If exists, append score and update total score
                 } else {
                     Log.v("tag","Found score, appending and updating");
