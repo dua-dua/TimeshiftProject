@@ -1,11 +1,12 @@
 TODO:
 -----
-- Fikse sekvens for question -> tempScore -> newQuestion
-- Lagre master
-- Rydde i database mellom hver quiz
-- Logikk for adding av bots basert på antall players
+- Fikse sekvens for question -> tempScore -> newQuestion (gjenbruk av ready i lobby for å komme til neste quiz)
+- Lagre master (bruke intent/bundles mellom activities)
+- Rydde i database mellom hver quiz (slette lobby etter quiz, gjøre om players til bots etter en quiz)
+- Logikk for adding av bots basert på antall players (max 10 players? add bot etter ett gitt intervall, men etter random tid)
 - Notification når bot svarer (master tar seg av å sende JSON når en bot svarer)
--
+- Chat i scorescreen, for avansert?? Bruke predefined emotes/comment (Wii / HS style)
+
 -----
 
 Extras:
