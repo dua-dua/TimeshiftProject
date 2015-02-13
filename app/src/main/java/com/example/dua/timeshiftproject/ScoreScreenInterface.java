@@ -1,0 +1,107 @@
+package com.example.dua.timeshiftproject;
+
+import android.app.Activity;
+import android.util.Log;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+public class ScoreScreenInterface {
+
+    private Activity activity;
+    private WebView webView;
+    private static WebView webViewStatic;
+
+
+    public ScoreScreenInterface(Activity act, WebView webView) {
+        this.activity = act;
+        this.webView = webView;
+        webViewStatic = webView;
+    }
+
+    public void setHTMLText(String name, String score, int index){
+        webView.loadUrl("javascript:setScoreText(\""+name+"\",\""+score+"\",\""+index+"\")");
+    }
+
+    public void setPlayerScore(String score){
+        webView.loadUrl("javascript:setScorePlayer(\""+score+"\")");
+    }
+
+    @JavascriptInterface
+    public void getTopFive(){
+        Log.v("score", "Getting top five");
+        String channel = JavaScriptInterface.getCurrentChannel();
+        ParseQuery query = new ParseQuery("Scores");
+        query.whereEqualTo("quizid", channel);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> parseObjects, ParseException e) {
+            if (parseObjects == null) {
+                Log.v("score", "null");
+            } else {
+                String currentUser = ParseUser.getCurrentUser().getUsername().toString();
+                int questionCounter = 0;
+                int playerIndex = 0;
+                int playerScore = 0;
+                for(int i = 0; i<parseObjects.size(); i++){
+                    if(parseObjects.get(i).getString("userid").toString().equals(currentUser)){
+                        questionCounter = parseObjects.get(i).getList("scores").size();
+                        playerIndex = i;
+                    }
+                }
+
+                TreeMap<String, Integer> map = new TreeMap<String, Integer>();
+                int tempScore = 0;
+                for (int i = 0; i < parseObjects.size(); i++) {
+                    for (int j = 0; j < questionCounter; j++) {
+                        tempScore += Integer.parseInt(parseObjects.get(i).getList("scores").get(j).toString());
+                    }
+                    if(i == playerIndex){
+                        playerScore = tempScore;
+                    }
+                    map.put(parseObjects.get(i).getString("userid"), tempScore);
+                    tempScore = 0;
+                }
+                SortedSet<Map.Entry<String, Integer>> sortedMap = entriesSortedByValues(map);
+
+                int j = 1;
+                for (int i = sortedMap.size()-1; i >= sortedMap.size()-5; i--) { //kinda borked, fix it
+                    String[] mainString = sortedMap.toArray()[i].toString().split("=");
+                    String name = mainString[0];
+                    String score = mainString[1];
+                    setHTMLText(name, score, (j));
+                    j++;
+                }
+                setPlayerScore(playerScore+"");
+            }
+            }
+        });
+    }
+
+    static <K,V extends Comparable<? super V>> SortedSet<Map.Entry<K,V>> entriesSortedByValues(Map<K,V> map) {
+        SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<Map.Entry<K,V>>(
+                new Comparator<Map.Entry<K,V>>() {
+                    @Override public int compare(Map.Entry<K,V> e1, Map.Entry<K,V> e2) {
+                        int res = e1.getValue().compareTo(e2.getValue());
+                        return res != 0 ? res : 1; // Special fix to preserve items with equal values
+                    }
+                }
+        );
+        sortedEntries.addAll(map.entrySet());
+        return sortedEntries;
+    }
+}

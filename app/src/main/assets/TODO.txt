@@ -1,10 +1,10 @@
 TODO:
 -----
-- Ready button
-- Hente ut quiz og lagre i local
+- Fikse sekvens for question -> tempScore -> newQuestion
 - Lage tempScore view
 - Hente ut tempScores
 - Hente ut finalScores
+- setText på score views
 -----
 
 Extras:

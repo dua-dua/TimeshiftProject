@@ -25,9 +25,7 @@ function setA4(a){
     $("#button3").text(a);
 }
 
-
 function notification(name){
-
     $("#notificationText").text(name + " has answered!");
     $("#notificationText").fadeTo(500, 1);
     setTimeout(function(){
