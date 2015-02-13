@@ -54,6 +54,11 @@ ul{
     font-size: 1.2em;
 }
 
+.scoreLi{
+    text-align: center;
+    margin-left: -40px;
+}
+
 #newUserText {
     color: white;
     margin-top: 20px;
@@ -125,8 +130,8 @@ ul{
 
 .verticalCentering {
     position: relative;
-    top: 45%;
-    transform: translateY(-45%);
+    top: 25%;
+    transform: translateY(-25%);
 }
 
 .contentWrapper {
