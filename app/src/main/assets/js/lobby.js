@@ -11,7 +11,7 @@ function isReady(name){
 }
 
 function redirQuiz(){
-    window.LoginInterface.redir("file:///android_asset/www/quiz.html")
+    window.LobbyInterface.redir()
 }
 
 $(function(){

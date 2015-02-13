@@ -1,10 +1,12 @@
 package com.example.dua.timeshiftproject;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.dua.timeshiftproject.interfaces.LobbyInterface;
+import com.example.dua.timeshiftproject.interfaces.QuizInterface;
 import com.parse.ParsePushBroadcastReceiver;
 import org.json.JSONException;
 import org.json.JSONObject;

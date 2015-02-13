@@ -1,14 +1,15 @@
-package com.example.dua.timeshiftproject;
+package com.example.dua.timeshiftproject.interfaces;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.example.dua.timeshiftproject.activites.ScoreActivity;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
@@ -253,13 +254,8 @@ public class QuizInterface {
         if(hasAnswered==false){
             playerAnswered(0, false, null);
         }
-        webViewStatic.post(new Runnable() {
-            @Override
-            public void run() {
-                webViewStatic.loadUrl("file:///android_asset/www/scorescreen.html");
-            }
-        });
-
+        Intent intent = new Intent(activity, ScoreActivity.class);
+        activity.startActivity(intent);
 
     }
 }

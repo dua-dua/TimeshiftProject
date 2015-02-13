@@ -1,23 +1,19 @@
-package com.example.dua.timeshiftproject;
+package com.example.dua.timeshiftproject.activites;
 
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import com.parse.Parse;
-import com.parse.ParseInstallation;
-import com.parse.ParseObject;
-import com.parse.ParsePush;
-import com.parse.PushService;
+
+import com.example.dua.timeshiftproject.PushFragment;
+import com.example.dua.timeshiftproject.PushedFragment;
+import com.example.dua.timeshiftproject.R;
+import com.example.dua.timeshiftproject.interfaces.JavaScriptInterface;
 
 public class MainActivity extends Activity {
     private WebView mWebView;
@@ -33,19 +29,15 @@ public class MainActivity extends Activity {
         mWebView = (WebView)findViewById(R.id.webview1);
         mWebView.loadUrl("file:///android_asset/www/index.html");
         JavaScriptInterface jsInterface = new JavaScriptInterface(this, mWebView);
-        LoginInterface loginInterface = new LoginInterface(this, mWebView);
-        QuizCodeInterface quizCodeInterface = new QuizCodeInterface(this, mWebView);
-        LobbyInterface lobbyInterface = new LobbyInterface(this, mWebView);
-        QuizInterface quizInterface = new QuizInterface(this, mWebView);
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.addJavascriptInterface(jsInterface, "JSInterface");
-        mWebView.addJavascriptInterface(loginInterface, "LoginInterface");
-        mWebView.addJavascriptInterface(quizCodeInterface, "QuizCodeInterface");
-        mWebView.addJavascriptInterface(lobbyInterface, "LobbyInterface");
-        mWebView.addJavascriptInterface(quizInterface, "QuizInterface");
-        Parse.enableLocalDatastore(getApplicationContext());
-        Parse.initialize(this, "0qwu1NjJN6Omb7C6JhpAML7ltY2y1dYG2dp6O92L", "RYc9OPFFWIMiorIGFa2Sh2xvLCqwleS7QZNzTZFI");
-        PushService.setDefaultPushCallback(this, MainActivity.class);
+
+
+
+
         //ParseInstallation.getCurrentInstallation().saveInBackground();
     }
 

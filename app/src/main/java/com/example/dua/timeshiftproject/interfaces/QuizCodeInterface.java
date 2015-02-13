@@ -1,20 +1,18 @@
-package com.example.dua.timeshiftproject;
+package com.example.dua.timeshiftproject.interfaces;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.example.dua.timeshiftproject.activites.LobbyActivity;
 import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import org.json.JSONArray;
-import org.json.JSONStringer;
 
 import java.util.ArrayList;
 
@@ -83,7 +81,9 @@ public class QuizCodeInterface {
 
                             }
 
-                            webView.loadUrl("file:///android_asset/www/lobby.html");
+                            Intent intent = new Intent(activity, LobbyActivity.class);
+                            activity.startActivity(intent);
+                            //webView.loadUrl("file:///android_asset/www/lobby.html");
                         }
                     });
                 }
@@ -94,6 +94,8 @@ public class QuizCodeInterface {
     }
     @JavascriptInterface
     public void toLobby(){
-
+        Log.v("test", "toLobby");
+        Intent intent = new Intent(activity, LobbyActivity.class);
+        activity.startActivity(intent);
     }
 }

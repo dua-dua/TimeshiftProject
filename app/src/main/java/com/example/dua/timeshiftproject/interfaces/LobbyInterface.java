@@ -1,10 +1,12 @@
-package com.example.dua.timeshiftproject;
+package com.example.dua.timeshiftproject.interfaces;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.example.dua.timeshiftproject.activites.QuizActivity;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -23,7 +25,7 @@ import java.util.List;
 
 public class LobbyInterface {
     private static WebView webViewStatic;
-    private Activity activity;
+    private static Activity activity;
     private static WebView webView;
     private static ArrayList<String> playerList = new ArrayList<String>();
     private static ArrayList<String> readyList = new ArrayList<String>();
@@ -63,6 +65,13 @@ public class LobbyInterface {
         push.sendInBackground();
 
         Log.v("tag", "User " + name + " is ready in channel " + channel);
+    }
+    @JavascriptInterface
+    public void redir(){
+        Intent intent = new Intent(activity, QuizActivity.class);
+        activity.startActivity(intent);
+
+
     }
     @JavascriptInterface
     public void getPlayers(){
@@ -117,18 +126,11 @@ public class LobbyInterface {
             Log.v("test", "received own name" + name);
         }
     }
-    public static long checkTime(){
-        Date date = new Date();
-        return date.getTime();
-    }
+
     public static void startQuiz() {
 
-        webView.post(new Runnable() {
-            @Override
-            public void run() {
-                webView.loadUrl("file:///android_asset/www/quiz.html");
-            }
-        });
+      Intent intent = new Intent(activity, QuizActivity.class);
+      activity.startActivity(intent);
     }
     public static void isReady(String name) {
         webView.loadUrl("javascript:isReady(\""+ name +"\")");
@@ -142,8 +144,6 @@ public class LobbyInterface {
     }
     public static void allReady(){
         Log.v("test", "InallReady");
-        String rl = String.valueOf(readyList.size());
-        String pl = String.valueOf(playerList.size());
         if(readyList.containsAll(playerList)){
             ParseInstallation installation = ParseInstallation.getCurrentInstallation();
             List channelList = installation.getList("channels");

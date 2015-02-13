@@ -1,10 +1,12 @@
-package com.example.dua.timeshiftproject;
+package com.example.dua.timeshiftproject.interfaces;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.example.dua.timeshiftproject.activites.MenuActivity;
 import com.parse.LogInCallback;
 import com.parse.ParseUser;
 
@@ -19,6 +21,7 @@ public class LoginInterface {
         this.activity = act;
         this.webView  = webView;
     }
+
     @JavascriptInterface
     public void logUser(String name, String password){
 
@@ -45,11 +48,14 @@ public class LoginInterface {
 
     @JavascriptInterface
     public void redir(final String url){
+
         Log.v("redir", "redir");
         webView.post(new Runnable() {
             @Override
             public void run() {
-                webView.loadUrl(url);
+                Intent intent = new Intent(activity, MenuActivity.class);
+                activity.startActivity(intent);
+                //webView.loadUrl(url);
                 //webView.loadUrl("javascript:yoyo()");
             }
         });
