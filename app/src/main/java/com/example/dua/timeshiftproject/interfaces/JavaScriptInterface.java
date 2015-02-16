@@ -81,4 +81,5 @@ public class JavaScriptInterface {
         activity.startActivity(intent);
 
     }
+
 }
