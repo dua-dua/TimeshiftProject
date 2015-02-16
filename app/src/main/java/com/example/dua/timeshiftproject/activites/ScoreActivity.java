@@ -1,7 +1,9 @@
 package com.example.dua.timeshiftproject.activites;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 
 import com.example.dua.timeshiftproject.R;
@@ -22,6 +24,10 @@ public class ScoreActivity extends Activity {
         scoreWebView.getSettings().setJavaScriptEnabled(true);
         ScoreScreenInterface scoreScreenInterface = new ScoreScreenInterface(this, scoreWebView);
         scoreWebView.addJavascriptInterface(scoreScreenInterface, "SSInterface");
-
+        Intent intent = getIntent();
+        boolean isMaster = intent.getBooleanExtra("isMaster", false);
+        if(isMaster==true){
+            Log.v("test", "master in scorescreen");
+        }
     }
 }

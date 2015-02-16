@@ -25,7 +25,6 @@ public class QuizActivity extends Activity{
         Intent intent = getIntent();
 
         boolean isMaster = intent.getBooleanExtra("isMaster", false);
-        
 
         if(isMaster==true){
             Log.v("test", "I am the master");

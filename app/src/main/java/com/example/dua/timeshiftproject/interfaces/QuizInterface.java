@@ -268,6 +268,10 @@ public class QuizInterface {
             playerAnswered(0, false, null);
         }
         Intent intent = new Intent(activity, ScoreActivity.class);
+        if(isMaster==true){
+            intent.putExtra("isMaster", true);
+        }
+
         activity.startActivity(intent);
     }
 }
