@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class ScoreActivity extends Activity {
     private WebView scoreWebView;
+    private int counter;
+    private boolean isMaster;
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
@@ -34,9 +36,11 @@ public class ScoreActivity extends Activity {
         scoreWebView.addJavascriptInterface(scoreScreenInterface, "SSInterface");
 
         Intent intent = getIntent();
-        boolean isMaster = intent.getBooleanExtra("isMaster", false);
+        isMaster = intent.getBooleanExtra("isMaster", false);
+        counter = intent.getIntExtra("counter", 1);
         if(isMaster==true){
             Log.v("test", "master in scorescreen");
+            counter ++;
         }
 
         timer();
@@ -56,6 +60,11 @@ public class ScoreActivity extends Activity {
 
     public void toNextQuestion(){
         Intent intent = new Intent(this, QuizActivity.class);
+        if(isMaster){
+            intent.putExtra("counter", counter);
+            intent.putExtra("isMaster", true);
+        }
+
         this.startActivity(intent);
 
     }

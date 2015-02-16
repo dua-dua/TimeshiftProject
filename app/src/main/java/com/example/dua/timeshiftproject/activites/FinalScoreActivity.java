@@ -13,8 +13,8 @@ public class FinalScoreActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_score);
-        scoreWebView = (WebView)findViewById(R.id.webview7);
+        setContentView(R.layout.activity_finalscore);
+        scoreWebView = (WebView)findViewById(R.id.webview8);
         scoreWebView.loadUrl("file:///android_asset/www/finalscorescreen.html");
         scoreWebView.getSettings().setJavaScriptEnabled(true);
         FinalScoreScreenInterface finalScoreScreenInterface = new FinalScoreScreenInterface(this, scoreWebView);

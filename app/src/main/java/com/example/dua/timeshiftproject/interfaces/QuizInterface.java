@@ -32,14 +32,16 @@ public class QuizInterface {
     private static List<String> list;
     private static boolean hasAnswered = false;
     private boolean isMaster=false;
+    private int counter;
 
 
 
-    public QuizInterface(QuizActivity act, WebView webView, boolean master) {
+    public QuizInterface(QuizActivity act, WebView webView, boolean master, int counter) {
         this.activity = act;
         this.webView = webView;
         webViewStatic = webView;
         isMaster = master;
+        this.counter = counter;
     }
 
     @JavascriptInterface
@@ -220,7 +222,7 @@ public class QuizInterface {
 
     @JavascriptInterface
     public void toScore(){
-        activity.test();
+        /*activity.test();
         Log.v("test", "toScore");
         if(hasAnswered==false){
             playerAnswered(0, false, null);
@@ -230,7 +232,9 @@ public class QuizInterface {
             intent.putExtra("isMaster", true);
         }
 
-        activity.startActivity(intent);
+        activity.startActivity(intent);*/
+
+        moreQuestions(counter);
     }
 
     @JavascriptInterface
@@ -247,15 +251,27 @@ public class QuizInterface {
     @JavascriptInterface
     public void moreQuestions(final int count){
         final String channel = JavaScriptInterface.getCurrentChannel();
+        String counter = String.valueOf(count);
+        Log.v("test", "the count " + counter);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Quiz");
         query.whereEqualTo("code", channel);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
+                Log.v("test", "the number of questions "+String.valueOf(parseObject.getList("questions").size()));
                 if(count == parseObject.getList("questions").size()){
+
                    toFinalScore();
                 }else{
-                   toScore();
+                    if(hasAnswered==false){
+                        playerAnswered(0, false, null);
+                    }
+                    Intent intent = new Intent(activity, ScoreActivity.class);
+                    if(isMaster==true){
+                        intent.putExtra("isMaster", true);
+                    }
+
+                    activity.startActivity(intent);
                 }
             }
        });

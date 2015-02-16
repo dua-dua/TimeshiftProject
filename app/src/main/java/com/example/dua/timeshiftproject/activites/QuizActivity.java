@@ -25,6 +25,7 @@ public class QuizActivity extends Activity{
         Intent intent = getIntent();
 
         boolean isMaster = intent.getBooleanExtra("isMaster", false);
+        int counter = intent.getIntExtra("counter",1);
 
         if(isMaster==true){
             Log.v("test", "I am the master");
@@ -32,7 +33,7 @@ public class QuizActivity extends Activity{
         else{
             Log.v("test", "I am not the master");
         }
-        QuizInterface quizInterface = new QuizInterface(this, quizWebView,isMaster);
+        QuizInterface quizInterface = new QuizInterface(this, quizWebView,isMaster, counter);
         quizWebView.addJavascriptInterface(quizInterface, "QuizInterface");
     }
 

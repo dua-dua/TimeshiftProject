@@ -41,6 +41,7 @@
         <activity android:name=".activites.LobbyActivity"></activity>
         <activity android:name=".activites.QuizActivity"></activity>
         <activity android:name=".activites.ScoreActivity"></activity>
+        <activity android:name=".activites.FinalScoreActivity"></activity>
 
         <receiver android:name="MyReceiver">
             <intent-filter>

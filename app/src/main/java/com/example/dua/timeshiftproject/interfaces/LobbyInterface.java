@@ -73,6 +73,7 @@ public class LobbyInterface {
     public void redir(){
         Intent intent = new Intent(activity, QuizActivity.class);
         intent.putExtra("isMaster", true);
+        intent.putExtra("counter", 0);
         activity.startActivity(intent);
 
 
@@ -135,6 +136,7 @@ public class LobbyInterface {
 
       Intent intent = new Intent(staticActivity, QuizActivity.class);
       intent.putExtra("test", "test");
+      intent.putExtra("counter", 0);
       staticActivity.startActivity(intent);
     }
     public static void isReady(String name) {
