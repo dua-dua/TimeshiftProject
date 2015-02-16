@@ -1,7 +1,9 @@
 package com.example.dua.timeshiftproject.activites;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 
 import com.example.dua.timeshiftproject.R;
@@ -20,7 +22,9 @@ public class MenuActivity extends Activity{
         menuWebView = (WebView)findViewById(R.id.webview3);
         menuWebView.loadUrl("file:///android_asset/www/index.html");
         JavaScriptInterface jsInterface = new JavaScriptInterface(this, menuWebView);
-
+        Intent intent = getIntent();
+        String text = intent.getStringExtra("test");
+        Log.v("test", text);
 
         menuWebView.getSettings().setJavaScriptEnabled(true);
         menuWebView.addJavascriptInterface(jsInterface, "JSInterface");

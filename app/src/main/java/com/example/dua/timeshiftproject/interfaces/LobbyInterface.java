@@ -2,6 +2,7 @@ package com.example.dua.timeshiftproject.interfaces;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -71,6 +72,7 @@ public class LobbyInterface {
     @JavascriptInterface
     public void redir(){
         Intent intent = new Intent(activity, QuizActivity.class);
+        intent.putExtra("isMaster", true);
         activity.startActivity(intent);
 
 
@@ -132,6 +134,7 @@ public class LobbyInterface {
     public static void startQuiz() {
 
       Intent intent = new Intent(staticActivity, QuizActivity.class);
+      intent.putExtra("test", "test");
       staticActivity.startActivity(intent);
     }
     public static void isReady(String name) {

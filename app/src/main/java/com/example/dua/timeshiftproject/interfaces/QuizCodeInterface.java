@@ -72,19 +72,14 @@ public class QuizCodeInterface {
                                 parseObject.put("master", ParseUser.getCurrentUser().getUsername());
 
                                     parseObject.saveInBackground();
-
                             }
                             for(int a = 0; names.size() > a; a++){
                                 if(names.get(a)!=ParseUser.getCurrentUser().getUsername()){
                                     Log.v("test",names.get(a));
                                 }
-
-
                             }
-
                             Intent intent = new Intent(activity, LobbyActivity.class);
                             activity.startActivity(intent);
-                            //webView.loadUrl("file:///android_asset/www/lobby.html");
                         }
                     });
                 }

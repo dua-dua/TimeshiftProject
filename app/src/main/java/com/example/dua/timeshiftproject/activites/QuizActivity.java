@@ -1,6 +1,7 @@
 package com.example.dua.timeshiftproject.activites;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
@@ -21,7 +22,18 @@ public class QuizActivity extends Activity{
         quizWebView = (WebView)findViewById(R.id.webview6);
         quizWebView.getSettings().setJavaScriptEnabled(true);
         quizWebView.loadUrl("File:///android_asset/www/quiz.html");
-        QuizInterface quizInterface = new QuizInterface(this, quizWebView);
+        Intent intent = getIntent();
+
+        boolean isMaster = intent.getBooleanExtra("isMaster", false);
+        
+
+        if(isMaster==true){
+            Log.v("test", "I am the master");
+        }
+        else{
+            Log.v("test", "I am not the master");
+        }
+        QuizInterface quizInterface = new QuizInterface(this, quizWebView,isMaster);
         quizWebView.addJavascriptInterface(quizInterface, "QuizInterface");
 
 

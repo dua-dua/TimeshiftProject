@@ -30,13 +30,15 @@ public class QuizInterface {
     private static WebView webView;
     private static List<String> list;
     private static boolean hasAnswered = false;
+    private boolean isMaster=false;
 
 
 
-    public QuizInterface(QuizActivity act, WebView webView) {
+    public QuizInterface(QuizActivity act, WebView webView, boolean master) {
         this.activity = act;
         this.webView = webView;
         webViewStatic = webView;
+        isMaster = master;
     }
 
     @JavascriptInterface

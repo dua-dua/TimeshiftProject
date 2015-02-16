@@ -55,6 +55,7 @@ public class LoginInterface {
             @Override
             public void run() {
                 Intent intent = new Intent(activity, MenuActivity.class);
+                intent.putExtra("test", "from Intent");
                 activity.startActivity(intent);
                 //webView.loadUrl(url);
                 //webView.loadUrl("javascript:yoyo()");
