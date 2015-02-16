@@ -1,38 +1,34 @@
 package com.example.dua.timeshiftproject.interfaces;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.example.dua.timeshiftproject.activites.FinalScoreActivity;
 import com.example.dua.timeshiftproject.activites.MainActivity;
-import com.example.dua.timeshiftproject.activites.QuizCodeActivity;
 import com.example.dua.timeshiftproject.activites.ScoreActivity;
-import com.example.dua.timeshiftproject.interfaces.JavaScriptInterface;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-public class ScoreScreenInterface {
+public class FinalScoreScreenInterface {
 
-    private ScoreActivity activity;
+    private FinalScoreActivity activity;
     private WebView webView;
     private static WebView webViewStatic;
 
 
-    public ScoreScreenInterface(ScoreActivity act, WebView webView) {
+    public FinalScoreScreenInterface(FinalScoreActivity act, WebView webView) {
         this.activity = act;
         this.webView = webView;
         webViewStatic = webView;
@@ -108,5 +104,11 @@ public class ScoreScreenInterface {
         );
         sortedEntries.addAll(map.entrySet());
         return sortedEntries;
+    }
+
+    @JavascriptInterface
+    public void toMenu(){
+        Intent intent = new Intent(activity, MainActivity.class);
+        activity.startActivity(intent);
     }
 }

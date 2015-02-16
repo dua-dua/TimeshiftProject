@@ -10,3 +10,7 @@ function testSetText(){
     window.SSInterface.getTopFive();
 }
 
+function redirMenu(){
+    window.SSInterface.toMenu();
+}
+

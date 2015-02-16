@@ -34,11 +34,9 @@ public class QuizActivity extends Activity{
         }
         QuizInterface quizInterface = new QuizInterface(this, quizWebView,isMaster);
         quizWebView.addJavascriptInterface(quizInterface, "QuizInterface");
-
-
     }
+
     public void test(){
         Log.v("test", "quizTest");
     }
-
 }

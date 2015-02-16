@@ -6,6 +6,7 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.example.dua.timeshiftproject.activites.FinalScoreActivity;
 import com.example.dua.timeshiftproject.activites.QuizActivity;
 import com.example.dua.timeshiftproject.activites.ScoreActivity;
 import com.parse.DeleteCallback;
@@ -89,49 +90,6 @@ public class QuizInterface {
         });
     }
 
-
-
-    @JavascriptInterface
-    public static void getQuizAndSaveLocal(String quizcode){
-
-        //Hent quiz basert på quizcode
-        //Hente alle questions fra quiz
-        //Lage parseObject for hvert question i local storage
-
-        final String QUIZ_LABEL = "quiz";
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Quiz");
-        query.whereEqualTo("code", quizcode);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(final List<ParseObject> list, ParseException e) {
-                if (e != null) {
-                    // There was an error or the network wasn't available.
-                    return;
-
-                }
-
-                // Release any objects previously pinned for this query.
-                ParseObject.unpinAllInBackground(QUIZ_LABEL, list, new DeleteCallback() {
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            // There was some error.
-                            return;
-                        }
-
-                        // Lagre quizObject i en liste
-                        //ParseObject.pinAllInBackground(QUIZ_LABEL, list);
-                        List<String> questionList = list.get(0).getList("questions");
-                        Log.v("tag","saved in local");
-                        for(int i = 0; i<questionList.size(); i++){
-                            Log.v("tag",questionList.get(i).toString());
-                        }
-                    }
-                });
-            }
-        });
-
-
-    }
-
     @JavascriptInterface
     public static void playerAnswered(final int numScore, final boolean isBot, final String answer){
         Log.v("tag","Entered playerAnswered with answer "+answer);
@@ -174,11 +132,6 @@ public class QuizInterface {
                 }
             }
         });
-    }
-
-    public void getCorrectAnswer(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Question");
-
     }
 
     @JavascriptInterface
@@ -237,7 +190,7 @@ public class QuizInterface {
     }
 
     @JavascriptInterface
-    public void getNextQuestion(){
+    public static void getNextQuestion(){
         Log.v("tag","start getnextq");
         final String channel = JavaScriptInterface.getCurrentChannel();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
@@ -251,8 +204,13 @@ public class QuizInterface {
                 } else {
                     Log.v("tag", "Found lobby, getting count");
                     getQuestionArray(channel, parseObject.getInt("counter"));
-                    if (parseObject.getString("master") == ParseUser.getCurrentUser().toString()) {
+                    Log.v("counter","hentet quiz");
+                    Log.v("counter","master: "+parseObject.getString("master"));
+                    Log.v("counter","current user: "+ParseUser.getCurrentUser().getUsername());
+                    Log.v("counter","current user string: "+ParseUser.getCurrentUser().getUsername().toString());
+                    if (parseObject.getString("master").equals(ParseUser.getCurrentUser().getUsername())) {
                         parseObject.increment("counter");
+                        Log.v("counter","++sd");
                         parseObject.saveInBackground();
                     }
                 }
@@ -273,5 +231,33 @@ public class QuizInterface {
         }
 
         activity.startActivity(intent);
+    }
+
+    @JavascriptInterface
+    public void toFinalScore(){
+        activity.test();
+        Log.v("test", "toFinalScore");
+        if(hasAnswered==false){
+            playerAnswered(0, false, null);
+        }
+        Intent intent = new Intent(activity, FinalScoreActivity.class);
+        activity.startActivity(intent);
+    }
+
+    @JavascriptInterface
+    public void moreQuestions(final int count){
+        final String channel = JavaScriptInterface.getCurrentChannel();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Quiz");
+        query.whereEqualTo("code", channel);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                if(count == parseObject.getList("questions").size()){
+                   toFinalScore();
+                }else{
+                   toScore();
+                }
+            }
+       });
     }
 }
