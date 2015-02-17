@@ -79,7 +79,12 @@ public class JavaScriptInterface {
         Log.v("test", "toQuizCode");
         Intent intent = new Intent(activity, QuizCodeActivity.class);
         activity.startActivity(intent);
+    }
 
+    @JavascriptInterface
+    public void exit() {
+        activity.finish();
+        System.exit(0);
     }
 
 }

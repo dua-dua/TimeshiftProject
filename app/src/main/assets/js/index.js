@@ -17,3 +17,7 @@ function redirQuizcode(){
     /*window.LoginInterface.redir("file:///android_asset/www/quizcode.html")*/
     window.JSInterface.toQuizCode();
 }
+
+function exit(){
+    window.JSInterface.exit();
+}

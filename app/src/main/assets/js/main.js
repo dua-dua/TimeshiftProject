@@ -56,6 +56,16 @@ function addToList(name, scores, wait){
 	setTimeout(function(){$("#playerList").append('<li class="lobbyList "><span class="tab"> ' + name +'</span></li>')}, wait);
 }
 
+function botHandling(){
+    addBots(1);
+    $("#waiting").text($("li").length);
+}
+
+function loop(){
+    window.setInterval(addBots(1), 2000);
+    $("#waiting").text($("li").length);
+}
+
 function notifyPlayer(){
 	$("#notification").css({ opacity: 0 });
 	$("#notification").fadeTo( 1200, 1 ); //kan spare tid ved å droppe denne
@@ -113,3 +123,5 @@ function altSelected(e){
 function waitingText(){
 	$("#question").text("You answered!");
 }
+
+$(loop());
