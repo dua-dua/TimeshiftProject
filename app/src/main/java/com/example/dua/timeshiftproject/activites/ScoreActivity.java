@@ -40,7 +40,9 @@ public class ScoreActivity extends Activity {
         counter = intent.getIntExtra("counter", 1);
         if(isMaster==true){
             Log.v("test", "master in scorescreen");
+            Log.v("test", "the value of counter " +String.valueOf(counter));
             counter ++;
+
         }
 
         timer();

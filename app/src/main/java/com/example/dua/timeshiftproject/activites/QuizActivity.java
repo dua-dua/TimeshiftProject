@@ -29,6 +29,7 @@ public class QuizActivity extends Activity{
 
         if(isMaster==true){
             Log.v("test", "I am the master");
+            Log.v("test", String.valueOf(counter)+ "the value of counter in quiz");
         }
         else{
             Log.v("test", "I am not the master");

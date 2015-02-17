@@ -32,7 +32,7 @@ public class QuizInterface {
     private static List<String> list;
     private static boolean hasAnswered = false;
     private boolean isMaster=false;
-    private int counter;
+    private static int counter;
 
 
 
@@ -42,6 +42,7 @@ public class QuizInterface {
         webViewStatic = webView;
         isMaster = master;
         this.counter = counter;
+        Log.v("test", "the value of counter in QInterface " + String.valueOf(counter));
     }
 
     @JavascriptInterface
@@ -54,11 +55,12 @@ public class QuizInterface {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
                 if (parseObject == null) {
-                    Log.v("tag", "null");
+                    
                 } else {
-                    Log.v("tag", "not null");
+
                     list = parseObject.getList("questions");
-                    getQuestion(list.get(count).toString());
+                    getQuestion(list.get(count-1).toString());
+
                 }
             }
         });
@@ -194,6 +196,7 @@ public class QuizInterface {
     @JavascriptInterface
     public static void getNextQuestion(){
         Log.v("tag","start getnextq");
+
         final String channel = JavaScriptInterface.getCurrentChannel();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
         query.whereEqualTo("lobbyId", channel);
@@ -205,7 +208,7 @@ public class QuizInterface {
 
                 } else {
                     Log.v("tag", "Found lobby, getting count");
-                    getQuestionArray(channel, parseObject.getInt("counter"));
+                    getQuestionArray(channel, counter);
                     Log.v("counter","hentet quiz");
                     Log.v("counter","master: "+parseObject.getString("master"));
                     Log.v("counter","current user: "+ParseUser.getCurrentUser().getUsername());
@@ -267,8 +270,10 @@ public class QuizInterface {
                         playerAnswered(0, false, null);
                     }
                     Intent intent = new Intent(activity, ScoreActivity.class);
+
                     if(isMaster==true){
                         intent.putExtra("isMaster", true);
+                        intent.putExtra("counter", count);
                     }
 
                     activity.startActivity(intent);

@@ -19,6 +19,7 @@ public class FinalScoreActivity extends Activity {
         scoreWebView.getSettings().setJavaScriptEnabled(true);
         FinalScoreScreenInterface finalScoreScreenInterface = new FinalScoreScreenInterface(this, scoreWebView);
         scoreWebView.addJavascriptInterface(finalScoreScreenInterface, "FSSInterface");
+
     }
 }
 
