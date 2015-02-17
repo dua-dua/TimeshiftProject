@@ -50,12 +50,12 @@ public class QuizInterface {
         Log.v("tag","Started qetQuestionArray");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Quiz");
         query.whereEqualTo("code", quizcode);
-        Log.v("tag","made query");
+        Log.v("tag","made query ");
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
                 if (parseObject == null) {
-                    
+
                 } else {
 
                     list = parseObject.getList("questions");
