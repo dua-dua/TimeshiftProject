@@ -181,7 +181,7 @@ public class LobbyInterface {
         }
     }
 
-    public boolean getMaster(){
+    public static boolean getMaster(){
         return isMaster;
     }
 }

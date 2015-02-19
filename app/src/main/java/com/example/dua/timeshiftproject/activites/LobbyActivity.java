@@ -36,10 +36,8 @@ public class LobbyActivity extends Activity {
         LobbyInterface lobbyInterface = new LobbyInterface(this, lobbyWebView);
         lobbyWebView.addJavascriptInterface(lobbyInterface, "LobbyInterface");
         Log.v("lobby","Am I the master? "+lobbyInterface.getMaster());
-        if(lobbyInterface.getMaster()){
-            addBotsToLobby();
-        }
-        Log.v("lobby","Am I the master now? "+lobbyInterface.getMaster());
+        checkMaster();
+
     }
 
     public void addBotsToLobby() {
@@ -99,6 +97,7 @@ public class LobbyActivity extends Activity {
             public void run() {
                 JSONObject data = null;
                 try {
+
                     data = new JSONObject();
                     data.put("type", "userReady");
                     data.put("name", name);
@@ -115,5 +114,17 @@ public class LobbyActivity extends Activity {
                 Log.v("lobby", name + " is ready!");
             }
         }, time);
+    }
+
+    public void checkMaster(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if(LobbyInterface.getMaster()){
+                    addBotsToLobby();
+                }
+                Log.v("lobby","Am I the master now? "+LobbyInterface.getMaster());
+            }
+        }, 2000);
     }
 }
