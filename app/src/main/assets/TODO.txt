@@ -5,9 +5,9 @@ TODO:
     * tømme players[] i lobbylist
     * sette counter = 0 i lobbylist
 
-- Logikk for adding av bots basert på antall players (max 10 players? add bot etter ett gitt intervall, men etter random tid)
-    * Husk å generere scores for bots i databasen
-    * Adde bots til lobbylist så de synes for de som joiner sent
+- Adde bots til lobbylist så de synes for de som joiner sent
+
+- Score blir ikke satt til null om man ikke svarer
 
 - Chat i scorescreen, for avansert? Bruke predefined emotes/comments som i Wii og HS, lage chat vha. JSON og receiver
     * Hello!

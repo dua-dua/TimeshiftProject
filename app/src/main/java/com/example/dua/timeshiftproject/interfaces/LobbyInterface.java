@@ -47,7 +47,6 @@ public class LobbyInterface {
         ParseUser pUser = ParseUser.getCurrentUser();
         String name = "";
         String channel = "";
-
         name = pUser.getUsername();
         JSONObject data = null;
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
