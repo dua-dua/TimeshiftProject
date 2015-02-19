@@ -12,6 +12,7 @@ import com.example.dua.timeshiftproject.interfaces.LobbyInterface;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 
 import org.json.JSONException;
@@ -41,7 +42,7 @@ public class LobbyActivity extends Activity {
     }
 
     //if master
-    //  LobbyInterface.addBotsToLobby();
+    //  addBotsToLobby();
 
     public void addBotsToLobby() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
@@ -56,7 +57,10 @@ public class LobbyActivity extends Activity {
                 }
 
                 for(int j = 0; j < names.length; j++){
-                    addBotsToLobbyWithTimer(names[j], (long)(2000+Math.random()*1500));
+                    long time = (long)(2000 + Math.random() * 3500);
+                    String name = names[j];
+                    addBotsToLobbyWithTimer(name, time);
+                    setBotReadyTimer(name, time + 1000 + (long)Math.random()*2000);
                 }
             }
         });
@@ -77,8 +81,36 @@ public class LobbyActivity extends Activity {
                 catch (JSONException e1) {
                     e1.printStackTrace();
                 }
-                //webView.loadUrl("javascript:printPlayers(\"" + name + "\")");
+
                 Log.v("bot","added "+name);
+                ParsePush push = new ParsePush();
+                push.setChannel(channel);
+                push.setData(data);
+                push.sendInBackground();
+            }
+        }, time);
+    }
+
+    public void setBotReadyTimer(final String name, long time){
+        final String channel = JavaScriptInterface.getCurrentChannel();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                JSONObject data = null;
+                try {
+                    data = new JSONObject();
+                    data.put("type", "userReady");
+                    data.put("name", name);
+                    data.put("channel", channel);
+                }
+                catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
+                Log.v("bot","isReady "+name);
+                ParsePush push = new ParsePush();
+                push.setChannel(channel);
+                push.setData(data);
+                push.sendInBackground();
             }
         }, time);
     }
