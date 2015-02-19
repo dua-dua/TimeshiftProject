@@ -250,6 +250,7 @@ public class QuizInterface {
         }
         Intent intent = new Intent(activity, FinalScoreActivity.class);
         activity.startActivity(intent);
+        activity.finish();
     }
 
     @JavascriptInterface
