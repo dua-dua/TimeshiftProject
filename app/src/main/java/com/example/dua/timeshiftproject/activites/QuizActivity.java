@@ -3,6 +3,7 @@ package com.example.dua.timeshiftproject.activites;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.webkit.WebView;
 
@@ -12,7 +13,11 @@ import com.example.dua.timeshiftproject.interfaces.QuizInterface;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,31 +69,66 @@ public class QuizActivity extends Activity{
                 Log.v("botTest", "everRun");
                 Log.v("botTest", String.valueOf(parseObjects.size()));
 
-                for(int a=0; a<parseObjects.size(); a++){
+                for (int a = 0; a < parseObjects.size(); a++) {
                     Log.v("botTest", "everRunFor");
                     ParseObject bot = parseObjects.get(a);
                     String name = bot.getString("userid");
                     ArrayList<Object> scores = (ArrayList<Object>) bot.getList("scores");
                     ArrayList<Integer> intScores = new ArrayList<Integer>();
+
                     for(int b=0; b<scores.size(); b++){
                         intScores.add(Integer.parseInt((String)scores.get(b)));
                         Log.v("botInt", intScores.get(b).toString());
+
                     }
                     Log.v("botTime", "count " + Integer.toString(count-1));
                     Log.v("botTime", Integer.toString(intScores.get(count-1)));
                     int value = calculateTimeOfScore(intScores.get(count-1));
-                    
-
+                    botAnswerTimer(name, value);
 
                 }
             }
         });
     }
+
+
+    public void botAnswerTimer(final String name, long time){
+        Log.v("bot","started bot timer for "+name+", with time "+time);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+
+                sendJSONNotificationForBot(name);
+                Log.v("bot","ended timer for "+name);
+            }
+        }, time);
+    }
+
+    public static void sendJSONNotificationForBot(String name) {
+        String channel = JavaScriptInterface.getCurrentChannel();
+        JSONObject data = null;
+
+        try {
+            data = new JSONObject();
+            data.put("type", "userAnswer");
+            data.put("name", name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ParsePush push = new ParsePush();
+        push.setChannel(channel);
+        push.setData(data);
+        push.sendInBackground();
+        Log.v("tag", "Sent JSON from sendJSONNotification");
+    }
+
     public int calculateTimeOfScore(int score){
         int time = (int)((1000-score)*22.5);
 
         Log.v("botTime", Integer.toString(time));
         return time;
+
 
     }
 }
