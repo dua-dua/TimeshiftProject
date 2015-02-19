@@ -26,7 +26,7 @@ public class QuizActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setBotAnswers();
+
         setContentView(R.layout.activity_quiz);
         quizWebView = (WebView)findViewById(R.id.webview6);
         quizWebView.getSettings().setJavaScriptEnabled(true);
@@ -35,6 +35,7 @@ public class QuizActivity extends Activity{
 
         boolean isMaster = intent.getBooleanExtra("isMaster", false);
         int counter = intent.getIntExtra("counter",1);
+        setBotAnswers(counter);
 
         if(isMaster==true){
             Log.v("test", "I am the master");
@@ -51,7 +52,7 @@ public class QuizActivity extends Activity{
         Log.v("test", "quizTest");
     }
 
-    public void setBotAnswers(){
+    public void setBotAnswers(final int count){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
         query.whereEqualTo("quizid", JavaScriptInterface.getCurrentChannel());
         Log.v("bot", JavaScriptInterface.getCurrentChannel());
@@ -71,14 +72,23 @@ public class QuizActivity extends Activity{
                     ArrayList<Integer> intScores = new ArrayList<Integer>();
                     for(int b=0; b<scores.size(); b++){
                         intScores.add(Integer.parseInt((String)scores.get(b)));
+                        Log.v("botInt", intScores.get(b).toString());
                     }
+                    Log.v("botTime", "count " + Integer.toString(count-1));
+                    Log.v("botTime", Integer.toString(intScores.get(count-1)));
+                    int value = calculateTimeOfScore(intScores.get(count-1));
+                    
 
-                    String temp = (String) scores.get(a);
-
-                    Log.v("botTest", temp);
 
                 }
             }
         });
+    }
+    public int calculateTimeOfScore(int score){
+        int time = (int)((1000-score)*22.5);
+
+        Log.v("botTime", Integer.toString(time));
+        return time;
+
     }
 }
