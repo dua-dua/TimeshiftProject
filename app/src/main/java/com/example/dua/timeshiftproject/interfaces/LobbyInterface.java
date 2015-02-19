@@ -180,4 +180,8 @@ public class LobbyInterface {
 
         }
     }
+
+    public boolean getMaster(){
+        return isMaster;
+    }
 }

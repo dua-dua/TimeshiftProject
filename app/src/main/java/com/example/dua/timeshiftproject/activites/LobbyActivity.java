@@ -28,21 +28,19 @@ public class LobbyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
-
         Log.v("test", "in lobbyAct");
-
         setContentView(R.layout.activity_lobby);
         lobbyWebView = (WebView)findViewById(R.id.webview5);
         lobbyWebView.getSettings().setJavaScriptEnabled(true);
         lobbyWebView.loadUrl("file:///android_asset/www/lobby.html");
         LobbyInterface lobbyInterface = new LobbyInterface(this, lobbyWebView);
         lobbyWebView.addJavascriptInterface(lobbyInterface, "LobbyInterface");
-
+        Log.v("lobby","Am I the master? "+lobbyInterface.getMaster());
+        if(lobbyInterface.getMaster()){
+            addBotsToLobby();
+        }
+        Log.v("lobby","Am I the master now? "+lobbyInterface.getMaster());
     }
-
-    //if master
-    //  addBotsToLobby();
 
     public void addBotsToLobby() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
@@ -59,11 +57,13 @@ public class LobbyActivity extends Activity {
                 for(int j = 0; j < names.length; j++){
                     long time = (long)(2000 + Math.random() * 3500);
                     String name = names[j];
+                    Log.v("lobby","Adding stuff #" + j);
                     addBotsToLobbyWithTimer(name, time);
                     setBotReadyTimer(name, time + 1000 + (long)Math.random()*2000);
                 }
             }
         });
+        Log.v("lobby","Finished addBotsToLobby");
     }
 
     public void addBotsToLobbyWithTimer(final String name, long time){
@@ -87,6 +87,7 @@ public class LobbyActivity extends Activity {
                 push.setChannel(channel);
                 push.setData(data);
                 push.sendInBackground();
+                Log.v("lobby","Someone powerful added me and my name is "+ name);
             }
         }, time);
     }
@@ -111,6 +112,7 @@ public class LobbyActivity extends Activity {
                 push.setChannel(channel);
                 push.setData(data);
                 push.sendInBackground();
+                Log.v("lobby", name + " is ready!");
             }
         }, time);
     }
