@@ -104,6 +104,7 @@ public class QuizInterface {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
         query.whereEqualTo("quizid", channel);
         query.whereEqualTo("userid", user);
+
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(final ParseObject parseObject, com.parse.ParseException e) {

@@ -70,6 +70,7 @@ function toScore(){
     QuizInterface.toScore();
 }
 
+
 $(function(){
     window.QuizInterface.getNextQuestion();
     progressbar();
