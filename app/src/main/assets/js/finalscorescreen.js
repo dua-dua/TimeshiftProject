@@ -14,3 +14,8 @@ function redirMenu(){
     window.FSSInterface.toMenu();
 }
 
+function clearDB(){
+    window.FSSInterface.clearLobbyArray();
+    $("#testButton").text("hello");
+}
+

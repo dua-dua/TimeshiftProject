@@ -43,9 +43,11 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
                 break;
         }
     }
+
     private void startQuiz(){
         LobbyInterface.startQuiz();
     }
+
     private void userJoinedLobby(Context context, JSONObject obj)  {
 
         String name = "";

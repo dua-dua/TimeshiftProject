@@ -14,3 +14,5 @@ function redirMenu(){
     window.SSInterface.toMenu();
 }
 
+
+

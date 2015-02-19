@@ -1,11 +1,16 @@
 TODO:
 -----
-- Fikse sekvens for question -> tempScore -> newQuestion (gjenbruk av ready i lobby for å komme til neste quiz) sjekke om det er flere spm
-- Rydde i database mellom hver quiz (slette lobby etter quiz, gjøre om players til bots etter en quiz)
+- [DONE, men fungerer ikke i FSSInterface] Rydde i database mellom hver quiz
+    * isBot = true på alle spillere
+    * tømme players[] i lobbylist
+    * sette counter = 0 i lobbylist
+
 - Logikk for adding av bots basert på antall players (max 10 players? add bot etter ett gitt intervall, men etter random tid)
     * Husk å generere scores for bots i databasen
-- Notification når bot svarer (master tar seg av å sende JSON når en bot svarer)
-- Chat i scorescreen, for avansert?? Bruke predefined emotes/comments som i Wii og HS, lage chat vha. JSON og receiver
+
+- Notification når bot svarer (master tar seg av å sende JSON når en bot svarer, bruke playerAnswer i parseReceiver)
+
+- Chat i scorescreen, for avansert? Bruke predefined emotes/comments som i Wii og HS, lage chat vha. JSON og receiver
     * Hello!
     * Easy!
     * This is too hard

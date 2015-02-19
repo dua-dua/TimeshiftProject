@@ -9,13 +9,19 @@ import com.example.dua.timeshiftproject.activites.QuizCodeActivity;
 
 import android.webkit.WebView;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 import com.parse.ParsePush;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -85,6 +91,59 @@ public class JavaScriptInterface {
     public void exit() {
         activity.finish();
         System.exit(0);
+    }
+
+    public void clearLobbyArray() {
+        Log.v("daab", "inClearLobbyArray");
+        String channel = JavaScriptInterface.getCurrentChannel();
+        ParseQuery query = new ParseQuery("LobbyList");
+        final String[] scores = {};
+        query.whereEqualTo("lobbyId", "test");
+        query.getFirstInBackground(new GetCallback(){
+            @Override
+
+            public void done(ParseObject parseObject, ParseException e) {
+                if(e != null){
+                    Log.v("daab","exception");
+                }else{
+                    Log.v("daab","no exception");
+                    parseObject.put("players", Arrays.asList(scores));
+                    parseObject.put("counter", 0);
+                    parseObject.saveInBackground();
+                }
+
+            }
+        });
+    }
+
+    public void makeBotsFromPlayers() {
+        String channel = JavaScriptInterface.getCurrentChannel();
+        ParseQuery query = new ParseQuery("Scores");
+        query.whereEqualTo("quizid", "test");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> parseObjects, ParseException e) {
+                if(parseObjects == null){
+                    Log.v("daab","list is null");
+                }else {
+                    Log.v("daab","list is not null");
+                    for (int i = 0; i < parseObjects.size(); i++) {
+                        parseObjects.get(i).put("bot", true);
+                        parseObjects.get(i).saveInBackground();
+                    }
+                }
+            }
+        });
+    }
+
+
+
+    @JavascriptInterface
+    public void clearDatabase(){
+        Log.v("daab","clear db start");
+        makeBotsFromPlayers();
+        clearLobbyArray();
+        Log.v("daab","clear db end");
     }
 
 }

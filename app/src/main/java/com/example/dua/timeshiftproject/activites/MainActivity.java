@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
 
 
         mWebView = (WebView)findViewById(R.id.webview1);
-        mWebView.loadUrl("file:///android_asset/www/index.html");
+        //mWebView.loadUrl("file:///android_asset/www/index.html");
         JavaScriptInterface jsInterface = new JavaScriptInterface(this, mWebView);
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);

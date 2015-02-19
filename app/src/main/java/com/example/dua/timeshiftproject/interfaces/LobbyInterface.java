@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 public class LobbyInterface {
     private static WebView webViewStatic;
     private static Activity staticActivity;

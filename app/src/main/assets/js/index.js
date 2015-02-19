@@ -21,3 +21,8 @@ function redirQuizcode(){
 function exit(){
     window.JSInterface.exit();
 }
+
+function clearDB(){
+    window.JSInterface.clearDatabase();
+    $("#testButton").text("hello");
+}
