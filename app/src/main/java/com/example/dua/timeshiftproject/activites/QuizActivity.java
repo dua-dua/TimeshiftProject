@@ -93,7 +93,7 @@ public class QuizActivity extends Activity{
         handler.postDelayed(new Runnable() {
             public void run() {
                 // Actions to do after 10 seconds
-                QuizInterface.sendJSONNotificationForBot(name);
+                sendJSONNotificationForBot(name);
                 Log.v("bot","ended timer for "+name);
             }
         }, time);
