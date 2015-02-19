@@ -44,7 +44,6 @@ public class ScoreActivity extends Activity {
             counter ++;
 
         }
-
         timer();
     }
 

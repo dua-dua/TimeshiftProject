@@ -37,14 +37,14 @@ public class QuizActivity extends Activity{
         quizWebView.getSettings().setJavaScriptEnabled(true);
         quizWebView.loadUrl("File:///android_asset/www/quiz.html");
         Intent intent = getIntent();
-
         boolean isMaster = intent.getBooleanExtra("isMaster", false);
         int counter = intent.getIntExtra("counter",1);
-        setBotAnswers(counter);
+
 
         if(isMaster==true){
             Log.v("test", "I am the master");
             Log.v("test", String.valueOf(counter)+ "the value of counter in quiz");
+            setBotAnswers(counter);
         }
         else{
             Log.v("test", "I am not the master");

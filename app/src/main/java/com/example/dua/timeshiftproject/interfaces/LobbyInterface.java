@@ -3,11 +3,13 @@ package com.example.dua.timeshiftproject.interfaces;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import com.example.dua.timeshiftproject.activites.QuizActivity;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -68,18 +70,17 @@ public class LobbyInterface {
 
         Log.v("tag", "User " + name + " is ready in channel " + channel);
     }
+
     @JavascriptInterface
     public void redir(){
         Intent intent = new Intent(activity, QuizActivity.class);
         intent.putExtra("isMaster", true);
         intent.putExtra("counter", 1);
         activity.startActivity(intent);
-
-
     }
+
     @JavascriptInterface
     public void getPlayers(){
-        Log.v("wtf", "wtf");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         List channelList = installation.getList("channels");
@@ -158,8 +159,6 @@ public class LobbyInterface {
             Log.v("test", "allReady");
             JSONObject data = null;
             Date date = new Date();
-
-
 
             try {
                 data = new JSONObject();
