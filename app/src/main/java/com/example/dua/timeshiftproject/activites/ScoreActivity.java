@@ -24,6 +24,14 @@ public class ScoreActivity extends Activity {
     private WebView scoreWebView;
     private int counter;
     private boolean isMaster;
+    private Handler handler;
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            Log.v("timer", "ended timer");
+            toNextQuestion();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
@@ -47,16 +55,16 @@ public class ScoreActivity extends Activity {
         timer();
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        handler.removeCallbacks(runnable);
+    }
+
     public void timer(){
         Log.v("timer","started timer");
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                // Actions to do after 10 seconds
-                Log.v("timer","ended timer");
-                toNextQuestion();
-            }
-        }, 10000);
+        handler = new Handler();
+        handler.postDelayed(runnable,10000);
     }
 
     public void toNextQuestion(){
@@ -67,6 +75,7 @@ public class ScoreActivity extends Activity {
         }
 
         this.startActivity(intent);
+        this.finish();
 
     }
 }
