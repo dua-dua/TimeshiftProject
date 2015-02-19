@@ -74,6 +74,7 @@ public class LobbyInterface {
         intent.putExtra("isMaster", true);
         intent.putExtra("counter", 1);
         activity.startActivity(intent);
+        activity.finish();
 
 
     }
@@ -138,6 +139,7 @@ public class LobbyInterface {
       intent.putExtra("isMaster", true);
       intent.putExtra("counter", 1);
       staticActivity.startActivity(intent);
+      staticActivity.finish();
     }
     public static void isReady(String name) {
         webView.loadUrl("javascript:isReady(\""+ name +"\")");

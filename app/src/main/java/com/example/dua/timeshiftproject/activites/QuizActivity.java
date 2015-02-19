@@ -52,6 +52,11 @@ public class QuizActivity extends Activity{
         QuizInterface quizInterface = new QuizInterface(this, quizWebView,isMaster, counter);
         quizWebView.addJavascriptInterface(quizInterface, "QuizInterface");
     }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        quizWebView.loadUrl("javascript:stopTimeOut()");
+    }
 
     public void test(){
         Log.v("test", "quizTest");

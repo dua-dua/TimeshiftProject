@@ -278,6 +278,7 @@ public class QuizInterface {
                     }
 
                     activity.startActivity(intent);
+                    activity.finish();
                 }
             }
        });

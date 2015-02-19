@@ -69,10 +69,17 @@ function toScore(){
     $("#notificationText").text("toScore");
     QuizInterface.toScore();
 }
+var timeOut;
+
+function stopTimeOut(){
+    $("#stopTimeOut").text("timeOut Stopped");
+    window.clearTimeout(timeOut);
+
+}
 
 
 $(function(){
     window.QuizInterface.getNextQuestion();
     progressbar();
-    setTimeout(toScore, 22500);
+    timeOut = setTimeout(toScore, 22500);
 });

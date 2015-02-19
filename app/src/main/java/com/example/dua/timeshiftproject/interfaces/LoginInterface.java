@@ -57,6 +57,7 @@ public class LoginInterface {
                 Intent intent = new Intent(activity, MenuActivity.class);
                 intent.putExtra("test", "from Intent");
                 activity.startActivity(intent);
+                activity.finish();
             }
         });
 
