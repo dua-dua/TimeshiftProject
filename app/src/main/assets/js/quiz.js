@@ -36,9 +36,9 @@ function setAnswerText(ans){
 
 function notification(name){
     $("#notificationText").text(name + " has answered!");
-    $("#notificationText").fadeTo(500, 1);
+    /*$("#notificationText").fadeTo(500, 1);
     setTimeout(function(){
-    $("#notificationText").fadeTo(500, 0 )},1500);
+    $("#notificationText").fadeTo(500, 0 )},1500);*/
 }
 
 function progressbar(){

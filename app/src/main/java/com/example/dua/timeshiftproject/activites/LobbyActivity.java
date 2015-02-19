@@ -37,7 +37,6 @@ public class LobbyActivity extends Activity {
         lobbyWebView.addJavascriptInterface(lobbyInterface, "LobbyInterface");
         Log.v("lobby","Am I the master? "+lobbyInterface.getMaster());
         checkMaster();
-
     }
 
     public void addBotsToLobby() {
@@ -57,7 +56,7 @@ public class LobbyActivity extends Activity {
                     String name = names[j];
                     Log.v("lobby","Adding stuff #" + j);
                     addBotsToLobbyWithTimer(name, time);
-                    setBotReadyTimer(name, time + 1000 + (long)Math.random()*2000);
+                    setBotReadyTimer(name, time + 5000 + (long)Math.random()*2000);
                 }
             }
         });
@@ -125,6 +124,6 @@ public class LobbyActivity extends Activity {
                 }
                 Log.v("lobby","Am I the master now? "+LobbyInterface.getMaster());
             }
-        }, 2000);
+        }, 10000);
     }
 }
