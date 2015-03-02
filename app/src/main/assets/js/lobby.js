@@ -3,9 +3,23 @@ function readyClicked(){
     window.LobbyInterface.playerReady();
 }
 function printPlayers(name){
-    $("#playerList").append("<li>"+name+"<span id="+name+"></span></li>");
+    addToList(name);
+}
+function addToList(name){
+        var addit = true;
+        $("#playerList").each(function(){
+            if(name == $(this).text()){
+
+            }
+            else{
+                $("#playerList").append("<li>"+name+"<span id="+name+"></span></li>");
+            }
+
+        });
+
 }
 function isReady(name){
+
     $("#waiting").text(name);
     $("#"+name).text("test");
     $("#"+name).addClass("glyphicon glyphicon-ok glyphiconGreen");
