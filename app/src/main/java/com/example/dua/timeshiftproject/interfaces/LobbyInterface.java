@@ -40,6 +40,7 @@ public class LobbyInterface {
         this.webView = webView;
         webViewStatic = webView;
         staticActivity = act;
+        isMaster = false;
     }
 
     @JavascriptInterface

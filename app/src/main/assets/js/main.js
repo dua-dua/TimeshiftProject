@@ -64,11 +64,6 @@ function botHandling(){
     $("#waiting").text($("li").length);
 }
 
-function loop(){
-    window.setInterval(addBots(1), 2000);
-    $("#waiting").text($("li").length);
-}
-
 function notifyPlayer(){
 	$("#notification").css({ opacity: 0 });
 	$("#notification").fadeTo( 1200, 1 ); //kan spare tid ved å droppe denne

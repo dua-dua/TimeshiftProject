@@ -16,6 +16,5 @@ function redirQuiz(){
 
 $(function(){
     window.LobbyInterface.getPlayers();
-    $("#tester").text("testy");
 
 });

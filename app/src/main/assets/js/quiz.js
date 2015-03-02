@@ -10,7 +10,8 @@ function userAnswer(id){
     var correct = $("#correct").text();
     if(ans == correct){
         score = 1000-$("#progressbar").val();
-        alert("correct");
+    }else{
+        score = 0;
     }
     window.QuizInterface.playerAnswered(score, bot, ans);
 }

@@ -2,8 +2,6 @@ TODO:
 -----
 - Ready fra bots fungerer ikke helt for de som joiner sent
 
-- Score blir ikke satt til null om man ikke svarer
-
 - Chat i scorescreen, for avansert? Bruke predefined emotes/comments som i Wii og HS, lage chat vha. JSON og receiver
     * Hello!
     * Easy!

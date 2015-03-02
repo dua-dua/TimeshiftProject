@@ -254,7 +254,7 @@ public class QuizInterface {
     }
 
     @JavascriptInterface
-    public void moreQuestions(final int count){ //finne en måte å hente ut count på
+    public void moreQuestions(final int count){
         final String channel = JavaScriptInterface.getCurrentChannel();
         String counter = String.valueOf(count);
         Log.v("test", "the count " + counter);
