@@ -33,6 +33,7 @@ public class LobbyInterface {
     private static ArrayList<String> playerList = new ArrayList<String>();
     private static ArrayList<String> readyList = new ArrayList<String>();
     private static boolean isMaster = false;
+    private static boolean inLobby = false;
 
 
     public LobbyInterface(Activity act, WebView webView) {
@@ -40,6 +41,8 @@ public class LobbyInterface {
         this.webView = webView;
         webViewStatic = webView;
         staticActivity = act;
+        isMaster = false;
+        inLobby = true;
     }
 
     @JavascriptInterface
@@ -99,6 +102,7 @@ public class LobbyInterface {
                 String name = user.getUsername();
 
                 List<String> players = parseObject.getList("players");
+
                 if( players.size()==1){
                     isMaster=true;
                 }
@@ -106,6 +110,7 @@ public class LobbyInterface {
                 for(int a=0; a<players.size(); a++) {
                     if (players.get(a) != user.getUsername()) {
                         webView.loadUrl("javascript:printPlayers(\"" + players.get(a) + "\")");
+
                     }
                 }
                 try {
@@ -126,13 +131,19 @@ public class LobbyInterface {
     }
 
     public static void joinedLobby(String name){
-        if (!name.equals(ParseUser.getCurrentUser().getUsername())) {
-            playerList.add(name);
-            webView.loadUrl("javascript:printPlayers(\"" + name + "\")");
-        }
+     if(inLobby==true){
+         if (!name.equals(ParseUser.getCurrentUser().getUsername())) {
+             playerList.add(name);
+             webView.loadUrl("javascript:printPlayers(\"" + name + "\")");
+         }
+         else{
+             Log.v("test", "received own name" + name);
+         }
+     }
         else{
-            Log.v("test", "received own name" + name);
-        }
+         Log.v("lobby", "not in lobby yet");
+     }
+
     }
 
     public static void startQuiz() {
