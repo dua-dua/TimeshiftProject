@@ -2,7 +2,8 @@ TODO:
 -----
 - Fikse back to menu-knappen
 - Fjerne knapper i main menu  som ikke brukes
-- Hindre folk å svare mange ganger på ett spm (sjekke om fiksen funker)
+- Duplikater i lobbylist pga timing???
+
 - Chat i scorescreen, for avansert? Bruke predefined emotes/comments som i Wii og HS, lage chat vha. JSON og receiver
     * Hello!
     * Easy!

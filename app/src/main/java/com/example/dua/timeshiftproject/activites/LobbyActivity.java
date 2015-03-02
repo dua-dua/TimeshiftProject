@@ -56,12 +56,12 @@ public class LobbyActivity extends Activity {
                 }
 
                 for(int j = 0; j < names.length; j++){
-                    long time = (long)(2000 + Math.random() * 3500);
+                    long time = (long)(4000 + Math.random() * 9500);
                     String name = names[j];
                     Log.v("lobby","Adding stuff #" + j);
                     addBotToLobbyList(name);
                     addBotsToLobbyWithTimer(name, time);
-                    setBotReadyTimer(name, time + 5000 + (long)Math.random()*2000);
+                    setBotReadyTimer(name, time + 5000 + (long)Math.random()*12000);
                 }
             }
         });
@@ -140,23 +140,18 @@ public class LobbyActivity extends Activity {
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(final ParseObject parseObject, com.parse.ParseException e) {
-                if (parseObject == null) {
-                    Log.v("test", "no such obj");
-                } else {
-                    Log.v("test", "here`s the object");
-                    lobbyWebView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            parseObject.add("players", name);
-                            try {
-                                parseObject.save();
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                            }
-                            parseObject.saveInBackground();
-                        }
-                    });
-                }
+            if (parseObject == null) {
+                Log.v("test", "no such obj");
+            } else {
+                Log.v("test", "here`s the object");
+                lobbyWebView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        parseObject.add("players", name);
+                        parseObject.saveInBackground();
+                    }
+                });
+            }
             }
         });
     }
