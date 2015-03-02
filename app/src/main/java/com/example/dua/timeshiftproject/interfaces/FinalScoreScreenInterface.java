@@ -120,7 +120,7 @@ public class FinalScoreScreenInterface {
         Log.v("daab", "inClearLobbyArray");
         String channel = JavaScriptInterface.getCurrentChannel();
         ParseQuery query = new ParseQuery("LobbyList");
-        final String[] scores = {};
+        final String[] empty = {};
         query.whereEqualTo("lobbyId", "test");
         query.getFirstInBackground(new GetCallback(){
             @Override
@@ -130,7 +130,8 @@ public class FinalScoreScreenInterface {
                     Log.v("daab","exception");
                 }else{
                     Log.v("daab","no exception");
-                    parseObject.put("players", Arrays.asList(scores));
+                    parseObject.put("players", Arrays.asList(empty));
+                    parseObject.put("readyPlayers", Arrays.asList(empty));
                     parseObject.put("counter", 0);
                     parseObject.saveInBackground();
                 }
