@@ -6,6 +6,8 @@ function printPlayers(name){
     $("#playerList").append("<li>"+name+"<span id="+name+"></span></li>");
 }
 function isReady(name){
+    $("#waiting").text(name);
+    $("#"+name).text("test");
     $("#"+name).addClass("glyphicon glyphicon-ok glyphiconGreen");
 
 }

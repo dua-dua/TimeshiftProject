@@ -5,9 +5,14 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.dua.timeshiftproject.interfaces.JavaScriptInterface;
 import com.example.dua.timeshiftproject.interfaces.LobbyInterface;
 import com.example.dua.timeshiftproject.interfaces.QuizInterface;
+import com.parse.GetCallback;
+import com.parse.ParseObject;
 import com.parse.ParsePushBroadcastReceiver;
+import com.parse.ParseQuery;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,6 +86,18 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        final String readyName = name;
+        String channel = JavaScriptInterface.getCurrentChannel();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
+        query.whereEqualTo("lobbyId", channel);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done( ParseObject parseObject, com.parse.ParseException e) {
+                parseObject.add("readyPlayers", readyName);
+
+                parseObject.saveInBackground();
+            }
+        });
         LobbyInterface.isReady(name);
         //Toast.makeText(context, name+" is ready!", Toast.LENGTH_LONG).show();
     }

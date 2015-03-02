@@ -66,6 +66,7 @@ public class LobbyInterface {
             e.printStackTrace();
         }
 
+
         ParsePush push = new ParsePush();
         push.setChannel(channel);
         push.setData(data);
@@ -102,16 +103,24 @@ public class LobbyInterface {
                 String name = user.getUsername();
 
                 List<String> players = parseObject.getList("players");
+                List<String> readyPlayers = parseObject.getList("readyPlayers");
 
                 if( players.size()==1){
                     isMaster=true;
                 }
                 playerList.addAll(players);
+
                 for(int a=0; a<players.size(); a++) {
                     if (players.get(a) != user.getUsername()) {
                         webView.loadUrl("javascript:printPlayers(\"" + players.get(a) + "\")");
 
                     }
+                }
+                for(int a=0; a<readyPlayers.size(); a++){
+                    String readyName = readyPlayers.get(a);
+                    Log.v("lobby", "ready before we got here "+ readyName);
+
+                    webView.loadUrl("javascript:isReady(\""+readyName+"\")");
                 }
                 try {
                     data = new JSONObject();
@@ -156,8 +165,12 @@ public class LobbyInterface {
       staticActivity.finish();
     }
     public static void isReady(String name) {
+        String channel = JavaScriptInterface.getCurrentChannel();
         webView.loadUrl("javascript:isReady(\""+ name +"\")");
+
+
         readyList.add(name);
+
         if(isMaster){
             allReady();
         }
