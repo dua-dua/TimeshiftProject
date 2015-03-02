@@ -1,3 +1,5 @@
+var hasAnswered = false;
+
 function sendNotification(){
     window.JSInterface.sendJSONNotification()
 }
@@ -8,25 +10,32 @@ function userAnswer(id){
     var id = "#button"+id;
     var ans = $(id).text();
     var correct = $("#correct").text();
-    if(ans == correct){
-        score = 1000-$("#progressbar").val();
-    }else{
-        score = 0;
+    if(!hasAnswered){
+        if(ans == correct){
+            score = 1000-$("#progressbar").val();
+        }else{
+            score = 0;
+        }
+        window.QuizInterface.playerAnswered(score, bot, ans);
+        hasAnswered = true;
     }
-    window.QuizInterface.playerAnswered(score, bot, ans);
 }
+
 function setQuestion(question){
     $("#question").text(question);
 }
+
 function setA1(a){
     $("#button0").text(a);
 }
 function setA2(a){
     $("#button1").text(a);
 }
+
 function setA3(a){
     $("#button2").text(a);
 }
+
 function setA4(a){
     $("#button3").text(a);
 }
