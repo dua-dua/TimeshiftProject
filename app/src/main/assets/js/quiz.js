@@ -66,8 +66,8 @@ function progressbar(){
 		loading();
 	}, time);
 }
+
 function toScore(){
-    $("#notificationText").text("toScore");
     QuizInterface.toScore();
 }
 var timeOut;
