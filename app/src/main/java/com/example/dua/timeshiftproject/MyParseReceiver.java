@@ -93,8 +93,7 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done( ParseObject parseObject, com.parse.ParseException e) {
-                parseObject.add("readyPlayers", readyName);
-
+                parseObject.addUnique("readyPlayers", readyName);
                 parseObject.saveInBackground();
             }
         });

@@ -120,6 +120,7 @@ public class LobbyActivity extends Activity {
         }, time);
     }
 
+
     public void checkMaster(){
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
