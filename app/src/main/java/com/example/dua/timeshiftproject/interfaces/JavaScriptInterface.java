@@ -36,18 +36,20 @@ public class JavaScriptInterface {
         this.webView = webView;
         webViewStatic = webView;
     }
+
     @JavascriptInterface
-    public String getTime(){
+    public String getTime() {
         Date date = new Date();
         return String.valueOf(date.getTime());
     }
+
     @JavascriptInterface
     public void doSomething() {
         JSONObject data = null;
 
         try {
             data = new JSONObject();
-            data.put("type","test");
+            data.put("type", "test");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -75,13 +77,14 @@ public class JavaScriptInterface {
     }
 
     @JavascriptInterface
-    public static String getCurrentChannel(){
+    public static String getCurrentChannel() {
         ParseInstallation inst = ParseInstallation.getCurrentInstallation();
         List channels = inst.getList("channels");
         return channels.get(0).toString();
     }
+
     @JavascriptInterface
-    public void toQuizCode(){
+    public void toQuizCode() {
         Log.v("test", "toQuizCode");
         Intent intent = new Intent(activity, QuizCodeActivity.class);
         activity.startActivity(intent);
@@ -91,59 +94,6 @@ public class JavaScriptInterface {
     public void exit() {
         activity.finish();
         System.exit(0);
-    }
-
-    public void clearLobbyArray() {
-        Log.v("daab", "inClearLobbyArray");
-        String channel = JavaScriptInterface.getCurrentChannel();
-        ParseQuery query = new ParseQuery("LobbyList");
-        final String[] scores = {};
-        query.whereEqualTo("lobbyId", "test");
-        query.getFirstInBackground(new GetCallback(){
-            @Override
-
-            public void done(ParseObject parseObject, ParseException e) {
-                if(e != null){
-                    Log.v("daab","exception");
-                }else{
-                    Log.v("daab","no exception");
-                    parseObject.put("players", Arrays.asList(scores));
-                    parseObject.put("counter", 0);
-                    parseObject.saveInBackground();
-                }
-
-            }
-        });
-    }
-
-    public void makeBotsFromPlayers() {
-        String channel = JavaScriptInterface.getCurrentChannel();
-        ParseQuery query = new ParseQuery("Scores");
-        query.whereEqualTo("quizid", "test");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> parseObjects, ParseException e) {
-                if(parseObjects == null){
-                    Log.v("daab","list is null");
-                }else {
-                    Log.v("daab","list is not null");
-                    for (int i = 0; i < parseObjects.size(); i++) {
-                        parseObjects.get(i).put("bot", true);
-                        parseObjects.get(i).saveInBackground();
-                    }
-                }
-            }
-        });
-    }
-
-
-
-    @JavascriptInterface
-    public void clearDatabase(){
-        Log.v("daab","clear db start");
-        makeBotsFromPlayers();
-        clearLobbyArray();
-        Log.v("daab","clear db end");
     }
 
 }
