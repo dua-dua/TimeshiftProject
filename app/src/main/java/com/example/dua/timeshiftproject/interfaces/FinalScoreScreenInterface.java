@@ -91,7 +91,7 @@ public class FinalScoreScreenInterface {
                     setPlayerScore(playerScore + "");
                 }
                 clearDatabase();
-                
+
             }
         });
     }
