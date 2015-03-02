@@ -1,11 +1,6 @@
 TODO:
 -----
-- [DONE, men fungerer ikke i FSSInterface] Rydde i database mellom hver quiz
-    * isBot = true på alle spillere
-    * tømme players[] i lobbylist
-    * sette counter = 0 i lobbylist
-    
-- Adde bots til lobbylist så de synes for de som joiner sent
+- Ready fra bots fungerer ikke helt for de som joiner sent
 
 - Score blir ikke satt til null om man ikke svarer
 

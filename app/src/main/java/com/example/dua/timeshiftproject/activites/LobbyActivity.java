@@ -1,6 +1,7 @@
 package com.example.dua.timeshiftproject.activites;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -10,14 +11,17 @@ import com.example.dua.timeshiftproject.R;
 import com.example.dua.timeshiftproject.interfaces.JavaScriptInterface;
 import com.example.dua.timeshiftproject.interfaces.LobbyInterface;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,6 +59,7 @@ public class LobbyActivity extends Activity {
                     long time = (long)(2000 + Math.random() * 3500);
                     String name = names[j];
                     Log.v("lobby","Adding stuff #" + j);
+                    addBotToLobbyList(name);
                     addBotsToLobbyWithTimer(name, time);
                     setBotReadyTimer(name, time + 5000 + (long)Math.random()*2000);
                 }
@@ -125,5 +130,33 @@ public class LobbyActivity extends Activity {
                 Log.v("lobby","Am I the master now? "+LobbyInterface.getMaster());
             }
         }, 10000);
+    }
+
+    public void addBotToLobbyList(final String name){
+        final String channel = JavaScriptInterface.getCurrentChannel();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
+        query.whereEqualTo("lobbyId", channel);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(final ParseObject parseObject, com.parse.ParseException e) {
+                if (parseObject == null) {
+                    Log.v("test", "no such obj");
+                } else {
+                    Log.v("test", "here`s the object");
+                    lobbyWebView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            parseObject.add("players", name);
+                            try {
+                                parseObject.save();
+                            } catch (ParseException e1) {
+                                e1.printStackTrace();
+                            }
+                            parseObject.saveInBackground();
+                        }
+                    });
+                }
+            }
+        });
     }
 }
