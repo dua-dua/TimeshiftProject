@@ -9,9 +9,9 @@ function addToList(name){
         var addit = true;
         $("#playerList").each(function(){
             if(name == $(this).text()){
-
+                addit= false;
             }
-            else{
+            if(addit){
                 $("#playerList").append("<li>"+name+"<span id="+name+"></span></li>");
             }
 
