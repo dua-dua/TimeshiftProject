@@ -113,7 +113,7 @@ public class LobbyInterface {
                 for(int a=0; a<players.size(); a++) {
                     if (players.get(a) != user.getUsername()) {
                         webView.loadUrl("javascript:printPlayers(\"" + players.get(a) + "\")");
-
+                        Log.v("lobbysync", players.get(a)+" was already here when I joined.");
                     }
                 }
                 for(int a=0; a<readyPlayers.size(); a++){

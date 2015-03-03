@@ -57,7 +57,7 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
 
         String name = "";
         try {
-            Log.v("test", "inReceiver"+obj.getString("name").toString());
+            Log.v("lobbysync", "Heard that someone called "+obj.getString("name").toString()+" joined after me.");
             name = obj.getString("name").toString();
         } catch (JSONException e) {
             e.printStackTrace();
