@@ -1,14 +1,13 @@
 TODO:
 -----
-- Fikse back to menu-knappen
-- Fjerne knapper i main menu  som ikke brukes
-- Duplikater i lobbylist pga timing???
-
+- Friendstuff
+- Challengestuff
 - Chat i scorescreen, for avansert? Bruke predefined emotes/comments som i Wii og HS, lage chat vha. JSON og receiver
     * Hello!
     * Easy!
     * This is too hard
     * Good job!
+    * T U C K F R U M P
     * I am number 1!
     * Bye!
 -----

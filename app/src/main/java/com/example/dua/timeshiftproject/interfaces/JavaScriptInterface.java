@@ -7,6 +7,7 @@ import android.webkit.JavascriptInterface;
 
 import com.example.dua.timeshiftproject.activites.FriendActivity;
 import com.example.dua.timeshiftproject.activites.LoginActivity;
+import com.example.dua.timeshiftproject.activites.MenuActivity;
 import com.example.dua.timeshiftproject.activites.QuizCodeActivity;
 
 import android.webkit.WebView;
@@ -106,6 +107,20 @@ public class JavaScriptInterface {
         activity.startActivity(intent);
         activity.finish();
         ParseUser.logOut();
+    }
+
+    @JavascriptInterface
+    public void toFriends(){
+        Intent intent = new Intent(activity, FriendActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+    @JavascriptInterface
+    public void toIndex(){
+        Intent intent = new Intent(activity, MenuActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
     }
 }
 

@@ -31,18 +31,19 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".activites.MenuActivity"></activity>
-        <activity android:name=".activites.QuizCodeActivity"></activity>
-        <activity android:name=".activites.LobbyActivity"></activity>
-        <activity android:name=".activites.QuizActivity"></activity>
-        <activity android:name=".activites.ScoreActivity"></activity>
-        <activity android:name=".activites.FinalScoreActivity"></activity>
-        <activity android:name=".activites.FriendActivity"></activity>
+
+        <activity android:name=".activites.MenuActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".activites.QuizCodeActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".activites.LobbyActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".activites.QuizActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".activites.ScoreActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".activites.FinalScoreActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".activites.FriendActivity" android:screenOrientation="portrait"></activity>
+
 
         <receiver android:name="MyReceiver">
             <intent-filter>
