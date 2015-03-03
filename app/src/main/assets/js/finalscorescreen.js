@@ -13,4 +13,7 @@ function testSetText(){
 function redirMenu(){
     window.FSSInterface.toMenu();
 }
+function endQuiz(){
+    window.FSSInterface.endQuiz();
+}
 
