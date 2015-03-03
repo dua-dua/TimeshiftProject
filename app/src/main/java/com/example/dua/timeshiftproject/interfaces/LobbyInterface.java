@@ -28,7 +28,6 @@ import java.util.List;
 public class LobbyInterface {
     private static WebView webViewStatic;
     private static Activity staticActivity;
-    private Activity activity;
     private static WebView webView;
     private static ArrayList<String> playerList = new ArrayList<String>();
     private static ArrayList<String> readyList = new ArrayList<String>();
@@ -37,7 +36,6 @@ public class LobbyInterface {
 
 
     public LobbyInterface(Activity act, WebView webView) {
-        this.activity = act;
         this.webView = webView;
         webViewStatic = webView;
         staticActivity = act;
@@ -77,12 +75,11 @@ public class LobbyInterface {
 
     @JavascriptInterface
     public void redir(){
-        Intent intent = new Intent(activity, QuizActivity.class);
+        Intent intent = new Intent(staticActivity, QuizActivity.class);
         intent.putExtra("isMaster", true);
         intent.putExtra("counter", 1);
-        activity.startActivity(intent);
-
-        activity.finish();
+        staticActivity.startActivity(intent);
+        staticActivity.finish();
 
     }
 
@@ -163,6 +160,8 @@ public class LobbyInterface {
       intent.putExtra("counter", 1);
       staticActivity.startActivity(intent);
       staticActivity.finish();
+      playerList.clear();
+      readyList.clear();
     }
     public static void isReady(String name) {
         String channel = JavaScriptInterface.getCurrentChannel();
