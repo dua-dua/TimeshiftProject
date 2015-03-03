@@ -167,8 +167,6 @@ public class LobbyInterface {
     public static void isReady(String name) {
         String channel = JavaScriptInterface.getCurrentChannel();
         webView.loadUrl("javascript:isReady(\""+ name +"\")");
-
-
         readyList.add(name);
 
         if(isMaster){
