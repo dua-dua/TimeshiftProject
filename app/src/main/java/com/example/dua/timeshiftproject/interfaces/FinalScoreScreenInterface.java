@@ -11,6 +11,7 @@ import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -168,6 +169,7 @@ public class FinalScoreScreenInterface {
         makeBotsFromPlayers();
         clearLobbyArray();
         Log.v("daab","clear db end");
+        ParsePush.unsubscribeInBackground(JavaScriptInterface.getCurrentChannel());
     }
     @JavascriptInterface
     public void endQuiz(){

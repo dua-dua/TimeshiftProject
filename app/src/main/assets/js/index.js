@@ -26,3 +26,6 @@ function clearDB(){
     window.JSInterface.clearDatabase();
     $("#testButton").text("hello");
 }
+function unsubscribe(){
+    window.JSInterface.unsubscribe();
+}

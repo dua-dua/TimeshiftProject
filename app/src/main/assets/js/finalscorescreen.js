@@ -15,5 +15,7 @@ function redirMenu(){
 }
 function endQuiz(){
     window.FSSInterface.endQuiz();
+
 }
+
 

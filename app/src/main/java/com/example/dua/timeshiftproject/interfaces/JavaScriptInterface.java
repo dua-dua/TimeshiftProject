@@ -95,5 +95,10 @@ public class JavaScriptInterface {
         activity.finish();
         System.exit(0);
     }
+    @JavascriptInterface
+    public void unsubscribe(){
+        ParsePush.unsubscribeInBackground("q");
+        ParsePush.unsubscribeInBackground("test");
+    }
 
 }
