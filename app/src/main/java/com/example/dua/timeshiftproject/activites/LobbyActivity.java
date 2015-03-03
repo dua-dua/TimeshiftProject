@@ -135,6 +135,7 @@ public class LobbyActivity extends Activity {
         }, 10000);
     }
 
+
     public void addBotToLobbyList(final String name){
         final String channel = JavaScriptInterface.getCurrentChannel();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");

@@ -122,7 +122,7 @@ public class FinalScoreScreenInterface {
         String channel = JavaScriptInterface.getCurrentChannel();
         ParseQuery query = new ParseQuery("LobbyList");
         final String[] empty = {};
-        query.whereEqualTo("lobbyId", "test");
+        query.whereEqualTo("lobbyId", channel);
         query.getFirstInBackground(new GetCallback(){
             @Override
 
@@ -144,7 +144,7 @@ public class FinalScoreScreenInterface {
     public void makeBotsFromPlayers() {
         String channel = JavaScriptInterface.getCurrentChannel();
         ParseQuery query = new ParseQuery("Scores");
-        query.whereEqualTo("quizid", "test");
+        query.whereEqualTo("quizid", channel);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
