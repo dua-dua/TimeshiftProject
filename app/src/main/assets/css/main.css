@@ -59,6 +59,11 @@ ul{
     margin-left: -40px;
 }
 
+#yourScore{
+    color: #034b7f;
+    font-size: 1.2em;
+}
+
 #newUserText {
     color: white;
     margin-top: 20px;

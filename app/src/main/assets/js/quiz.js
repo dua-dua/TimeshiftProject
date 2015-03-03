@@ -4,6 +4,7 @@ function sendNotification(){
     window.JSInterface.sendJSONNotification()
 }
 
+
 function userAnswer(id){
     var score = 0;
     var bot = false;
