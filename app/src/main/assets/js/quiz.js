@@ -82,7 +82,6 @@ function toScore(){
 var timeOut;
 
 function stopTimeOut(){
-    $("#stopTimeOut").text("timeOut Stopped");
     window.clearTimeout(timeOut);
 
 }
