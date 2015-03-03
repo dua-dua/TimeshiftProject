@@ -21,7 +21,6 @@ public class MenuActivity extends Activity{
         JavaScriptInterface jsInterface = new JavaScriptInterface(this, menuWebView);
         Intent intent = getIntent();
         String text = intent.getStringExtra("test");
-        Log.v("test", text);
         menuWebView.getSettings().setJavaScriptEnabled(true);
         menuWebView.addJavascriptInterface(jsInterface, "JSInterface");
 

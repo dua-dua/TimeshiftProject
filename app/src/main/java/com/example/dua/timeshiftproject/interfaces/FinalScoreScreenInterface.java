@@ -46,7 +46,6 @@ public class FinalScoreScreenInterface {
 
     @JavascriptInterface
     public void getTopFive() {
-        Log.v("score", "Getting top five");
         String channel = JavaScriptInterface.getCurrentChannel();
         ParseQuery query = new ParseQuery("Scores");
         query.whereEqualTo("quizid", channel);
@@ -54,7 +53,6 @@ public class FinalScoreScreenInterface {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
                 if (parseObjects == null) {
-                    Log.v("score", "null");
                 } else {
                     String currentUser = ParseUser.getCurrentUser().getUsername().toString();
                     int questionCounter = 0;
@@ -92,7 +90,6 @@ public class FinalScoreScreenInterface {
                     setPlayerScore(playerScore + "");
                 }
                 clearDatabase();
-
             }
         });
     }
@@ -118,7 +115,6 @@ public class FinalScoreScreenInterface {
         activity.startActivity(intent);
     }
     public void clearLobbyArray() {
-        Log.v("daab", "inClearLobbyArray");
         String channel = JavaScriptInterface.getCurrentChannel();
         ParseQuery query = new ParseQuery("LobbyList");
         final String[] empty = {};
@@ -128,15 +124,12 @@ public class FinalScoreScreenInterface {
 
             public void done(ParseObject parseObject, ParseException e) {
                 if(e != null){
-                    Log.v("daab","exception");
                 }else{
-                    Log.v("daab","no exception");
                     parseObject.put("players", Arrays.asList(empty));
                     parseObject.put("readyPlayers", Arrays.asList(empty));
                     parseObject.put("counter", 0);
                     parseObject.saveInBackground();
                 }
-
             }
         });
     }
@@ -149,9 +142,7 @@ public class FinalScoreScreenInterface {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
                 if(parseObjects == null){
-                    Log.v("daab","list is null");
                 }else {
-                    Log.v("daab","list is not null");
                     for (int i = 0; i < parseObjects.size(); i++) {
                         parseObjects.get(i).put("bot", true);
                         parseObjects.get(i).saveInBackground();
@@ -165,17 +156,12 @@ public class FinalScoreScreenInterface {
 
     @JavascriptInterface
     public void clearDatabase(){
-        Log.v("daab","clear db start");
         makeBotsFromPlayers();
         clearLobbyArray();
-        Log.v("daab","clear db end");
         ParsePush.unsubscribeInBackground(JavaScriptInterface.getCurrentChannel());
     }
     @JavascriptInterface
     public void endQuiz(){
         activity.finish();
     }
-
-
-
 }

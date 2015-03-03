@@ -16,7 +16,6 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         loginWebView = (WebView)findViewById(R.id.webview2);
         loginWebView.loadUrl("file:///android_asset/www/login.html");
         loginWebView.getSettings().setJavaScriptEnabled(true);

@@ -32,20 +32,15 @@ public class QuizCodeInterface {
 
     @JavascriptInterface
     public void isLobby(final String lobbyId) {
-        Log.v("test", "test");
-        Log.v("test", lobbyId);
         if (lobbyId.length() == 0) {
-            Log.v("test", "empty String");
             webView.loadUrl("javascript:check()");
         }
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
-
         query.whereEqualTo("lobbyId", lobbyId);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(final ParseObject parseObject, com.parse.ParseException e) {
                 if (parseObject == null) {
-                    Log.v("test", "no such obj");
                     webView.post(new Runnable() {
                         @Override
                         public void run() {
@@ -54,7 +49,6 @@ public class QuizCodeInterface {
                     });
 
                 } else {
-                    Log.v("test", "here`s the object");
                     webView.post(new Runnable() {
                         @Override
                         public void run() {
@@ -68,7 +62,6 @@ public class QuizCodeInterface {
                             }
                             ArrayList<String> names = (ArrayList<String>) parseObject.get("players");
                             if(names.size()==1){
-                                Log.v("test", "setMaster");
                                 parseObject.put("master", ParseUser.getCurrentUser().getUsername());
 
                                     parseObject.saveInBackground();
@@ -88,9 +81,9 @@ public class QuizCodeInterface {
 
         });
     }
+
     @JavascriptInterface
     public void toLobby(){
-        Log.v("test", "toLobby");
         Intent intent = new Intent(activity, LobbyActivity.class);
         activity.startActivity(intent);
     }
