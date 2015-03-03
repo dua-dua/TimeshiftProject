@@ -59,7 +59,7 @@ public class LobbyActivity extends Activity {
                     long time = (long)(4000 + Math.random() * 9500);
                     String name = names[j];
                     Log.v("lobby","Adding stuff #" + j);
-                    addBotToLobbyList(name);
+
                     addBotsToLobbyWithTimer(name, time);
                     setBotReadyTimer(name, time + 5000 + (long)Math.random()*12000);
                 }
@@ -90,6 +90,7 @@ public class LobbyActivity extends Activity {
                 push.setData(data);
                 push.sendInBackground();
                 Log.v("lobby","Someone powerful added me and my name is "+ name);
+                addBotToLobbyList(name);
             }
         }, time);
     }
