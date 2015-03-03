@@ -30,12 +30,10 @@ public class LoginInterface {
             @Override
             public void done(ParseUser user, com.parse.ParseException e) {
                 if (user != null) {
-                    Log.v("tag", "logged in user");
                     //redirect to index.html
                     redir("file:///android_asset/www/index.html");
 
                 } else {
-                    Log.v("tag", "Did not log in user");
                     webView.post(new Runnable() {
                         @Override
                         public void run() {

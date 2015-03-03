@@ -26,8 +26,8 @@ public class ScoreActivity extends Activity {
     private boolean isMaster;
     private Handler handler;
     private Runnable runnable = new Runnable() {
+
         public void run() {
-            Log.v("timer", "ended timer");
             toNextQuestion();
         }
     };
@@ -47,10 +47,7 @@ public class ScoreActivity extends Activity {
         isMaster = intent.getBooleanExtra("isMaster", false);
         counter = intent.getIntExtra("counter", 1);
         if(isMaster==true){
-            Log.v("test", "master in scorescreen");
-            Log.v("test", "the value of counter " +String.valueOf(counter));
             counter ++;
-
         }
         timer();
     }
@@ -62,7 +59,6 @@ public class ScoreActivity extends Activity {
     }
 
     public void timer(){
-        Log.v("timer","started timer");
         handler = new Handler();
         handler.postDelayed(runnable,10000);
     }
@@ -76,6 +72,5 @@ public class ScoreActivity extends Activity {
 
         this.startActivity(intent);
         this.finish();
-
     }
 }

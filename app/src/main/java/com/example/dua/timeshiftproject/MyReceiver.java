@@ -18,14 +18,9 @@ public class MyReceiver extends BroadcastReceiver {
         //Toast.makeText(context, "Intent Detected.", Toast.LENGTH_LONG).show();
         String name = "";
         String val = "";
-
         name = intent.getStringExtra("name");
         val = intent.getStringExtra("age");
-        Log.v("derp", "kommet frem");
-
         Toast.makeText(context, name+val, Toast.LENGTH_LONG).show();
-        Log.v("tag",name);
-        Log.v("tag",val);
     }
 
 }

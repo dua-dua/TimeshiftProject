@@ -40,15 +40,10 @@ public class QuizActivity extends Activity{
         boolean isMaster = intent.getBooleanExtra("isMaster", false);
         int counter = intent.getIntExtra("counter",1);
 
-
         if(isMaster==true){
-            Log.v("test", "I am the master");
-            Log.v("test", String.valueOf(counter)+ "the value of counter in quiz");
             setBotAnswers(counter);
         }
-        else{
-            Log.v("test", "I am not the master");
-        }
+
         QuizInterface quizInterface = new QuizInterface(this, quizWebView,isMaster, counter);
         quizWebView.addJavascriptInterface(quizInterface, "QuizInterface");
     }
@@ -58,24 +53,16 @@ public class QuizActivity extends Activity{
         quizWebView.loadUrl("javascript:stopTimeOut()");
     }
 
-    public void test(){
-        Log.v("test", "quizTest");
-    }
-
     public void setBotAnswers(final int count){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
         query.whereEqualTo("quizid", JavaScriptInterface.getCurrentChannel());
-        Log.v("bot", JavaScriptInterface.getCurrentChannel());
         query.whereEqualTo("bot", true);
 
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
-                Log.v("botTest", "everRun");
-                Log.v("botTest", String.valueOf(parseObjects.size()));
 
                 for (int a = 0; a < parseObjects.size(); a++) {
-                    Log.v("botTest", "everRunFor");
                     ParseObject bot = parseObjects.get(a);
                     String name = bot.getString("userid");
                     ArrayList<Object> scores = (ArrayList<Object>) bot.getList("scores");
@@ -83,14 +70,9 @@ public class QuizActivity extends Activity{
 
                     for(int b=0; b<scores.size(); b++){
                         intScores.add(Integer.parseInt((String)scores.get(b)));
-                        Log.v("botInt", intScores.get(b).toString());
-
                     }
-                    Log.v("botTime", "count " + Integer.toString(count-1));
-                    Log.v("botTime", Integer.toString(intScores.get(count-1)));
                     int value = calculateTimeOfScore(intScores.get(count-1));
                     botAnswerTimer(name, value);
-
                 }
             }
         });
@@ -98,13 +80,10 @@ public class QuizActivity extends Activity{
 
 
     public void botAnswerTimer(final String name, long time){
-        Log.v("bot","started bot timer for "+name+", with time "+time);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-
                 sendJSONNotificationForBot(name);
-                Log.v("bot","ended timer for "+name);
             }
         }, time);
     }
@@ -125,15 +104,10 @@ public class QuizActivity extends Activity{
         push.setChannel(channel);
         push.setData(data);
         push.sendInBackground();
-        Log.v("tag", "Sent JSON from sendJSONNotification");
     }
 
     public int calculateTimeOfScore(int score){
         int time = (int)((1000-score)*22.5);
-
-        Log.v("botTime", Integer.toString(time));
         return time;
-
-
     }
 }

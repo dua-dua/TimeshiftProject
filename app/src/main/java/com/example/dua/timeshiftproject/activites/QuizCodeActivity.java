@@ -22,7 +22,5 @@ public class QuizCodeActivity extends Activity {
         QuizCodeInterface quizCodeInterface = new QuizCodeInterface(this, quizCodeWebView);
         quizCodeWebView.getSettings().setJavaScriptEnabled(true);
         quizCodeWebView.addJavascriptInterface(quizCodeInterface, "QuizCodeInterface");
-
     }
-
 }

@@ -17,5 +17,4 @@ public class App extends Application {
         Parse.initialize(this, "0qwu1NjJN6Omb7C6JhpAML7ltY2y1dYG2dp6O92L", "RYc9OPFFWIMiorIGFa2Sh2xvLCqwleS7QZNzTZFI");
         PushService.setDefaultPushCallback(this, MainActivity.class);
     }
-
 }

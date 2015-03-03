@@ -69,8 +69,6 @@ public class LobbyInterface {
         push.setChannel(channel);
         push.setData(data);
         push.sendInBackground();
-
-        Log.v("tag", "User " + name + " is ready in channel " + channel);
     }
 
     @JavascriptInterface
@@ -78,8 +76,10 @@ public class LobbyInterface {
         Intent intent = new Intent(staticActivity, QuizActivity.class);
         intent.putExtra("isMaster", true);
         intent.putExtra("counter", 1);
+
         staticActivity.startActivity(intent);
         staticActivity.finish();
+
 
     }
 
@@ -89,8 +89,6 @@ public class LobbyInterface {
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         List channelList = installation.getList("channels");
         final String channel = channelList.get(0).toString();
-        Log.v("test", channel);
-        Log.v("test", installation.getInstallationId());
         query.whereEqualTo("lobbyId", channel);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
@@ -110,13 +108,10 @@ public class LobbyInterface {
                 for(int a=0; a<players.size(); a++) {
                     if (players.get(a) != user.getUsername()) {
                         webView.loadUrl("javascript:printPlayers(\"" + players.get(a) + "\")");
-                        Log.v("lobbysync", players.get(a)+" was already here when I joined.");
                     }
                 }
                 for(int a=0; a<readyPlayers.size(); a++){
                     String readyName = readyPlayers.get(a);
-                    Log.v("lobby", "ready before we got here "+ readyName);
-
                     webView.loadUrl("javascript:isReady(\""+readyName+"\")");
                 }
                 try {
@@ -137,23 +132,20 @@ public class LobbyInterface {
     }
 
     public static void joinedLobby(String name){
-     if(inLobby==true){
-         if (!name.equals(ParseUser.getCurrentUser().getUsername())) {
-             playerList.add(name);
-             webView.loadUrl("javascript:printPlayers(\"" + name + "\")");
-         }
-         else{
-             Log.v("test", "received own name" + name);
-         }
-     }
-        else{
-         Log.v("lobby", "not in lobby yet");
-     }
+        if(inLobby==true){
+            if (!name.equals(ParseUser.getCurrentUser().getUsername())) {
+                playerList.add(name);
+                webView.loadUrl("javascript:printPlayers(\"" + name + "\")");
+            }else{
+                Log.v("test", "received own name" + name);
+            }
+        }else{
+            Log.v("lobby", "not in lobby yet");
+        }
 
     }
 
     public static void startQuiz() {
-
       Intent intent = new Intent(staticActivity, QuizActivity.class);
       intent.putExtra("test", "test");
       intent.putExtra("isMaster", true);
@@ -163,6 +155,7 @@ public class LobbyInterface {
       playerList.clear();
       readyList.clear();
     }
+
     public static void isReady(String name) {
         String channel = JavaScriptInterface.getCurrentChannel();
         webView.loadUrl("javascript:isReady(\""+ name +"\")");
@@ -176,12 +169,10 @@ public class LobbyInterface {
         }
     }
     public static void allReady(){
-        Log.v("test", "InallReady");
         if(readyList.containsAll(playerList)){
             ParseInstallation installation = ParseInstallation.getCurrentInstallation();
             List channelList = installation.getList("channels");
             final String channel = channelList.get(0).toString();
-            Log.v("test", "allReady");
             JSONObject data = null;
             Date date = new Date();
 

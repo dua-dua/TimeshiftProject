@@ -23,7 +23,6 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
     }
 
     public void getObjectType(Context context, Intent intent){
-        Log.v("tag", "received JSON in getObjectType");
         String type = "";
         JSONObject obj = null;
         try {
@@ -57,7 +56,6 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
 
         String name = "";
         try {
-            Log.v("lobbysync", "Heard that someone called "+obj.getString("name").toString()+" joined after me.");
             name = obj.getString("name").toString();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -74,8 +72,6 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.v("tag", "received answer in parsereceiver");
-
         QuizInterface.sendHTMLNotification(name);
     }
 
@@ -103,7 +99,6 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
 
     private void runTest(Context context) {
         Toast.makeText(context, "Received test!", Toast.LENGTH_LONG).show();
-
         Toast.makeText(context, "Did something cool without crashing!", Toast.LENGTH_LONG).show();
     }
 }

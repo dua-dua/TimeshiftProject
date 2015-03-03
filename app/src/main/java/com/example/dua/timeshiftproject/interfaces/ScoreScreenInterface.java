@@ -48,7 +48,6 @@ public class ScoreScreenInterface {
 
     @JavascriptInterface
     public void getTopFive(){
-        Log.v("score", "Getting top five");
         String channel = JavaScriptInterface.getCurrentChannel();
         ParseQuery query = new ParseQuery("Scores");
         query.whereEqualTo("quizid", channel);

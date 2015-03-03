@@ -32,14 +32,12 @@ public class LobbyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Log.v("test", "in lobbyAct");
         setContentView(R.layout.activity_lobby);
         lobbyWebView = (WebView)findViewById(R.id.webview5);
         lobbyWebView.getSettings().setJavaScriptEnabled(true);
         lobbyWebView.loadUrl("file:///android_asset/www/lobby.html");
         LobbyInterface lobbyInterface = new LobbyInterface(this, lobbyWebView);
         lobbyWebView.addJavascriptInterface(lobbyInterface, "LobbyInterface");
-        Log.v("lobby","Am I the master? "+lobbyInterface.getMaster());
         checkMaster();
     }
 
@@ -65,7 +63,6 @@ public class LobbyActivity extends Activity {
                 }
             }
         });
-        Log.v("lobby","Finished addBotsToLobby");
     }
 
     public void addBotsToLobbyWithTimer(final String name, long time){
@@ -84,12 +81,10 @@ public class LobbyActivity extends Activity {
                     e1.printStackTrace();
                 }
 
-                Log.v("bot","added "+name);
                 ParsePush push = new ParsePush();
                 push.setChannel(channel);
                 push.setData(data);
                 push.sendInBackground();
-                Log.v("lobby","Someone powerful added me and my name is "+ name);
                 addBotToLobbyList(name);
             }
         }, time);
@@ -102,7 +97,6 @@ public class LobbyActivity extends Activity {
             public void run() {
                 JSONObject data = null;
                 try {
-
                     data = new JSONObject();
                     data.put("type", "userReady");
                     data.put("name", name);
@@ -111,16 +105,14 @@ public class LobbyActivity extends Activity {
                 catch (JSONException e1) {
                     e1.printStackTrace();
                 }
-                Log.v("bot","isReady "+name);
+
                 ParsePush push = new ParsePush();
                 push.setChannel(channel);
                 push.setData(data);
                 push.sendInBackground();
-                Log.v("lobby", name + " is ready!");
             }
         }, time);
     }
-
 
     public void checkMaster(){
         Handler handler = new Handler();
@@ -128,9 +120,7 @@ public class LobbyActivity extends Activity {
             public void run() {
                 if(LobbyInterface.getMaster()){
                     addBotsToLobby();
-
                 }
-                Log.v("lobby","Am I the master now? "+LobbyInterface.getMaster());
             }
         }, 10000);
     }
@@ -144,9 +134,7 @@ public class LobbyActivity extends Activity {
             @Override
             public void done(final ParseObject parseObject, com.parse.ParseException e) {
             if (parseObject == null) {
-                Log.v("test", "no such obj");
             } else {
-                Log.v("test", "here`s the object");
                 lobbyWebView.post(new Runnable() {
                     @Override
                     public void run() {

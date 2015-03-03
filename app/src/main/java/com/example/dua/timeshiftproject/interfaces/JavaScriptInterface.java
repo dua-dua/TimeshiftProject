@@ -58,7 +58,6 @@ public class JavaScriptInterface {
         push.setChannel("test");
         push.setData(data);
         push.sendInBackground();
-        Log.v("tag", "Sent JSON from doSomething");
     }
 
     @JavascriptInterface
@@ -68,12 +67,10 @@ public class JavaScriptInterface {
 
     @JavascriptInterface
     public void createUser(String name, String password) {
-        Log.v("tag", "Entered create user");
         ParseUser user = new ParseUser();
         user.setUsername(name);
         user.setPassword(password);
         user.signUpInBackground();
-        Log.v("tag", "created user: " + name + ", " + password);
     }
 
     @JavascriptInterface
@@ -85,7 +82,6 @@ public class JavaScriptInterface {
 
     @JavascriptInterface
     public void toQuizCode() {
-        Log.v("test", "toQuizCode");
         Intent intent = new Intent(activity, QuizCodeActivity.class);
         activity.startActivity(intent);
     }
@@ -100,5 +96,4 @@ public class JavaScriptInterface {
         ParsePush.unsubscribeInBackground("q");
         ParsePush.unsubscribeInBackground("test");
     }
-
 }
