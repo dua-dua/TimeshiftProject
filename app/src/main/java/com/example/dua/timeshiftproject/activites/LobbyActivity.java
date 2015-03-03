@@ -128,6 +128,7 @@ public class LobbyActivity extends Activity {
             public void run() {
                 if(LobbyInterface.getMaster()){
                     addBotsToLobby();
+
                 }
                 Log.v("lobby","Am I the master now? "+LobbyInterface.getMaster());
             }

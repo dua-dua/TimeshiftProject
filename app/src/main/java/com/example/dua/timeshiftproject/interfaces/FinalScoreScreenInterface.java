@@ -169,11 +169,11 @@ public class FinalScoreScreenInterface {
         clearLobbyArray();
         Log.v("daab","clear db end");
     }
+    @JavascriptInterface
+    public void endQuiz(){
+        activity.finish();
+    }
 
 
-
-
-
-    //insert db clearing here
 
 }
