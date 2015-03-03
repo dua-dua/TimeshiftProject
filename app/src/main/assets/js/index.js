@@ -32,3 +32,11 @@ function unsubscribe(){
 function toLogin(){
     window.JSInterface.toLogin();
 }
+
+function toFriends(){
+    window.JSInterface.toFriends();
+}
+
+function toIndex(){
+    window.JSInterface.toIndex();
+}
