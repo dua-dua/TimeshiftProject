@@ -42,6 +42,7 @@
         <activity android:name=".activites.QuizActivity"></activity>
         <activity android:name=".activites.ScoreActivity"></activity>
         <activity android:name=".activites.FinalScoreActivity"></activity>
+        <activity android:name=".activites.FriendActivity"></activity>
 
         <receiver android:name="MyReceiver">
             <intent-filter>

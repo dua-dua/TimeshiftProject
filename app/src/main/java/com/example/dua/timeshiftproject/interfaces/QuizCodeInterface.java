@@ -73,6 +73,7 @@ public class QuizCodeInterface {
                             }
                             Intent intent = new Intent(activity, LobbyActivity.class);
                             activity.startActivity(intent);
+                            activity.finish();
                         }
                     });
                 }
