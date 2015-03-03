@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
+import com.example.dua.timeshiftproject.activites.LoginActivity;
 import com.example.dua.timeshiftproject.activites.QuizCodeActivity;
 
 import android.webkit.WebView;
@@ -95,5 +96,12 @@ public class JavaScriptInterface {
     public void unsubscribe(){
         ParsePush.unsubscribeInBackground("q");
         ParsePush.unsubscribeInBackground("test");
+    }
+    @JavascriptInterface
+    public void toLogin(){
+        Intent intent = new Intent(activity, LoginActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
+        ParseUser.logOut();
     }
 }

@@ -20,7 +20,6 @@ function addToList(name){
 }
 function isReady(name){
 
-    $("#waiting").text(name);
     $("#"+name).addClass("glyphicon glyphicon-ok glyphiconGreen");
 
 }

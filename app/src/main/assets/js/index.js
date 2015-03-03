@@ -29,3 +29,6 @@ function clearDB(){
 function unsubscribe(){
     window.JSInterface.unsubscribe();
 }
+function toLogin(){
+    window.JSInterface.toLogin();
+}

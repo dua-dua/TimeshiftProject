@@ -44,7 +44,7 @@ public class QuizCodeInterface {
                     webView.post(new Runnable() {
                         @Override
                         public void run() {
-                            webView.loadUrl("javascript:check('asd')");
+                            webView.loadUrl("javascript:check('no such code')");
                         }
                     });
 
