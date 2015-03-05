@@ -115,13 +115,6 @@ public class JavaScriptInterface {
         activity.startActivity(intent);
         activity.finish();
     }
-
-    @JavascriptInterface
-    public void toIndex(){
-        Intent intent = new Intent(activity, MenuActivity.class);
-        activity.startActivity(intent);
-        activity.finish();
-    }
 }
 
 

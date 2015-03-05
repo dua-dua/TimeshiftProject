@@ -9,9 +9,11 @@
     <body>
         <div align="center" class="container">
             <h2>Friend requests</h2>
+            <span id="numOfRequests"></span>
             <br>
 
             <ul id="friendsList">
+
             </ul>
 
         </div>
@@ -19,19 +21,22 @@
         <div align="center" class="container">
             <h2>Challenges</h2>
             <br>
+            <span id="numOfChallenges"></span>
             <ul id="challengeList">
+
             </ul>
         </div>
+        <br>
 
         <div align="center" class="container">
-            <input type="text" id="friendName"><button class="btn btn-default standardButton" id="addFriend" onclick="addFriend()">Add</button>
+            <input type="text" id="friendName"><button class="btn btn-default standardButton" id="addFriend" onclick="countRequests()">Add</button>
         </div>
         <br>
 
         <div align="center" class="container verticalCentering">
             <div class="container">
                 <div class="row">
-                    <button type="button" class="btn btn-default standardButton" onclick="toIndex()">Back</button>
+                    <button type="button" class="btn btn-default standardButton" onclick="toMenu()">Back</button>
                 </div>
             </div>
         </div>
@@ -40,6 +45,7 @@
         <script src="../js/jquery-1.11.2.min.js"></script>
         <script src="../js/bootstrap.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/scorescreen.js"></script>
+        <script src="../js/friends.js"></script>
+
     </body>
 </html>
