@@ -43,7 +43,7 @@
         <activity android:name=".activites.ScoreActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".activites.FinalScoreActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".activites.FriendActivity" android:screenOrientation="portrait"></activity>
-
+        <activity android:name=".activites.ChallengeActivity" android:screenOrientation="portrait"></activity>
 
         <receiver android:name="MyReceiver">
             <intent-filter>
