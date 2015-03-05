@@ -117,7 +117,7 @@ public class JavaScriptInterface {
 
     }
 
-    @JavascriptInterfac
+    @JavascriptInterface
     public void toChallenges(){
         Intent intent = new Intent(activity, ChallengeActivity.class);
         activity.startActivity(intent);

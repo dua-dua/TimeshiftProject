@@ -40,3 +40,7 @@ function toFriends(){
 function toIndex(){
     window.JSInterface.toIndex();
 }
+
+function toChallenges(){
+    window.JSInterface.toChallenges();
+}
