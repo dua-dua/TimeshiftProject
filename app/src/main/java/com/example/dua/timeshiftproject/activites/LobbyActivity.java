@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import com.example.dua.timeshiftproject.R;
@@ -32,6 +33,11 @@ public class LobbyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        if(intent.getExtras().getBoolean("fromChallenge")){
+            Log.v("challenge", "from challenge");
+            ParsePush.subscribeInBackground(intent.getExtras().getString("lobbyId"));
+        }
         setContentView(R.layout.activity_lobby);
         lobbyWebView = (WebView)findViewById(R.id.webview5);
         lobbyWebView.getSettings().setJavaScriptEnabled(true);

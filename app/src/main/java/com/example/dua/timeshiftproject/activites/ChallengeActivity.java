@@ -39,26 +39,37 @@ public class ChallengeActivity extends Activity {
         query.whereEqualTo("receiver", "a");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
-            public void done(List<ParseObject> challenges, ParseException e) {
+            public void done(final List<ParseObject> challenges, ParseException e) {
                 if (challenges.size() == 0) {
                     Log.v("challengeTest", "empty");
                     Log.v("challengeTest", ParseUser.getCurrentUser().getUsername());
                 }
+                final int challengesSize= challenges.size();
                 for (int a = 0; a < challenges.size(); a++) {
+                    final int aVal=a;
+                    final String id = challenges.get(a).getObjectId();
+                    final String sender = challenges.get(a).getString("sender");
                     Log.v("challengeTest", challenges.get(a).toString());
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
-                            challengeView.loadUrl("javascript:test()");
+                            //challengeView.loadUrl("javascript:test()");
+
+                            challengeView.loadUrl("javascript:printChallenges(\"" + sender + "\",\"" + id+ "\")");
+                            if(aVal==challengesSize-1) {
+                                challengeView.loadUrl("javascript:setOnclickForId()");
+                            }
                         }
-                    }, 1000);
+                    }, 500);
                 }
 
 
-                    //challengeView.loadUrl("javascript:printChallenges(\"" + "test" + "\")");
+
+
                 }
 
         });
     }
+
 
 }
