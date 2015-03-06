@@ -25,5 +25,6 @@ public class MenuActivity extends Activity{
         menuWebView.addJavascriptInterface(jsInterface, "JSInterface");
 
 
+
     }
 }

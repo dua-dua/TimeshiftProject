@@ -22,6 +22,7 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         mWebView.getSettings().setJavaScriptEnabled(true);
+
         //ParseInstallation.getCurrentInstallation().saveInBackground();
     }
 

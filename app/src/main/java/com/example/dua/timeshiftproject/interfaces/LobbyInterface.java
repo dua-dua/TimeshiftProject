@@ -85,14 +85,17 @@ public class LobbyInterface {
 
     @JavascriptInterface
     public void getPlayers(){
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         List channelList = installation.getList("channels");
         final String channel = channelList.get(0).toString();
         query.whereEqualTo("lobbyId", channel);
+
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
+
                 JSONObject data = null;
                 ParseUser user = ParseUser.getCurrentUser();
                 String name = user.getUsername();
@@ -107,6 +110,7 @@ public class LobbyInterface {
 
                 for(int a=0; a<players.size(); a++) {
                     if (players.get(a) != user.getUsername()) {
+
                         webView.loadUrl("javascript:printPlayers(\"" + players.get(a) + "\")");
                     }
                 }

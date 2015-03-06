@@ -28,6 +28,8 @@ function redirQuiz(){
     window.LobbyInterface.redir()
 }
 
+
+
 $(function(){
     window.LobbyInterface.getPlayers();
 

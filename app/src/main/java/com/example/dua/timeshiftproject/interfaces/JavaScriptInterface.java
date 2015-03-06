@@ -39,8 +39,8 @@ public class JavaScriptInterface {
         this.activity = act;
         this.webView = webView;
         webViewStatic = webView;
-    }
 
+    }
     @JavascriptInterface
     public String getTime() {
         Date date = new Date();
