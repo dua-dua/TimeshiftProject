@@ -21,7 +21,7 @@ h3 {
     font-size: 2em;
 }
 
-input{
+input {
     width: 200px;
     height: 50px;
     margin-left: 2px;
@@ -48,18 +48,18 @@ input{
    color:    #034b7f;
 }
 
-ul{
+ul {
     list-style-type: none;
     color: #034b7f;
     font-size: 1.2em;
 }
 
-.scoreLi{
+.scoreLi {
     text-align: center;
     margin-left: -40px;
 }
 
-#yourScore{
+#yourScore {
     color: #034b7f;
     font-size: 1.2em;
 }
@@ -85,6 +85,11 @@ ul{
 #notificationText {
     font-family: monospace;
     color: #034b7f;
+}
+
+#friendsList {
+    text-align: center;
+    margin-left: -40px;
 }
 
 .standardButton {
@@ -128,6 +133,21 @@ ul{
     border-color: white;
 }
 
+.adButton {
+    background-color: #034b7f;
+    margin-left: 3px;
+    color: white;
+    border-color: #034b7f;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2em;
+    box-shadow: none;
+    font-family: monospace;
+    font-size: 1.2em;
+    padding: 0 0 0 0;
+    text-align: center;
+}
+
 .center {
     margin-left: auto;
     margin-right: auto;
@@ -151,6 +171,14 @@ ul{
 
 .glyphiconGreen {
     color: #00ff00;
+}
+
+.glyphiconRed {
+    color: #ff0000;
+}
+
+.bigLiText {
+   font-size: 1.5em;
 }
 
 

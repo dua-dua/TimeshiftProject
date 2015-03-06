@@ -1,3 +1,11 @@
+$(function(){
+    getRequests();
+});
+
+function getRequests(){
+    window.friendInterface.getRequests();
+}
+
 function countRequests(){
     var size = $("#friendsList li").size()
     if(size == 0){
@@ -14,25 +22,23 @@ function addFriend(){
 }
 
 function addToLi(name){
-    $("#friendsList").append("<li><span id="+name+">"+name+"</span><button>+</button></li>");
-    /*test mer her
-    list.append("<button>ButtonTest</button>");
-
-    list.on("click", "button", function(){
-        getFeed('http://open.live.bbc.co.uk/weather/feeds/en/PA2/3dayforecast.rss, showFeedResults');
-    });
-    */
+    /* DO NOT TOUCH THE LINE BELOW. YOU WILL BE SHOT! */
+    $('#friendsList').append('<li><span class="bigLiText">'+name+' </span><button class="btn btn-default adButton" id="'+name+'" onClick="acceptRequest(this.id)"><span class="glyphicon glyphicon-ok glyphiconGreen"></span></button><button class="btn btn-default adButton" id="decline'+name+'" onClick="declineRequest(this.id)"><span class="glyphicon glyphicon-remove glyphiconRed"></span></button></li>');
 }
 
-function getRequests(){
-    window.friendInterface.getRequests();
+function acceptRequest(name){
+    window.friendInterface.acceptRequest(name);
+    setTimeout(function(){refreshList()},20);
 }
 
-function acceptRequest(){
-    $("adf").text("click");
-    window.friendInterface.acceptRequest("qwer");
+function declineRequest(input){
+    var name = input.replace("decline","");
+    window.friendInterface.removeRequest(name);
+    setTimeout(function(){refreshList()},20);
 }
 
-$(function(){
+function refreshList(){
+    $("#friendsList").empty();
     getRequests();
-});
+}
+
