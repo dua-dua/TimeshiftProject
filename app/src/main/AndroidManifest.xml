@@ -45,13 +45,6 @@
         <activity android:name=".activites.FriendActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".activites.ChallengeActivity" android:screenOrientation="portrait"></activity>
 
-        <receiver android:name="MyReceiver">
-            <intent-filter>
-                <action android:name="com.tutorialspoint.CUSTOM_INTENT" />
-                <action android:name="com.tutorialspoint.OTHER_CUSTOM_INTENT" />
-            </intent-filter>
-        </receiver>
-
         <service android:name="com.parse.PushService" />
 
         <receiver android:name="com.parse.ParseBroadcastReceiver">
