@@ -87,8 +87,12 @@ public class FriendInterface {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
-                for(int i = 0; i < parseObjects.size(); i++){
-                    addToHTMLList(parseObjects.get(i).getString("sender"));
+                if(parseObjects == null){
+                    Log.v("friendreq", "no friend requests");
+                }else {
+                    for (int i = 0; i < parseObjects.size(); i++) {
+                        addToHTMLList(parseObjects.get(i).getString("sender"));
+                    }
                 }
             }
         });
