@@ -47,7 +47,7 @@ public class FriendInterface {
     }
 
     public void addToMyList(String name){
-        Log.v("friendreq", "entered addtomylist "+name);
+        Log.v("friendreq", "entered addtomylist with "+name);
         //Add friend to my list
         List friendArray = ParseUser.getCurrentUser().getList("friends");
         if(friendArray == null){
@@ -64,7 +64,7 @@ public class FriendInterface {
 
     @JavascriptInterface
     public void removeRequest(String name){
-        Log.v("friendreq", "entered removerequest"+name);
+        Log.v("friendreq", "entered removerequest with "+name);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("FriendRequest");
         String current = ParseUser.getCurrentUser().getUsername();
         query.whereEqualTo("sender", name);
@@ -81,7 +81,7 @@ public class FriendInterface {
     @JavascriptInterface
     public void getRequests(){
         String current = ParseUser.getCurrentUser().getUsername().toString();
-        Log.v("friendreq", "inside");
+        Log.v("friendreq", "inside getRequest");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("FriendRequest");
         query.whereEqualTo("receiver", current);
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -96,7 +96,7 @@ public class FriendInterface {
 
     @JavascriptInterface
     public void acceptRequest(String name){
-        Log.v("friendreq", "entered with "+name);
+        Log.v("friendreq", "entered accept with "+name);
         addToMyList(name);
         removeRequest(name);
     }
