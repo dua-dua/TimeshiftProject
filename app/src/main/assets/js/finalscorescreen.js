@@ -6,7 +6,7 @@ function setScorePlayer(score){
     $("#yourScore").text("Your score: "+score);
 }
 
-function testSetText(){
+function getScores(){
     window.FSSInterface.getTopFive();
 }
 

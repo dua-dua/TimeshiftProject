@@ -6,7 +6,7 @@ function setScorePlayer(score){
     $("#yourScore").text("Your score: "+score);
 }
 
-function testSetText(){
+function getScores(){
     window.SSInterface.getTopFive();
 }
 
@@ -29,6 +29,7 @@ function count(wait, string){
 }
 
 $(function(){
+
     $("#timer").text("hei");
     countdown();
 });

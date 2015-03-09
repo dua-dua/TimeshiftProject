@@ -54,48 +54,47 @@ public class ScoreScreenInterface {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
-            if (parseObjects == null) {
-                Log.v("score", "null");
-            } else {
-                String currentUser = ParseUser.getCurrentUser().getUsername().toString();
-                int questionCounter = 0;
-                int playerIndex = 0;
-                int playerScore = 0;
-                for(int i = 0; i<parseObjects.size(); i++){
-                    if(parseObjects.get(i).getString("userid").toString().equals(currentUser)){
-                        questionCounter = parseObjects.get(i).getList("scores").size();
-                        playerIndex = i;
+                if (parseObjects == null) {
+                    Log.v("score", "null");
+                } else {
+                    String currentUser = ParseUser.getCurrentUser().getUsername().toString();
+                    int questionCounter = 0;
+                    int playerIndex = 0;
+                    int playerScore = 0;
+                    for(int i = 0; i<parseObjects.size(); i++){
+                        if(parseObjects.get(i).getString("userid").toString().equals(currentUser)){
+                            questionCounter = parseObjects.get(i).getList("scores").size();
+                            playerIndex = i;
+                        }
                     }
-                }
 
-                TreeMap<String, Integer> map = new TreeMap<String, Integer>();
-                int tempScore = 0;
-                for (int i = 0; i < parseObjects.size(); i++) {
-                    for (int j = 0; j < questionCounter; j++) {
-                        tempScore += Integer.parseInt(parseObjects.get(i).getList("scores").get(j).toString());
+                    TreeMap<String, Integer> map = new TreeMap<String, Integer>();
+                    int tempScore = 0;
+                    for (int i = 0; i < parseObjects.size(); i++) {
+                        for (int j = 0; j < questionCounter; j++) {
+                            tempScore += Integer.parseInt(parseObjects.get(i).getList("scores").get(j).toString());
+                        }
+                        if(i == playerIndex){
+                            playerScore = tempScore;
+                        }
+                        map.put(parseObjects.get(i).getString("userid"), tempScore);
+                        tempScore = 0;
                     }
-                    if(i == playerIndex){
-                        playerScore = tempScore;
-                    }
-                    map.put(parseObjects.get(i).getString("userid"), tempScore);
-                    tempScore = 0;
-                }
-                SortedSet<Map.Entry<String, Integer>> sortedMap = entriesSortedByValues(map);
+                    SortedSet<Map.Entry<String, Integer>> sortedMap = entriesSortedByValues(map);
 
-                int j = 1;
-                for (int i = sortedMap.size()-1; i >= sortedMap.size()-5; i--) { //kinda borked, fix it
-                    String[] mainString = sortedMap.toArray()[i].toString().split("=");
-                    String name = mainString[0];
-                    String score = mainString[1];
-                    setHTMLText(name, score, (j));
-                    j++;
+                    int j = 1;
+                    for (int i = sortedMap.size()-1; i >= sortedMap.size()-5; i--) { //kinda borked, fix it
+                        String[] mainString = sortedMap.toArray()[i].toString().split("=");
+                        String name = mainString[0];
+                        String score = mainString[1];
+                        setHTMLText(name, score, (j));
+                        j++;
+                    }
+                    setPlayerScore(playerScore+"");
                 }
-                setPlayerScore(playerScore+"");
-            }
             }
         });
     }
-
 
     static <K,V extends Comparable<? super V>> SortedSet<Map.Entry<K,V>> entriesSortedByValues(Map<K,V> map) {
         SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<Map.Entry<K,V>>(
