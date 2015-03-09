@@ -30,27 +30,69 @@ import java.util.List;
  */
 public class LobbyActivity extends Activity {
     private WebView lobbyWebView;
+    private boolean fromChallenge;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        if(intent.getExtras().getBoolean("fromChallenge")){
+        fromChallenge = intent.getExtras().getBoolean("fromChallenge");
+        if(fromChallenge) {
             Log.v("challenge", "from challenge");
             ParsePush.subscribeInBackground(intent.getExtras().getString("lobbyId"));
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
+            String lobby = intent.getExtras().getString("lobbyId");
+            final String challenger = intent.getExtras().getString("challenger");
+            query.whereEqualTo("lobbyId", lobby);
+            query.getFirstInBackground(new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject parseObject, ParseException e) {
+                    parseObject.add("players", ParseUser.getCurrentUser().getUsername());
+                    parseObject.saveInBackground();
+                }
+            });
+            addChallengerBot(challenger);
         }
+
+
+
         setContentView(R.layout.activity_lobby);
         lobbyWebView = (WebView)findViewById(R.id.webview5);
         lobbyWebView.getSettings().setJavaScriptEnabled(true);
         lobbyWebView.loadUrl("file:///android_asset/www/lobby.html");
-        LobbyInterface lobbyInterface = new LobbyInterface(this, lobbyWebView);
+
+        LobbyInterface lobbyInterface = new LobbyInterface(this, lobbyWebView, intent.getExtras().getBoolean("fromChallenge"));
         lobbyWebView.addJavascriptInterface(lobbyInterface, "LobbyInterface");
         checkMaster();
     }
+    public void addChallengerBot(String challenger){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
+        query.whereEqualTo("quizid", JavaScriptInterface.getCurrentChannel());
+        query.whereEqualTo("userid", challenger);
+        Log.v("test", "challengerName " + challenger);
+        Log.v("test", JavaScriptInterface.getCurrentChannel());
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                if(parseObject==null){
+                    Log.v("test", "no object");
+                }
+                String challengerName = parseObject.getString("userid");
+                addBotsToLobbyWithTimer(challengerName, 1000);
+                setBotReadyTimer(challengerName, 5000 + (long)Math.random()*12000 );
 
-    public void addBotsToLobby() {
+            }
+        });
+
+    }
+
+    public void addBotsToLobby(boolean fromChallenge) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
         query.whereEqualTo("quizid", JavaScriptInterface.getCurrentChannel());
         query.whereEqualTo("bot", true);
+        if(fromChallenge){
+            String challenger = getIntent().getExtras().getString("challenger");
+            query.whereNotEqualTo("userid", challenger);
+        }
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
@@ -86,7 +128,7 @@ public class LobbyActivity extends Activity {
                 catch (JSONException e1) {
                     e1.printStackTrace();
                 }
-
+                Log.v("test", "adding bots with timer");
                 ParsePush push = new ParsePush();
                 push.setChannel(channel);
                 push.setData(data);
@@ -121,11 +163,13 @@ public class LobbyActivity extends Activity {
     }
 
     public void checkMaster(){
+        Log.v("test", "in checkMaster");
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 if(LobbyInterface.getMaster()){
-                    addBotsToLobby();
+                    addBotsToLobby(fromChallenge);
+                    Log.v("test", "in checkMaster adding bots");
                 }
             }
         }, 10000);
