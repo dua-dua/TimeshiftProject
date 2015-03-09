@@ -37,6 +37,8 @@ public class LobbyActivity extends Activity {
         if(intent.getExtras().getBoolean("fromChallenge")){
             Log.v("challenge", "from challenge");
             ParsePush.subscribeInBackground(intent.getExtras().getString("lobbyId"));
+        }else{
+            Log.v("challenge", "not from challenge");
         }
         setContentView(R.layout.activity_lobby);
         lobbyWebView = (WebView)findViewById(R.id.webview5);
@@ -124,6 +126,7 @@ public class LobbyActivity extends Activity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
+                Log.v("master", LobbyInterface.getMaster()+"");
                 if(LobbyInterface.getMaster()){
                     addBotsToLobby();
                 }

@@ -43,6 +43,8 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
                 break;
             case "startQuiz": startQuiz();
                 break;
+            case "startCountdown": startCountdown();
+                break;
             default: Toast.makeText(context, "Did not recognize the JSON D:", Toast.LENGTH_LONG).show();
                 break;
         }
@@ -100,5 +102,9 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
     private void runTest(Context context) {
         Toast.makeText(context, "Received test!", Toast.LENGTH_LONG).show();
         Toast.makeText(context, "Did something cool without crashing!", Toast.LENGTH_LONG).show();
+    }
+
+    private void startCountdown(){
+        LobbyInterface.startCountdown();
     }
 }

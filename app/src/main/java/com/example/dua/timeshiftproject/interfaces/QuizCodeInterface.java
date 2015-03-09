@@ -72,6 +72,7 @@ public class QuizCodeInterface {
                                 }
                             }
                             Intent intent = new Intent(activity, LobbyActivity.class);
+                            intent.putExtra("fromChallenge", false);
                             activity.startActivity(intent);
                             activity.finish();
                         }
@@ -81,11 +82,5 @@ public class QuizCodeInterface {
 
 
         });
-    }
-
-    @JavascriptInterface
-    public void toLobby(){
-        Intent intent = new Intent(activity, LobbyActivity.class);
-        activity.startActivity(intent);
     }
 }

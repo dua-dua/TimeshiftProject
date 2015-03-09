@@ -79,13 +79,11 @@ public class LobbyInterface {
 
         staticActivity.startActivity(intent);
         staticActivity.finish();
-
-
     }
 
     @JavascriptInterface
     public void getPlayers(){
-
+        Log.v("master","getPlayers");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         List channelList = installation.getList("channels");
@@ -102,7 +100,7 @@ public class LobbyInterface {
 
                 List<String> players = parseObject.getList("players");
                 List<String> readyPlayers = parseObject.getList("readyPlayers");
-
+                Log.v("master", players.size()+ " <- size");
                 if( players.size()==1){
                     isMaster=true;
                 }
@@ -110,7 +108,7 @@ public class LobbyInterface {
 
                 for(int a=0; a<players.size(); a++) {
                     if (players.get(a) != user.getUsername()) {
-
+                        Log.v("test", "printing " + players.get(a));
                         webView.loadUrl("javascript:printPlayers(\"" + players.get(a) + "\")");
                     }
                 }
@@ -141,10 +139,10 @@ public class LobbyInterface {
                 playerList.add(name);
                 webView.loadUrl("javascript:printPlayers(\"" + name + "\")");
             }else{
-                Log.v("test", "received own name" + name);
+                Log.v("master", "received own name " + name);
             }
         }else{
-            Log.v("lobby", "not in lobby yet");
+            Log.v("master", "not in lobby yet");
         }
 
     }
@@ -166,33 +164,68 @@ public class LobbyInterface {
         readyList.add(name);
 
         if(isMaster){
-            allReady();
+             allReady();
         }
         else{
-            Log.v("test", "Im not the master");
+            Log.v("master", "I'm not the master");
         }
     }
+
+    public static void sendCountdown(){
+        JSONObject data = null;
+        String channel = JavaScriptInterface.getCurrentChannel();
+
+        try {
+            data = new JSONObject();
+            data.put("type", "startCountdown");
+            data.put("channel", channel);
+        }
+        catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+        ParsePush push = new ParsePush();
+        push.setChannel(channel);
+        push.setData(data);
+        push.sendInBackground();
+    }
+
+    public static void sendStartQuiz(){
+        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+        List channelList = installation.getList("channels");
+        final String channel = channelList.get(0).toString();
+
+        JSONObject data = null;
+        Date date = new Date();
+
+        try {
+            data = new JSONObject();
+            data.put("type", "startQuiz");
+            //data.put("startTime", date.getTime()+30000);
+            data.put("channel", channel);
+        }
+        catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+        ParsePush push = new ParsePush();
+        push.setChannel(channel);
+        push.setData(data);
+        push.sendInBackground();
+    }
+
+    @JavascriptInterface
+    public static void startCountdown(){
+        webView.loadUrl("javascript:countdown()");
+    }
+
     public static void allReady(){
         if(readyList.containsAll(playerList)){
-            ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-            List channelList = installation.getList("channels");
-            final String channel = channelList.get(0).toString();
-            JSONObject data = null;
-            Date date = new Date();
-
-            try {
-                data = new JSONObject();
-                data.put("type", "startQuiz");
-                //data.put("startTime", date.getTime()+30000);
-                data.put("channel", channel);
-            }
-            catch (JSONException e1) {
-                e1.printStackTrace();
-            }
-            ParsePush push = new ParsePush();
-            push.setChannel(channel);
-            push.setData(data);
-            push.sendInBackground();
+            sendCountdown();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    sendStartQuiz();
+                }
+            }, 5000);
 
         }
     }

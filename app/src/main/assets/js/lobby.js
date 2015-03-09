@@ -28,9 +28,18 @@ function redirQuiz(){
     window.LobbyInterface.redir()
 }
 
+function countdown(){
+    count(2000, "Starting in 3");
+    count(3000, "Starting in 2");
+    count(4000, "Starting in 1");
+}
 
+function count(wait, string){
+    setTimeout(function(){
+        $("#countdown").text(string);
+    },wait);
+}
 
 $(function(){
     window.LobbyInterface.getPlayers();
-
 });

@@ -1,6 +1,5 @@
 TODO:
 -----
-- Friendstuff
 - Challengestuff
 - Chat i scorescreen, for avansert? Bruke predefined emotes/comments som i Wii og HS, lage chat vha. JSON og receiver
     * Hello!
