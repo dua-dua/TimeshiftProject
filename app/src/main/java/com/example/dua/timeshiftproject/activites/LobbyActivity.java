@@ -94,6 +94,8 @@ public class LobbyActivity extends Activity {
         if(fromChallenge){
             String challenger = getIntent().getExtras().getString("challenger");
             query.whereNotEqualTo("userid", challenger);
+
+
         }
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override

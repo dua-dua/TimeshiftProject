@@ -28,6 +28,7 @@ public class FinalScoreScreenInterface {
     private Activity activity;
     private WebView webView;
     private static WebView webViewStatic;
+    private String quizChannel;
 
 
     public FinalScoreScreenInterface(FinalScoreActivity act, WebView webView) {
@@ -114,6 +115,7 @@ public class FinalScoreScreenInterface {
     }
     public void clearLobbyArray() {
         String channel = JavaScriptInterface.getCurrentChannel();
+
         ParseQuery query = new ParseQuery("LobbyList");
         final String[] empty = {};
         query.whereEqualTo("lobbyId", channel);
@@ -134,6 +136,7 @@ public class FinalScoreScreenInterface {
 
     public void makeBotsFromPlayers() {
         String channel = JavaScriptInterface.getCurrentChannel();
+        quizChannel = channel;
         ParseQuery query = new ParseQuery("Scores");
         query.whereEqualTo("quizid", channel);
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -148,6 +151,21 @@ public class FinalScoreScreenInterface {
                 }
             }
         });
+    }
+
+    @JavascriptInterface
+    public void createChallenge(String challengedPlayer){
+        Log.v("test", "in createChallenge");
+        Log.v("test", challengedPlayer);
+        Log.v("test", ParseUser.getCurrentUser().getUsername());
+        Log.v("test", quizChannel);
+        ParseObject challenge = new ParseObject("Challenge");
+        Log.v("test", "before putting");
+        challenge.put("sender", ParseUser.getCurrentUser().getUsername());
+        challenge.put("receiver", challengedPlayer);
+        challenge.put("quizid", quizChannel);
+        Log.v("test", "after putting");
+        challenge.saveInBackground();
     }
 
     @JavascriptInterface

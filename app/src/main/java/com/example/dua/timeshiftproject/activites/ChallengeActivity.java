@@ -36,7 +36,7 @@ public class ChallengeActivity extends Activity {
 
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Challenge");
-        query.whereEqualTo("receiver", "a");
+        query.whereEqualTo("receiver", ParseUser.getCurrentUser().getUsername());
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(final List<ParseObject> challenges, ParseException e) {

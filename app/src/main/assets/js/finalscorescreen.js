@@ -5,6 +5,11 @@ function setScoreText(name, score, index){
 function setScorePlayer(score){
     $("#yourScore").text("Your score: "+score);
 }
+function challengeFriend(){
+    var friendName = $("#challengedName").val();
+    $("#yourScore").text("friend added");
+    window.FSSInterface.createChallenge(friendName);
+}
 
 function getScores(){
     window.FSSInterface.getTopFive();
@@ -17,5 +22,6 @@ function endQuiz(){
     window.FSSInterface.endQuiz();
 
 }
+
 
 
