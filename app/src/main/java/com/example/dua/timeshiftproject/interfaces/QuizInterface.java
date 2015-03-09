@@ -1,26 +1,21 @@
 package com.example.dua.timeshiftproject.interfaces;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
-
 import com.example.dua.timeshiftproject.activites.FinalScoreActivity;
 import com.example.dua.timeshiftproject.activites.QuizActivity;
 import com.example.dua.timeshiftproject.activites.ScoreActivity;
-import com.parse.DeleteCallback;
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Arrays;
 import java.util.List;
 

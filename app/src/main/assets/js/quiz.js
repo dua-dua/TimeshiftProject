@@ -4,7 +4,6 @@ function sendNotification(){
     window.JSInterface.sendJSONNotification()
 }
 
-
 function userAnswer(id){
     var score = 0;
     var bot = false;
@@ -47,6 +46,8 @@ function setAnswerText(ans){
 
 function notification(name){
     $("#notificationText").text(name + " has answered!");
+    var sound = document.getElementById("notificationSound");
+    sound.play();
     /*$("#notificationText").fadeTo(500, 1);
     setTimeout(function(){
     $("#notificationText").fadeTo(500, 0 )},1500);*/
@@ -80,13 +81,12 @@ function progressbar(){
 function toScore(){
     QuizInterface.toScore();
 }
+
 var timeOut;
 
 function stopTimeOut(){
     window.clearTimeout(timeOut);
-
 }
-
 
 $(function(){
     window.QuizInterface.getNextQuestion();

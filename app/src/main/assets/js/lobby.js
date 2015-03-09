@@ -18,10 +18,9 @@ function addToList(name){
         });
 
 }
+
 function isReady(name){
-
     $("#"+name).addClass("glyphicon glyphicon-ok glyphiconGreen");
-
 }
 
 function redirQuiz(){
