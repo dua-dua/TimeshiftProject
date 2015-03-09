@@ -31,15 +31,15 @@ public class LobbyInterface {
     private static WebView webView;
     private static ArrayList<String> playerList = new ArrayList<String>();
     private static ArrayList<String> readyList = new ArrayList<String>();
-    private static boolean isMaster = false;
+    private static boolean isMaster;
     private static boolean inLobby = false;
 
 
-    public LobbyInterface(Activity act, WebView webView) {
+    public LobbyInterface(Activity act, WebView webView, Boolean isMaster) {
         this.webView = webView;
         webViewStatic = webView;
         staticActivity = act;
-        isMaster = false;
+        this.isMaster = isMaster;
         inLobby = true;
     }
 
@@ -83,7 +83,6 @@ public class LobbyInterface {
 
     @JavascriptInterface
     public void getPlayers(){
-        Log.v("master","getPlayers");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         List channelList = installation.getList("channels");
@@ -108,7 +107,6 @@ public class LobbyInterface {
 
                 for(int a=0; a<players.size(); a++) {
                     if (players.get(a) != user.getUsername()) {
-                        Log.v("test", "printing " + players.get(a));
                         webView.loadUrl("javascript:printPlayers(\"" + players.get(a) + "\")");
                     }
                 }

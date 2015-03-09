@@ -55,7 +55,7 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
     }
 
     private void userJoinedLobby(Context context, JSONObject obj)  {
-
+        Log.v("test", "in user joined Lobby");
         String name = "";
         try {
             name = obj.getString("name").toString();
