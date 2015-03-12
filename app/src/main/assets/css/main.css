@@ -92,6 +92,10 @@ ul {
     margin-left: -40px;
 }
 
+#friendName {
+    margin-left: -5px;
+}
+
 .standardButton {
     margin-top: 20px;
     margin-bottom: 10px;
