@@ -89,7 +89,6 @@ public class FriendInterface {
             public void done(List<ParseObject> parseObjects, ParseException e) {
                 if(parseObjects == null){
                     Log.v("friendreq", "no friend requests");
-                    addToHTMLList("Forever alone :(");
                 }else {
                     for (int i = 0; i < parseObjects.size(); i++) {
                         addToHTMLList(parseObjects.get(i).getString("sender"));
@@ -142,7 +141,6 @@ public class FriendInterface {
 
     @JavascriptInterface
     public void addToFriendsList(final String name){
-        Log.v("friend", "added "+name);
         webView.post(new Runnable() {
             @Override
             public void run() {
