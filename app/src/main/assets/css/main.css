@@ -87,13 +87,17 @@ ul {
     color: #034b7f;
 }
 
-#friendsList, #friendsListReal {
+#friendsList, #friendsListReal, #friendList {
     text-align: center;
     margin-left: -40px;
 }
 
 #friendName {
     margin-left: -5px;
+}
+
+#challengeButton, #sendChallengeButton {
+    margin-top: 100px;
 }
 
 .standardButton {

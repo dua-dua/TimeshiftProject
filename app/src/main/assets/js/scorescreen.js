@@ -29,8 +29,6 @@ function count(wait, string){
 }
 
 $(function(){
-
-    $("#timer").text("hei");
     countdown();
 });
 

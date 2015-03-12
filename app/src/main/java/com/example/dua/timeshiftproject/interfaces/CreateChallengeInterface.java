@@ -28,7 +28,6 @@ public class CreateChallengeInterface {
     @JavascriptInterface
     public void getFriends(){
         Log.v("test", "in getFriends");
-       final String  name = null;
         List friendArray = ParseUser.getCurrentUser().getList("friends");
         if(friendArray==null){
             Log.v("test", "you have no friends");
@@ -44,6 +43,7 @@ public class CreateChallengeInterface {
     }
 
     private void printFriend(final String friend) {
+
         webView.post(new Runnable() {
             @Override
             public void run() {
