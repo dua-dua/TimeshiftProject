@@ -1,8 +1,8 @@
 function getFriends(){
     window.createChallengeInterface.getFriends();
 }
-function printFriend(){
+function printFriend(friend){
     $("#test").text("printFriend");
-    $("#friendList").append("<li>test</li>");
+    $("#friendList").append("<li >"+friend+"<input id="+friend+" type='checkbox'></li>");
 
 }

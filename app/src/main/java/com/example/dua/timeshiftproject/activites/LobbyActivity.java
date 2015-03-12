@@ -111,7 +111,7 @@ public class LobbyActivity extends Activity {
                     Log.v("lobby","Adding stuff #" + j);
 
                     addBotsToLobbyWithTimer(name, time);
-                    setBotReadyTimer(name, time + 5000 + (long)Math.random()*12000);
+                    setBotReadyTimer(name, time + (long)Math.random()*12000);
                 }
             }
         });
