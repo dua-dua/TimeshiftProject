@@ -2,9 +2,12 @@ package com.example.dua.timeshiftproject.interfaces;
 
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+
+import com.example.dua.timeshiftproject.R;
 import com.example.dua.timeshiftproject.activites.FinalScoreActivity;
 import com.example.dua.timeshiftproject.activites.QuizActivity;
 import com.example.dua.timeshiftproject.activites.ScoreActivity;
@@ -28,7 +31,7 @@ public class QuizInterface {
     private static boolean hasAnswered = false;
     private boolean isMaster=false;
     private static int counter;
-
+    public static MediaPlayer mp;
 
 
     public QuizInterface(QuizActivity act, WebView webView, boolean master, int counter) {
@@ -37,6 +40,7 @@ public class QuizInterface {
         webViewStatic = webView;
         isMaster = master;
         this.counter = counter;
+        mp = MediaPlayer.create(act, R.raw.waterdrop);
     }
 
     @JavascriptInterface
@@ -118,13 +122,15 @@ public class QuizInterface {
 
     @JavascriptInterface
     public static void sendHTMLNotification(final String name) {
-
         webViewStatic.post(new Runnable() {
             @Override
             public void run() {
-                webViewStatic.loadUrl("javascript:notification(\""+name+"\")");
+                webViewStatic.loadUrl("javascript:notification(\"" + name + "\")");
             }
         });
+        Log.v("sound", "played sound");
+        playSound();
+        Log.v("sound", "ended sound");
     }
 
     @JavascriptInterface
@@ -240,5 +246,9 @@ public class QuizInterface {
                 }
             }
        });
+    }
+
+    public static void playSound(){
+        mp.start();
     }
 }
