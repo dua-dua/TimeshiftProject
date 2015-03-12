@@ -159,7 +159,7 @@ ul {
     transform: translateY(-10%);
 }
 
-.verticalCenteringLogin {
+.verticalCenteringSmall {
     position: relative;
     top: 25%;
     transform: translateY(-25%);
