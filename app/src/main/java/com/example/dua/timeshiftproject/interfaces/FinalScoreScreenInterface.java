@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+
+import com.example.dua.timeshiftproject.activites.CreateChallengeActivity;
 import com.example.dua.timeshiftproject.activites.FinalScoreActivity;
 import com.example.dua.timeshiftproject.activites.MainActivity;
 import com.parse.FindCallback;
@@ -167,7 +169,11 @@ public class FinalScoreScreenInterface {
         Log.v("test", "after putting");
         challenge.saveInBackground();
     }
-
+    @JavascriptInterface
+    public void toCreateChallenge(){
+        Intent intent = new Intent(activity, CreateChallengeActivity.class);
+        activity.startActivity(intent);
+    }
     @JavascriptInterface
     public void clearDatabase(){
         makeBotsFromPlayers();

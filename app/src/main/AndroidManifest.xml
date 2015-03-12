@@ -44,7 +44,7 @@
         <activity android:name=".activites.FinalScoreActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".activites.FriendActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".activites.ChallengeActivity" android:screenOrientation="portrait"></activity>
-
+        <activity android:name=".activites.CreateChallengeActivity" android:screenOrientation="portrait"></activity>
         <service android:name="com.parse.PushService" />
 
         <receiver android:name="com.parse.ParseBroadcastReceiver">

@@ -22,6 +22,9 @@ function endQuiz(){
     window.FSSInterface.endQuiz();
 
 }
+function toCreateChallenge(){
+    window.FSSInterface.toCreateChallenge();
+}
 
 
 
