@@ -26,7 +26,7 @@ public class CreateChallengeInterface {
     @JavascriptInterface
     public void getFriends(){
         Log.v("test", "in getFriends");
-       String name;
+        final String name = null;
         webView.post(new Runnable() {
             @Override
             public void run() {
