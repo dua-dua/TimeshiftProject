@@ -89,6 +89,7 @@ public class FriendInterface {
             public void done(List<ParseObject> parseObjects, ParseException e) {
                 if(parseObjects == null){
                     Log.v("friendreq", "no friend requests");
+                    addToHTMLList("Forever alone :(");
                 }else {
                     for (int i = 0; i < parseObjects.size(); i++) {
                         addToHTMLList(parseObjects.get(i).getString("sender"));
@@ -96,6 +97,22 @@ public class FriendInterface {
                 }
             }
         });
+    }
+
+    @JavascriptInterface
+    public void getFriendsList(){
+        Log.v("friend", "inside getFriends");
+        List friendArray = ParseUser.getCurrentUser().getList("friends");
+        if(friendArray == null){
+            Log.v("friend", "forever alone");
+            addToFriendsList("No friends :(");
+        }else{
+            Log.v("friend","size " + friendArray.size());
+            for(int i = 0; i < friendArray.size(); i++ ){
+                addToFriendsList(friendArray.get(i).toString());
+                Log.v("friend", "added "+friendArray.get(i).toString());
+            }
+        }
     }
 
     @JavascriptInterface
@@ -113,9 +130,24 @@ public class FriendInterface {
     }
 
     @JavascriptInterface
-    public void addToHTMLList(String name){
+    public void addToHTMLList(final String name){
         Log.v("friendreq", "added "+name);
-        webView.loadUrl("javascript:addToLi(\""+name+"\")");
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadUrl("javascript:addToLi(\""+name+"\")");
+            }
+        });
     }
 
+    @JavascriptInterface
+    public void addToFriendsList(final String name){
+        Log.v("friend", "added "+name);
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadUrl("javascript:addToFriendList(\""+name+"\")");
+            }
+        });
+    }
 }

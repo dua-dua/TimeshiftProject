@@ -87,7 +87,7 @@ ul {
     color: #034b7f;
 }
 
-#friendsList {
+#friendsList, #friendsListReal {
     text-align: center;
     margin-left: -40px;
 }

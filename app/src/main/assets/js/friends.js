@@ -4,6 +4,7 @@ $(function(){
 
 function getRequests(){
     window.friendInterface.getRequests();
+    window.friendInterface.getFriendsList();
 }
 
 function countRequests(){
@@ -37,4 +38,8 @@ function declineRequest(input){
     window.friendInterface.removeRequest(name);
     var id = "#li"+name
     $(id).remove();
+}
+
+function addToFriendList(name){
+    $('#friendsListReal').append('<li><span class="bigLiText">'+name+' </span></li>');
 }
