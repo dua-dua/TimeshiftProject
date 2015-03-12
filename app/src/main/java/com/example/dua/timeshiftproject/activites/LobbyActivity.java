@@ -106,12 +106,12 @@ public class LobbyActivity extends Activity {
                 }
 
                 for(int j = 0; j < names.length; j++){
-                    long time = (long)(4000 + Math.random() * 9500);
+                    long time = (long)(Math.random() * 9500);
                     String name = names[j];
                     Log.v("lobby","Adding stuff #" + j);
 
                     addBotsToLobbyWithTimer(name, time);
-                    setBotReadyTimer(name, time + (long)Math.random()*12000);
+                    setBotReadyTimer(name, time+ 5000 + (long)Math.random()*12000);
                 }
             }
         });

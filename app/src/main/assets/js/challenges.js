@@ -8,6 +8,7 @@ function printChallenges(name, id){
 
 
 }
+
 function getId(){
     var id = this;
     window.challengeInterface.test(id);

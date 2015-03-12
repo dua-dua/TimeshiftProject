@@ -41,6 +41,18 @@ public class CreateChallengeInterface {
 
         Log.v("test", "after getting friends");
     }
+    @JavascriptInterface
+    public void sendChallenges(String friend){
+        String channel = activity.getIntent().getExtras().getString("channel");
+        ParseObject challenge = new ParseObject("Challenge");
+        Log.v("test", "before putting");
+        Log.v("test", friend);
+        challenge.put("sender", ParseUser.getCurrentUser().getUsername());
+        challenge.put("receiver", friend);
+        challenge.put("quizid", channel);
+        Log.v("test", "after putting");
+        challenge.saveInBackground();
+    }
 
     private void printFriend(final String friend) {
 

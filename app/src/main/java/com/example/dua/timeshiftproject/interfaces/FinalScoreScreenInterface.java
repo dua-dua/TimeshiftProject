@@ -172,6 +172,7 @@ public class FinalScoreScreenInterface {
     @JavascriptInterface
     public void toCreateChallenge(){
         Intent intent = new Intent(activity, CreateChallengeActivity.class);
+        intent.putExtra("channel", quizChannel);
         activity.startActivity(intent);
     }
     @JavascriptInterface
