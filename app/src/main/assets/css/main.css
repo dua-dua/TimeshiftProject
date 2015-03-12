@@ -159,6 +159,12 @@ ul {
     transform: translateY(-10%);
 }
 
+.verticalCenteringLogin {
+    position: relative;
+    top: 25%;
+    transform: translateY(-25%);
+}
+
 .contentWrapper {
     min-height: 100%;
     height: auto !important;
