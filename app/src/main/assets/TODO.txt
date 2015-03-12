@@ -1,5 +1,7 @@
 TODO:
 -----
+- Fix sound
+- Challenge plx
 - Chat i scorescreen, for avansert? Bruke predefined emotes/comments som i Wii og HS, lage chat vha. JSON og receiver
     * Hello!
     * Easy!

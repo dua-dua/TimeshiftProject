@@ -2,6 +2,7 @@ package com.example.dua.timeshiftproject.activites;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -46,6 +47,7 @@ public class QuizActivity extends Activity{
 
         QuizInterface quizInterface = new QuizInterface(this, quizWebView,isMaster, counter);
         quizWebView.addJavascriptInterface(quizInterface, "QuizInterface");
+
     }
     @Override
     protected void onDestroy(){
