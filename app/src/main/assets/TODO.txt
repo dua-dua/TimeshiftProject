@@ -1,6 +1,7 @@
 TODO:
 -----
-- activity + interface for register user
+- add handler for addbotsToLobby <- Jon
+
 - Chat i scorescreen, for avansert? Bruke predefined emotes/comments som i Wii og HS, lage chat vha. JSON og receiver
     * Hello!
     * Easy!
