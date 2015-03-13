@@ -41,6 +41,7 @@ public class CreateChallengeInterface {
 
         Log.v("test", "after getting friends");
     }
+
     @JavascriptInterface
     public void sendChallenges(String friend){
         String channel = activity.getIntent().getExtras().getString("channel");

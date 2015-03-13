@@ -28,10 +28,11 @@ public class ChallengeInterface {
     public void test(String id){
         Log.v("challengeTest", id);
     }
+
     @JavascriptInterface
     public void toChallengeLobby(String challengeId) throws ParseException {
         Log.v("challengeTest", "in toChallengeLobby");
-        Log.v("challengeTest", "this is the Id" + challengeId);
+        Log.v("challengeTest", "this is the Id " + challengeId);
         ParseQuery<ParseObject> query = new ParseQuery("Challenge");
         query.getInBackground(challengeId, new GetCallback<ParseObject>() {
             @Override
@@ -39,7 +40,7 @@ public class ChallengeInterface {
                 Intent intent = new Intent(activity, LobbyActivity.class);
                 String sender = parseObject.getString("sender");
                 String lobby = parseObject.getString("quizid");
-
+                Log.v("challengeTest","im here");
                 intent.putExtra("challenger", sender);
                 intent.putExtra("lobbyId", lobby);
 
@@ -47,12 +48,20 @@ public class ChallengeInterface {
                 activity.startActivity(intent);
             }
         });
-
         Log.v("challengeTest", challengeId);
+    }
 
-
-
-
+    @JavascriptInterface
+    public void removeChallenge(String challengeId) throws ParseException {
+        Log.v("challengeTest", "in remove");
+        Log.v("challengeTest", "this is the Id" + challengeId);
+        ParseQuery<ParseObject> query = new ParseQuery("Challenge");
+        query.getInBackground(challengeId, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                parseObject.deleteInBackground();
+            }
+        });
     }
 
     @JavascriptInterface

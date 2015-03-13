@@ -49,16 +49,13 @@ public class ChallengeActivity extends Activity {
                     final int aVal=a;
                     final String id = challenges.get(a).getObjectId();
                     final String sender = challenges.get(a).getString("sender");
-                    Log.v("challengeTest", challenges.get(a).toString());
+                    Log.v("challengeTest", "found this: "+challenges.get(a).toString());
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
                             //challengeView.loadUrl("javascript:test()");
-
+                            Log.v("challengeTest", "printing this: "+sender+", "+id);
                             challengeView.loadUrl("javascript:printChallenges(\"" + sender + "\",\"" + id+ "\")");
-                            if(aVal==challengesSize-1) {
-                                challengeView.loadUrl("javascript:setOnclickForId()");
-                            }
                         }
                     }, 500);
                 }

@@ -87,7 +87,7 @@ ul {
     color: #034b7f;
 }
 
-#friendsList, #friendsListReal, #friendList {
+#friendsList, #friendsListReal, #friendList, #challengeList {
     text-align: center;
     margin-left: -40px;
 }
@@ -190,10 +190,3 @@ ul {
 .glyphiconRed {
     color: #ff0000;
 }
-
-.bigLiText {
-   font-size: 1.5em;
-}
-
-
-
