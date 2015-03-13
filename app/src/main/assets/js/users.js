@@ -1,7 +1,8 @@
 function createNewUser(){
     name = window.document.getElementById("newusername").value;
     password = window.document.getElementById("newpassword").value;
-    window.JSInterface.createUser(name, password);
+    window.NewUserInterface.createUser(name, password);
+    window.NewUserInterface.returnToLogin();
 }
 
 function logInUser(){
@@ -10,9 +11,8 @@ function logInUser(){
     window.LoginInterface.logUser(user, pass);
 }
 
-
-function redir(){
-    window.JSInterface.redir("file:///android_asset/www/index.html");
+function toNewUser(){
+    window.LoginInterface.toNewUser();
 }
 
 function wrongInput(){
@@ -20,3 +20,4 @@ function wrongInput(){
     setTimeout(function(){
     $("#errorText").fadeOut(1000)},3000);
 }
+

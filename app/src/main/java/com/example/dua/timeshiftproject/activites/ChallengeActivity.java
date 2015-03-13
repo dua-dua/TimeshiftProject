@@ -43,8 +43,15 @@ public class ChallengeActivity extends Activity {
                 if (challenges.size() == 0) {
                     Log.v("challengeTest", "empty");
                     Log.v("challengeTest", ParseUser.getCurrentUser().getUsername());
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            challengeView.loadUrl("javascript:noChallengesText()");
+                        }
+                    }, 500);
                 }
-                final int challengesSize= challenges.size();
+                final int challengesSize = challenges.size();
+
                 for (int a = 0; a < challenges.size(); a++) {
                     final int aVal=a;
                     final String id = challenges.get(a).getObjectId();
@@ -59,10 +66,6 @@ public class ChallengeActivity extends Activity {
                         }
                     }, 500);
                 }
-
-
-
-
                 }
 
         });

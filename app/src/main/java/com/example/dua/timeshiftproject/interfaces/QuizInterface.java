@@ -33,7 +33,6 @@ public class QuizInterface {
     private static int counter;
     public static MediaPlayer mp;
 
-
     public QuizInterface(QuizActivity act, WebView webView, boolean master, int counter) {
         this.activity = act;
         this.webView = webView;

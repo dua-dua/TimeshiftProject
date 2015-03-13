@@ -70,14 +70,6 @@ public class JavaScriptInterface {
     }
 
     @JavascriptInterface
-    public void createUser(String name, String password) {
-        ParseUser user = new ParseUser();
-        user.setUsername(name);
-        user.setPassword(password);
-        user.signUpInBackground();
-    }
-
-    @JavascriptInterface
     public static String getCurrentChannel() {
         ParseInstallation inst = ParseInstallation.getCurrentInstallation();
         List channels = inst.getList("channels");

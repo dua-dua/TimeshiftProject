@@ -35,7 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".activites.NewUserActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".activites.MenuActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".activites.QuizCodeActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".activites.LobbyActivity" android:screenOrientation="portrait"></activity>

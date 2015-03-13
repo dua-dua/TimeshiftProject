@@ -8,6 +8,7 @@ import android.webkit.WebView;
 
 import com.example.dua.timeshiftproject.activites.LoginActivity;
 import com.example.dua.timeshiftproject.activites.MenuActivity;
+import com.example.dua.timeshiftproject.activites.NewUserActivity;
 import com.parse.LogInCallback;
 import com.parse.ParseUser;
 
@@ -59,5 +60,16 @@ public class LoginInterface {
             }
         });
 
+    }
+
+    @JavascriptInterface
+    public void toNewUser(){
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(activity, NewUserActivity.class);
+                activity.startActivity(intent);
+            }
+        });
     }
 }
