@@ -1,13 +1,18 @@
 package com.example.dua.timeshiftproject.activites;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.example.dua.timeshiftproject.App;
+import com.example.dua.timeshiftproject.MyParseReceiver;
 import com.example.dua.timeshiftproject.R;
 import com.example.dua.timeshiftproject.interfaces.JavaScriptInterface;
 import com.example.dua.timeshiftproject.interfaces.LobbyInterface;
@@ -23,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,8 +37,12 @@ import java.util.List;
 public class LobbyActivity extends Activity {
     private WebView lobbyWebView;
     private boolean fromChallenge;
+    private Handler handler;
+    private Runnable run;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
+        handler= new Handler();
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         fromChallenge = intent.getExtras().getBoolean("fromChallenge");
@@ -50,6 +60,7 @@ public class LobbyActivity extends Activity {
                     parseObject.saveInBackground();
                 }
             });
+
             addChallengerBot(challenger);
 
         }else{
@@ -65,6 +76,32 @@ public class LobbyActivity extends Activity {
         lobbyWebView.addJavascriptInterface(lobbyInterface, "LobbyInterface");
         checkMaster();
     }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(run);
+        endQuiz();
+
+    }
+
+
+    private void endQuiz() {
+        final String[] empty= {};
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
+        query.whereEqualTo("lobbyId", JavaScriptInterface.getCurrentChannel());
+
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                parseObject.put("players", Arrays.asList(empty));
+                parseObject.put("readyPlayers", Arrays.asList(empty));
+                parseObject.put("counter", 0);
+                parseObject.saveInBackground();
+            }
+        });
+
+
+    }
 
     public void addChallengerBot(String challenger){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
@@ -78,44 +115,90 @@ public class LobbyActivity extends Activity {
                 if(parseObject==null){
                     Log.v("test", "no object");
                 }
+
                 String challengerName = parseObject.getString("userid");
                 addBotsToLobbyWithTimer(challengerName, 1000);
                 setBotReadyTimer(challengerName, 5000 + (long)Math.random()*12000 );
 
+                
             }
         });
 
     }
 
-    public void addBotsToLobby(boolean fromChallenge) {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
-        query.whereEqualTo("quizid", JavaScriptInterface.getCurrentChannel());
-        query.whereEqualTo("bot", true);
-        if(fromChallenge){
-            String challenger = getIntent().getExtras().getString("challenger");
-            query.whereNotEqualTo("userid", challenger);
-
-
-        }
-        query.findInBackground(new FindCallback<ParseObject>() {
+    public void addBotsToLobby(final boolean fromChallenge) {
+        run = new Runnable() {
             @Override
-            public void done(List<ParseObject> parseObjects, ParseException e) {
-                String[] names = new String[parseObjects.size()];
-                for (int i = 0; i < parseObjects.size(); i++){
-                    names[i] = parseObjects.get(i).getString("userid");
-                }
+            public void run() {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
+                query.whereEqualTo("quizid", JavaScriptInterface.getCurrentChannel());
+                query.whereEqualTo("bot", true);
+                if (fromChallenge) {
+                    String challenger = getIntent().getExtras().getString("challenger");
+                    query.whereNotEqualTo("userid", challenger);
 
-                for(int j = 0; j < names.length; j++){
-                    long time = (long)(Math.random() * 9500);
-                    String name = names[j];
-                    Log.v("lobby","Adding stuff #" + j);
 
-                    addBotsToLobbyWithTimer(name, time);
-                    setBotReadyTimer(name, time+ 5000 + (long)Math.random()*12000);
                 }
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> parseObjects, ParseException e) {
+                        String[] names = new String[parseObjects.size()];
+                        for (int i = 0; i < parseObjects.size(); i++) {
+                            names[i] = parseObjects.get(i).getString("userid");
+                        }
+
+                        for (int j = 0; j < names.length; j++) {
+                            long time = (long) (Math.random() * 9500);
+                            String name = names[j];
+                            Log.v("lobby", "Adding stuff #" + j);
+
+                            addBotsToLobbyWithTimer(name, time);
+                            setBotReadyTimer(name, time + 5000 + (long) Math.random() * 12000);
+                        }
+                    }
+                });
             }
+
+        };
+        handler.post(run);
+    }
+
+        /*handler.post(new Runnable() {
+            @Override
+            public void run() {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
+                query.whereEqualTo("quizid", JavaScriptInterface.getCurrentChannel());
+                query.whereEqualTo("bot", true);
+                if (fromChallenge) {
+                    String challenger = getIntent().getExtras().getString("challenger");
+                    query.whereNotEqualTo("userid", challenger);
+
+
+                }
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> parseObjects, ParseException e) {
+                        String[] names = new String[parseObjects.size()];
+                        for (int i = 0; i < parseObjects.size(); i++) {
+                            names[i] = parseObjects.get(i).getString("userid");
+                        }
+
+                        for (int j = 0; j < names.length; j++) {
+                            long time = (long) (Math.random() * 9500);
+                            String name = names[j];
+                            Log.v("lobby", "Adding stuff #" + j);
+
+                            addBotsToLobbyWithTimer(name, time);
+                            setBotReadyTimer(name, time + 5000 + (long) Math.random() * 12000);
+                        }
+                    }
+                });
+            }
+
         });
     }
+    */
+
 
     public void addBotsToLobbyWithTimer(final String name, long time){
         final String channel = JavaScriptInterface.getCurrentChannel();
@@ -201,4 +284,6 @@ public class LobbyActivity extends Activity {
             }
         });
     }
+
+
 }

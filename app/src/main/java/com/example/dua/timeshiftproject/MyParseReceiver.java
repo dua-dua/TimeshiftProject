@@ -1,15 +1,18 @@
 package com.example.dua.timeshiftproject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.dua.timeshiftproject.activites.LobbyActivity;
 import com.example.dua.timeshiftproject.activites.QuizActivity;
 import com.example.dua.timeshiftproject.interfaces.JavaScriptInterface;
 import com.example.dua.timeshiftproject.interfaces.LobbyInterface;
 import com.example.dua.timeshiftproject.interfaces.QuizInterface;
 import com.parse.GetCallback;
+import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
 import com.parse.ParsePushBroadcastReceiver;
 import com.parse.ParseQuery;
@@ -18,6 +21,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MyParseReceiver extends ParsePushBroadcastReceiver {
+
+
     @Override
     protected void onPushReceive(Context context, Intent intent) {
         getObjectType(context, intent);
@@ -46,11 +51,14 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
                 break;
             case "startCountdown": startCountdown();
                 break;
+            case "endQuiz": endQuiz();
             default: Toast.makeText(context, "Did not recognize the JSON D:", Toast.LENGTH_LONG).show();
                 break;
         }
     }
-
+    private void endQuiz(){
+        Log.v("test", "in endQuiz");
+    }
     private void startQuiz(){
         LobbyInterface.startQuiz();
     }

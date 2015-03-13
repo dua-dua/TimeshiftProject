@@ -46,6 +46,12 @@ public class ChallengeInterface {
 
                 intent.putExtra("fromChallenge", true);
                 activity.startActivity(intent);
+                try {
+                    parseObject.delete();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
+
             }
         });
         Log.v("challengeTest", challengeId);
