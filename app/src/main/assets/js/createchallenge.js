@@ -8,9 +8,14 @@ function challengeFriends(){
             window.createChallengeInterface.sendChallenges(this.id);
         }
     });
+    challengeNotify();
 }
 
 function printFriend(friend){
-    $("#test").text("printFriend");
     $("#friendList").append("<li >"+friend+"<input id="+friend+" type='checkbox'></li>");
+}
+
+function challengeNotify(){
+    $("#challengeSent").text("Challenges sent!");
+    $("#challengeSent").fadeOut(2000);
 }

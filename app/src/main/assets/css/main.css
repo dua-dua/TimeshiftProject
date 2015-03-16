@@ -100,6 +100,12 @@ ul {
     margin-top: 100px;
 }
 
+.smallButton {
+    width: 50px !important;
+    height: 50px !important;
+    margin: 0px 0px 0px 5px !important;
+}
+
 .standardButton {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -189,4 +195,11 @@ ul {
 
 .glyphiconRed {
     color: #ff0000;
+}
+
+input[type="checkbox"] {
+    width:30px;
+    height:30px;
+    margin:1px 1px 5px 5px;
+    vertical-align:middle;
 }
