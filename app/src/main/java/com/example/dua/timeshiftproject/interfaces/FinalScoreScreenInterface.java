@@ -130,6 +130,7 @@ public class FinalScoreScreenInterface {
                     parseObject.put("players", Arrays.asList(empty));
                     parseObject.put("readyPlayers", Arrays.asList(empty));
                     parseObject.put("counter", 0);
+                    parseObject.put("locked", false);
                     parseObject.saveInBackground();
                 }
             }

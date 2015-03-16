@@ -217,6 +217,14 @@ public class LobbyInterface {
 
     public static void allReady(){
         if(readyList.containsAll(playerList)){
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
+            query.whereEqualTo("lobbyId", JavaScriptInterface.getCurrentChannel());
+            query.getFirstInBackground(new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject parseObject, ParseException e) {
+                    parseObject.put("locked", true);
+                }
+            });
             sendCountdown();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {

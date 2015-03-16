@@ -38,7 +38,11 @@ public class LobbyActivity extends Activity {
     private WebView lobbyWebView;
     private boolean fromChallenge;
     private Handler handler;
-    private Runnable run;
+    private Runnable addBotsRun;
+    private Runnable addBotsWithTimerRun;
+    private Runnable setBotReadyRun;
+    private ParseQuery<ParseObject> addBotQuery;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -79,13 +83,41 @@ public class LobbyActivity extends Activity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        handler.removeCallbacksAndMessages(run);
-        endQuiz();
+        handler.removeCallbacksAndMessages(addBotsRun);
+        handler.removeCallbacksAndMessages(addBotsWithTimerRun);
+        handler.removeCallbacksAndMessages(setBotReadyRun);
 
+
+        if(LobbyInterface.getMaster()){
+            Log.v("test", "in endQuiz as master");
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
+            query.whereEqualTo("lobbyId", JavaScriptInterface.getCurrentChannel());
+            query.getFirstInBackground(new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject parseObject, ParseException e) {
+                    Log.v("endQuiz", "in endquiz, setting locked to true");
+                    parseObject.put("locked", true);
+                    parseObject.saveInBackground();
+                    if(parseObject.getBoolean("locked")){
+                        Log.v("endQuiz", "locked is true");
+                    }
+
+                }
+            });
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    endQuiz();
+                }
+            }, 60000);
+
+        }
+        //ParsePush.unsubscribeInBackground(JavaScriptInterface.getCurrentChannel());
     }
 
 
     private void endQuiz() {
+        Log.v("endQuiz", "starting cleanup");
         final String[] empty= {};
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
         query.whereEqualTo("lobbyId", JavaScriptInterface.getCurrentChannel());
@@ -96,11 +128,10 @@ public class LobbyActivity extends Activity {
                 parseObject.put("players", Arrays.asList(empty));
                 parseObject.put("readyPlayers", Arrays.asList(empty));
                 parseObject.put("counter", 0);
+                parseObject.put("locked", false);
                 parseObject.saveInBackground();
             }
         });
-
-
     }
 
     public void addChallengerBot(String challenger){
@@ -120,26 +151,26 @@ public class LobbyActivity extends Activity {
                 addBotsToLobbyWithTimer(challengerName, 1000);
                 setBotReadyTimer(challengerName, 5000 + (long)Math.random()*12000 );
 
-                
+
             }
         });
 
     }
 
     public void addBotsToLobby(final boolean fromChallenge) {
-        run = new Runnable() {
+        addBotsRun = new Runnable() {
             @Override
             public void run() {
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
-                query.whereEqualTo("quizid", JavaScriptInterface.getCurrentChannel());
-                query.whereEqualTo("bot", true);
+                addBotQuery = ParseQuery.getQuery("Scores");
+                addBotQuery.whereEqualTo("quizid", JavaScriptInterface.getCurrentChannel());
+                addBotQuery.whereEqualTo("bot", true);
                 if (fromChallenge) {
                     String challenger = getIntent().getExtras().getString("challenger");
-                    query.whereNotEqualTo("userid", challenger);
+                    addBotQuery.whereNotEqualTo("userid", challenger);
 
 
                 }
-                query.findInBackground(new FindCallback<ParseObject>() {
+                addBotQuery.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> parseObjects, ParseException e) {
                         String[] names = new String[parseObjects.size()];
@@ -160,93 +191,73 @@ public class LobbyActivity extends Activity {
             }
 
         };
-        handler.post(run);
+        handler.post(addBotsRun);
     }
 
-        /*handler.post(new Runnable() {
+
+
+    public void addBotsToLobbyWithTimer(final String name, final long time) {
+        addBotsWithTimerRun = new Runnable() {
             @Override
             public void run() {
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
-                query.whereEqualTo("quizid", JavaScriptInterface.getCurrentChannel());
-                query.whereEqualTo("bot", true);
-                if (fromChallenge) {
-                    String challenger = getIntent().getExtras().getString("challenger");
-                    query.whereNotEqualTo("userid", challenger);
-
-
-                }
-                query.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> parseObjects, ParseException e) {
-                        String[] names = new String[parseObjects.size()];
-                        for (int i = 0; i < parseObjects.size(); i++) {
-                            names[i] = parseObjects.get(i).getString("userid");
+                final String channel = JavaScriptInterface.getCurrentChannel();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        JSONObject data = null;
+                        try {
+                            data = new JSONObject();
+                            data.put("type", "joinedLobby");
+                            data.put("name", name);
+                            data.put("channel", channel);
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
                         }
-
-                        for (int j = 0; j < names.length; j++) {
-                            long time = (long) (Math.random() * 9500);
-                            String name = names[j];
-                            Log.v("lobby", "Adding stuff #" + j);
-
-                            addBotsToLobbyWithTimer(name, time);
-                            setBotReadyTimer(name, time + 5000 + (long) Math.random() * 12000);
-                        }
+                        Log.v("test", "adding bots with timer");
+                        ParsePush push = new ParsePush();
+                        push.setChannel(channel);
+                        push.setData(data);
+                        push.sendInBackground();
+                        addBotToLobbyList(name);
                     }
-                });
+                }, time);
             }
 
-        });
-    }
-    */
 
-
-    public void addBotsToLobbyWithTimer(final String name, long time){
-        final String channel = JavaScriptInterface.getCurrentChannel();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                JSONObject data = null;
-                try {
-                    data = new JSONObject();
-                    data.put("type", "joinedLobby");
-                    data.put("name", name);
-                    data.put("channel", channel);
-                }
-                catch (JSONException e1) {
-                    e1.printStackTrace();
-                }
-                Log.v("test", "adding bots with timer");
-                ParsePush push = new ParsePush();
-                push.setChannel(channel);
-                push.setData(data);
-                push.sendInBackground();
-                addBotToLobbyList(name);
-            }
-        }, time);
+        };
+        handler.post(addBotsWithTimerRun);
     }
 
-    public void setBotReadyTimer(final String name, long time){
-        final String channel = JavaScriptInterface.getCurrentChannel();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+    public void setBotReadyTimer(final String name, final long time) {
+        setBotReadyRun = new Runnable() {
+            @Override
             public void run() {
-                JSONObject data = null;
-                try {
-                    data = new JSONObject();
-                    data.put("type", "userReady");
-                    data.put("name", name);
-                    data.put("channel", channel);
-                }
-                catch (JSONException e1) {
-                    e1.printStackTrace();
-                }
+                final String channel = JavaScriptInterface.getCurrentChannel();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        JSONObject data = null;
+                        try {
+                            data = new JSONObject();
+                            data.put("type", "userReady");
+                            data.put("name", name);
+                            data.put("channel", channel);
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
 
-                ParsePush push = new ParsePush();
-                push.setChannel(channel);
-                push.setData(data);
-                push.sendInBackground();
+                        ParsePush push = new ParsePush();
+                        push.setChannel(channel);
+                        push.setData(data);
+                        push.sendInBackground();
+                    }
+                }, time);
             }
-        }, time);
+
+
+
+        };
+        handler.post(setBotReadyRun);
     }
 
     public void checkMaster(){

@@ -48,7 +48,16 @@ public class QuizCodeInterface {
                         }
                     });
 
-                } else {
+                }
+                else if(parseObject.getBoolean("locked")){
+                    webView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            webView.loadUrl("javascript:check('lobby is currently busy')");
+                        }
+                    });
+                }
+                else {
                     webView.post(new Runnable() {
                         @Override
                         public void run() {
