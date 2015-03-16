@@ -1,3 +1,22 @@
+$(function(){
+    $('#chatbox').scrollbox({
+        linear: true,
+        autoPlay: false
+    });
+    $('#title').text("running");
+});
+
+function nextLine(){
+    $('#nextButton').click(function () {
+        $('#chatbox').trigger('forward');
+    });
+}
+
+function prevLine(){
+    $('#prevButton').click(function () {
+        $('#chatbox').trigger('backward');
+    });
+}
 
 function test(){
     $("#title").text("test");

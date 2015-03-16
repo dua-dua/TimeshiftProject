@@ -54,9 +54,11 @@ ul {
     font-size: 1.2em;
 }
 
-.scoreLi {
-    text-align: center;
-    margin-left: -40px;
+input[type="checkbox"] {
+    width:30px;
+    height:30px;
+    margin:1px 1px 5px 5px;
+    vertical-align:middle;
 }
 
 #yourScore, .counter {
@@ -98,6 +100,36 @@ ul {
 
 #challengeButton, #sendChallengeButton {
     margin-top: 100px;
+}
+
+#chatbox {
+    align: left;
+}
+
+.scroll-text {
+  border: 1px solid #034b7f;
+  width: 250px;
+  height: 5.3em;
+  overflow: hidden;
+}
+
+.scroll-text ul {
+  width: 200px;
+  height: 100px;
+  overflow: hidden;
+  margin: 0;
+}
+
+.scroll-text ul li {
+  height: 1.5em;
+  color: white !important;
+  margin-left: -40px;
+  margin-bottom: 0px;
+}
+
+.scoreLi {
+    text-align: center;
+    margin-left: -40px;
 }
 
 .smallButton {
@@ -197,9 +229,4 @@ ul {
     color: #ff0000;
 }
 
-input[type="checkbox"] {
-    width:30px;
-    height:30px;
-    margin:1px 1px 5px 5px;
-    vertical-align:middle;
-}
+
