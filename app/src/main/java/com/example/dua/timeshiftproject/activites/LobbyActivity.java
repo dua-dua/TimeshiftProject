@@ -85,9 +85,9 @@ public class LobbyActivity extends Activity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        handler.removeCallbacksAndMessages(addBotsRun);
-        handler.removeCallbacksAndMessages(addBotsWithTimerRun);
-        handler.removeCallbacksAndMessages(setBotReadyRun);
+        //handler.removeCallbacksAndMessages(addBotsRun);
+        //handler.removeCallbacksAndMessages(addBotsWithTimerRun);
+        //handler.removeCallbacksAndMessages(setBotReadyRun);
         leftQuizCleanup();
 
 
@@ -107,12 +107,12 @@ public class LobbyActivity extends Activity {
 
                 }
             });
-            handler.postDelayed(new Runnable() {
+            /*handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     endQuiz();
                 }
-            }, 60000);
+            }, 60000);*/
 
         }
     }
@@ -129,18 +129,13 @@ public class LobbyActivity extends Activity {
                 }
                 else{
                     lobbyInterface.removeFromReady();
-                    Log.v("test", "still in lobby");
-                    Log.v("test", parseObject.getList("players").toString());
+                    lobbyInterface.emptyLists();
+                    Log.v("remove", "still in lobby");
+                    Log.v("remove", parseObject.getList("players").toString());
                     List list =  parseObject.getList("players");
                     parseObject.getList("players").remove(ParseUser.getCurrentUser().getUsername());
                     parseObject.getList("readyPlayers").remove(ParseUser.getCurrentUser().getUsername());
-
                     parseObject.saveInBackground();
-
-
-
-
-
 
 
                 }
