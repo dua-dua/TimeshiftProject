@@ -92,6 +92,7 @@ public class JavaScriptInterface {
     public void unsubscribe() {
         ParsePush.unsubscribeInBackground("q");
         ParsePush.unsubscribeInBackground("test");
+        ParsePush.unsubscribeInBackground("chat");
     }
 
     @JavascriptInterface

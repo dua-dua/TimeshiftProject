@@ -1,3 +1,12 @@
+$(function(){
+    $('#chatbox').scrollbox({
+        linear: true,
+        autoPlay: false
+    });
+    $('#yourScore').text("running");
+    countdown();
+});
+
 function setScoreText(name, score, index){
     $("#player"+index+"").text(name+": "+score);
 }
@@ -34,13 +43,13 @@ var count = 0;
 
 function nextLine(){
     count++;
-    $("#chat").append("<li>"+count+"</li>");
-    var len = $("ul#chat li").length
+    $("#chatList").append("<li>"+count+"</li>");
+    var len = $("ul#chatList li").length
     if(len == 5){
         console.log("removing");
         setTimeout(function() {
-            $("#chat li:nth-last-child(2)").remove();},1);
-            len = $("ul#chat li").length
+            $("#chatList li:nth-last-child(2)").remove();},1);
+            len = $("ul#chatList li").length
     }
 
     $('#nextButton').click(function () {
@@ -55,13 +64,13 @@ function nextLine(){
 }
 
 function sendMessage(string){
-    window.challengeInterface.sendChatJSON(string);
-    $('#title').text(string);
+    window.SSInterface.sendChatJSON(string);
+    $('#yourScore').text(string);
 }
 
 function chatHTML(name, message){
-    $("#chat").append("<li><p>"+name+": "+message+"</p></li>");
-    var len = $("ul#chat li").length
+    $("#chatList").append("<li><p>"+name+": "+message+"</p></li>");
+    var len = $("ul#chatList li").length
     if(len == 5){
        console.log("removing");
        setTimeout(function() {
@@ -76,15 +85,10 @@ function chatHTML(name, message){
     return false;
 }
 
+
 /* end chat */
 
-$(function(){
-    countdown();
-    $('#chatbox').scrollbox({
-            linear: true,
-            autoPlay: false
-    });
-});
+
 
 
 

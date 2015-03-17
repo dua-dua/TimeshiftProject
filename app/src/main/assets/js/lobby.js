@@ -16,7 +16,6 @@ function addToList(name){
             }
 
         });
-
 }
 
 function isReady(name){
