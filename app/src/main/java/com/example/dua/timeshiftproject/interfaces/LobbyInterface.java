@@ -186,7 +186,13 @@ public class LobbyInterface {
         push.setData(data);
         push.sendInBackground();
     }
-
+    public void removeFromReady(){
+        readyList.remove(ParseUser.getCurrentUser().getUsername());
+    }
+    public void emptyLists(){
+        readyList.clear();
+        playerList.clear();
+    }
     public static void sendStartQuiz(){
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         List channelList = installation.getList("channels");

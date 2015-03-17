@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -42,6 +43,7 @@ public class LobbyActivity extends Activity {
     private Runnable addBotsWithTimerRun;
     private Runnable setBotReadyRun;
     private ParseQuery<ParseObject> addBotQuery;
+    private LobbyInterface lobbyInterface;
 
 
     @Override
@@ -76,7 +78,7 @@ public class LobbyActivity extends Activity {
         lobbyWebView.getSettings().setJavaScriptEnabled(true);
         lobbyWebView.loadUrl("file:///android_asset/www/lobby.html");
 
-        LobbyInterface lobbyInterface = new LobbyInterface(this, lobbyWebView, intent.getExtras().getBoolean("fromChallenge"));
+        lobbyInterface = new LobbyInterface(this, lobbyWebView, intent.getExtras().getBoolean("fromChallenge"));
         lobbyWebView.addJavascriptInterface(lobbyInterface, "LobbyInterface");
         checkMaster();
     }
@@ -86,6 +88,7 @@ public class LobbyActivity extends Activity {
         handler.removeCallbacksAndMessages(addBotsRun);
         handler.removeCallbacksAndMessages(addBotsWithTimerRun);
         handler.removeCallbacksAndMessages(setBotReadyRun);
+        leftQuizCleanup();
 
 
         if(LobbyInterface.getMaster()){
@@ -112,7 +115,39 @@ public class LobbyActivity extends Activity {
             }, 60000);
 
         }
-        //ParsePush.unsubscribeInBackground(JavaScriptInterface.getCurrentChannel());
+    }
+    private void leftQuizCleanup(){
+        String channel = JavaScriptInterface.getCurrentChannel();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
+        query.whereEqualTo("lobbyId", channel);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                boolean quizLocked = parseObject.getBoolean("locked");
+                if(quizLocked){
+                    Log.v("test", "the quiz is running, no other action should be neccessary");
+                }
+                else{
+                    lobbyInterface.removeFromReady();
+                    Log.v("test", "still in lobby");
+                    Log.v("test", parseObject.getList("players").toString());
+                    List list =  parseObject.getList("players");
+                    parseObject.getList("players").remove(ParseUser.getCurrentUser().getUsername());
+                    parseObject.getList("readyPlayers").remove(ParseUser.getCurrentUser().getUsername());
+
+                    parseObject.saveInBackground();
+
+
+
+
+
+
+
+                }
+            }
+        });
+
+        //ParsePush.unsubscribeInBackground(channel);
     }
 
 
