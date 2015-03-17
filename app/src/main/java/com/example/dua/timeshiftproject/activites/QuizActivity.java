@@ -82,16 +82,17 @@ public class QuizActivity extends Activity{
 
 
     public void botAnswerTimer(final String name, long time){
+        final String channel = JavaScriptInterface.getCurrentChannel();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                sendJSONNotificationForBot(name);
+                sendJSONNotificationForBot(name, channel);
             }
         }, time);
     }
 
-    public static void sendJSONNotificationForBot(String name) {
-        String channel = JavaScriptInterface.getCurrentChannel();
+    public static void sendJSONNotificationForBot( String name, String channel) {
+
         JSONObject data = null;
 
         try {

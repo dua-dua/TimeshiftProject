@@ -88,7 +88,7 @@ public class LobbyActivity extends Activity {
         //handler.removeCallbacksAndMessages(addBotsRun);
         //handler.removeCallbacksAndMessages(addBotsWithTimerRun);
         //handler.removeCallbacksAndMessages(setBotReadyRun);
-        leftQuizCleanup();
+        //leftQuizCleanup();
 
 
         if(LobbyInterface.getMaster()){
@@ -103,21 +103,24 @@ public class LobbyActivity extends Activity {
                     parseObject.saveInBackground();
                     if(parseObject.getBoolean("locked")){
                         Log.v("endQuiz", "locked is true");
+
                     }
 
                 }
             });
-            /*handler.postDelayed(new Runnable() {
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     endQuiz();
                 }
-            }, 60000);*/
+            }, 60000);
 
         }
+
+
     }
     private void leftQuizCleanup(){
-        String channel = JavaScriptInterface.getCurrentChannel();
+        final String channel = JavaScriptInterface.getCurrentChannel();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
         query.whereEqualTo("lobbyId", channel);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -135,16 +138,16 @@ public class LobbyActivity extends Activity {
                     List list =  parseObject.getList("players");
                     parseObject.getList("players").remove(ParseUser.getCurrentUser().getUsername());
                     parseObject.getList("readyPlayers").remove(ParseUser.getCurrentUser().getUsername());
-                    parseObject.saveInBackground();
-
-
+                    try {
+                        parseObject.save();
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                        Log.v("remove", "did not save");
+                    }
                 }
             }
         });
-
-        //ParsePush.unsubscribeInBackground(channel);
     }
-
 
     private void endQuiz() {
         Log.v("endQuiz", "starting cleanup");
