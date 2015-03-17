@@ -104,6 +104,7 @@ input[type="checkbox"] {
 
 #chatbox {
     align: left;
+    margin-bottom: 5px;
 }
 
 .scroll-text {
@@ -192,6 +193,20 @@ input[type="checkbox"] {
     font-size: 1.2em;
     padding: 0 0 0 0;
     text-align: center;
+}
+
+.emoteButton {
+margin-bottom: -5px;
+    background-color: #034b7f;
+    color: white;
+    border-color: #034b7f;
+    width: 122px;
+    height: 50px;
+    font-size: 1.2em;
+    box-shadow: none;
+    padding: 0 0 0 0;
+    font-family: monospace;
+    font-size: 1.2em;
 }
 
 .center {
