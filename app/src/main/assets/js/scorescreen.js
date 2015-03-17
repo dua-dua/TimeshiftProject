@@ -28,8 +28,62 @@ function count(wait, string){
     },wait);
 }
 
+/* chat */
+
+var count = 0;
+
+function nextLine(){
+    count++;
+    $("#chat").append("<li>"+count+"</li>");
+    var len = $("ul#chat li").length
+    if(len == 5){
+        console.log("removing");
+        setTimeout(function() {
+            $("#chat li:nth-last-child(2)").remove();},1);
+            len = $("ul#chat li").length
+    }
+
+    $('#nextButton').click(function () {
+        if(len > 3){
+            setTimeout(function() {
+                $('#chatbox').trigger('forward');},250);
+        }
+        console.log("len is: " + len);
+
+    });
+    return false;
+}
+
+function sendMessage(string){
+    window.challengeInterface.sendChatJSON(string);
+    $('#title').text(string);
+}
+
+function chatHTML(name, message){
+    $("#chat").append("<li><p>"+name+": "+message+"</p></li>");
+    var len = $("ul#chat li").length
+    if(len == 5){
+       console.log("removing");
+       setTimeout(function() {
+           $("#chat li:nth-last-child(2)").remove();},50);
+           len = $("ul#chat li").length
+    }
+
+    if(len > 3){
+       setTimeout(function() {
+           $('#chatbox').trigger('forward');},250);
+    }
+    return false;
+}
+
+/* end chat */
+
 $(function(){
     countdown();
+    $('#chatbox').scrollbox({
+            linear: true,
+            autoPlay: false
+    });
 });
 
 

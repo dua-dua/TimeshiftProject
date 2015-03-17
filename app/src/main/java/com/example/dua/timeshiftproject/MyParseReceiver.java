@@ -8,9 +8,11 @@ import android.widget.Toast;
 
 import com.example.dua.timeshiftproject.activites.LobbyActivity;
 import com.example.dua.timeshiftproject.activites.QuizActivity;
+import com.example.dua.timeshiftproject.interfaces.ChallengeInterface;
 import com.example.dua.timeshiftproject.interfaces.JavaScriptInterface;
 import com.example.dua.timeshiftproject.interfaces.LobbyInterface;
 import com.example.dua.timeshiftproject.interfaces.QuizInterface;
+import com.example.dua.timeshiftproject.interfaces.ScoreScreenInterface;
 import com.parse.GetCallback;
 import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
@@ -52,6 +54,9 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
             case "startCountdown": startCountdown();
                 break;
             case "endQuiz": endQuiz();
+                break;
+            case "chat": chat(context, obj);
+                break;
             default: Toast.makeText(context, "Did not recognize the JSON D:", Toast.LENGTH_LONG).show();
                 break;
         }
@@ -115,5 +120,19 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
 
     private void startCountdown(){
         LobbyInterface.startCountdown();
+    }
+
+    private void chat(Context context, JSONObject obj){
+        Log.v("chatqwer", "in chat receiver");
+        String name = "";
+        String message = "";
+        try {
+            name = obj.getString("name").toString();
+            message = obj.get("message").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.v("chatqwer","n: "+name+" - m: "+message);
+        ScoreScreenInterface.sendChatHTML(name, message);
     }
 }

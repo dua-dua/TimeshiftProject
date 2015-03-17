@@ -14,8 +14,12 @@ import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -108,4 +112,44 @@ public class ScoreScreenInterface {
         sortedEntries.addAll(map.entrySet());
         return sortedEntries;
     }
+
+    //Chat functionality
+    @JavascriptInterface
+    public void sendChatJSON(String message){
+        Log.v("chatqwer","in JSON with "+message);
+        ParseUser pUser = ParseUser.getCurrentUser();
+        String name = "";
+
+        name = pUser.getUsername();
+        String channel = JavaScriptInterface.getCurrentChannel();
+        JSONObject data = null;
+
+        try {
+            data = new JSONObject();
+            data.put("type","chat");
+            data.put("name", name);
+            data.put("message", message);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ParsePush push = new ParsePush();
+        push.setChannel(channel);
+        push.setData(data);
+        push.sendInBackground();
+        Log.v("chatqwer","done in JSON as "+name);
+    }
+
+    public static void sendChatHTML(final String name, final String message){
+        Log.v("chatqwer","in html with n: "+name+" - m: "+message);
+        webViewStatic.post(new Runnable() {
+            @Override
+            public void run() {
+                //staticWebView.loadUrl("javascript:chatHTML("+name+","+message+")");
+                webViewStatic.loadUrl("javascript:chatHTML(\""+ name +"\",\""+ message +"\")");
+                Log.v("chatqwer","done in html");
+            }
+        });
+    }
+    //End chat functionality
 }

@@ -11,7 +11,12 @@ import com.example.dua.timeshiftproject.activites.LobbyActivity;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by dualap on 05.03.2015.
@@ -19,10 +24,12 @@ import com.parse.ParseQuery;
 public class ChallengeInterface {
     private Activity activity;
     private WebView webView;
+    private static WebView staticWebView;
 
     public ChallengeInterface(ChallengeActivity act, WebView webView){
         this.activity = act;
         this.webView = webView;
+        this.staticWebView = webView;
     }
     @JavascriptInterface
     public void test(String id){
