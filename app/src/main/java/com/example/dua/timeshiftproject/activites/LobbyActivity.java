@@ -105,9 +105,10 @@ public class LobbyActivity extends Activity {
                         Log.v("endQuiz", "locked is true");
 
                     }
-
                 }
             });
+            sendMasterHasLeft();
+            playerCleanUp();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -116,8 +117,50 @@ public class LobbyActivity extends Activity {
             }, 60000);
 
         }
+        else{
+            playerCleanUp();
+            ParsePush.unsubscribeInBackground(JavaScriptInterface.getCurrentChannel());
+        }
 
 
+    }
+    private void sendMasterHasLeft(){
+        JSONObject data=null;
+        try{
+            data = new JSONObject();
+            data.put("type", "masterHasLeft");
+            data.put("channel", JavaScriptInterface.getCurrentChannel());
+
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        ParsePush push = new ParsePush();
+        push.setChannel(JavaScriptInterface.getCurrentChannel());
+        push.setData(data);
+        push.sendInBackground();
+
+
+    }
+    private void playerCleanUp(){
+        ParseQuery<ParseObject> query= ParseQuery.getQuery("LobbyList");
+        query.whereEqualTo("lobbyId", JavaScriptInterface.getCurrentChannel());
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                boolean quizLocked = parseObject.getBoolean("locked");
+                if(quizLocked){
+                    Log.v("test", "quiz is running, no actions necceccary");
+                }
+                else{
+                    lobbyInterface.emptyLists();
+                    parseObject.getList("players").remove(ParseUser.getCurrentUser().getUsername());
+                    parseObject.getList("readyPlayers").remove(ParseUser.getCurrentUser().getUsername());
+                    parseObject.saveInBackground();
+
+                }
+            }
+        });
     }
     private void leftQuizCleanup(){
         final String channel = JavaScriptInterface.getCurrentChannel();

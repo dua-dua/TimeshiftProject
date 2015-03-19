@@ -90,6 +90,7 @@ public class JavaScriptInterface {
 
     @JavascriptInterface
     public void unsubscribe() {
+        Log.v("unsub", "unsubscribing from channels");
         ParsePush.unsubscribeInBackground("q");
         ParsePush.unsubscribeInBackground("test");
         ParsePush.unsubscribeInBackground("chat");
