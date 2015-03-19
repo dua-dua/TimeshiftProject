@@ -85,7 +85,7 @@ public class LobbyActivity extends Activity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        if(LobbyInterface.getMaster()){
+        /*if(LobbyInterface.getMaster()){
             Log.v("test", "in endQuiz as master");
             ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
             query.whereEqualTo("lobbyId", JavaScriptInterface.getCurrentChannel());
@@ -112,7 +112,7 @@ public class LobbyActivity extends Activity {
         else{
             playerCleanUp();
             ParsePush.unsubscribeInBackground(JavaScriptInterface.getCurrentChannel());
-        }
+        }*/
 
 
     }
