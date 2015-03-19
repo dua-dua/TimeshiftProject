@@ -1,6 +1,9 @@
 TODO:
 -----
 - add handler for addbotsToLobby <- Jon
+- maks en emote per pers
+- sett delay så man ikke kan trykke ready når man er alene i lobby
+- DB for bots og random timing på emotes der
 - Chat i scorescreen, for avansert? Bruke predefined emotes/comments som i Wii og HS, lage chat vha. JSON og receiver
     * Hello!
     * Easy!

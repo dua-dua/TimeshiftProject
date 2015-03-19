@@ -48,6 +48,7 @@ public class ScoreActivity extends Activity {
         counter = intent.getIntExtra("counter", 1);
         if(isMaster==true){
             counter ++;
+            scoreScreenInterface.sendEmotesAsMaster();
         }
         timer();
     }
@@ -72,5 +73,9 @@ public class ScoreActivity extends Activity {
 
         this.startActivity(intent);
         this.finish();
+    }
+
+    public int getCounter(){
+        return this.counter;
     }
 }
