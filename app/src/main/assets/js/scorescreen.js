@@ -65,10 +65,8 @@ function nextLine(){
 }
 
 function sendMessage(string){
-    if(hasAnswered == 0){
         window.SSInterface.sendChatJSON(string);
-        hasAnswered = 1;
-    }
+        $("#timer").text(string);
 }
 
 function chatHTML(name, message){
