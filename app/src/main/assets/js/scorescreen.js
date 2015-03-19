@@ -5,6 +5,7 @@ $(function(){
     });
     $('#yourScore').text("running");
     countdown();
+    var hasAnswered = 0;
 });
 
 function setScoreText(name, score, index){
@@ -64,8 +65,10 @@ function nextLine(){
 }
 
 function sendMessage(string){
-    window.SSInterface.sendChatJSON(string);
-    $('#yourScore').text(string);
+    if(hasAnswered == 0){
+        window.SSInterface.sendChatJSON(string);
+        hasAnswered = 1;
+    }
 }
 
 function chatHTML(name, message){
