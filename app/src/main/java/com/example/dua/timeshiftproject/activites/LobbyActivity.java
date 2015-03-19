@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
@@ -83,39 +84,40 @@ public class LobbyActivity extends Activity {
         checkMaster();
     }
     @Override
-    public void onDestroy(){
-        super.onDestroy();
-        /*if(LobbyInterface.getMaster()){
-            Log.v("test", "in endQuiz as master");
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
-            query.whereEqualTo("lobbyId", JavaScriptInterface.getCurrentChannel());
-            query.getFirstInBackground(new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject parseObject, ParseException e) {
-                    Log.v("endQuiz", "in endquiz, setting locked to true");
-                    parseObject.put("locked", true);
-                    parseObject.saveInBackground();
-                    if(parseObject.getBoolean("locked")){
-                        Log.v("endQuiz", "locked is true");
+    public boolean onKeyDown(int keyKode, KeyEvent event){
+        if(keyKode==KeyEvent.KEYCODE_BACK){
+            if(LobbyInterface.getMaster()){
+                Log.v("test", "in endQuiz as master");
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
+                query.whereEqualTo("lobbyId", JavaScriptInterface.getCurrentChannel());
+                query.getFirstInBackground(new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject parseObject, ParseException e) {
+                        Log.v("endQuiz", "in endquiz, setting locked to true");
+                        parseObject.put("locked", true);
+                        parseObject.saveInBackground();
+                        if(parseObject.getBoolean("locked")){
+                            Log.v("endQuiz", "locked is true");
+                        }
                     }
-                }
-            });
-            sendMasterHasLeft();
-            playerCleanUp();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    endQuiz();
-                }
-            }, 60000);
+                });
+                sendMasterHasLeft();
+                playerCleanUp();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        endQuiz();
+                    }
+                }, 60000);
+            }
+            else{
+                playerCleanUp();
+                ParsePush.unsubscribeInBackground(JavaScriptInterface.getCurrentChannel());
+            }
         }
-        else{
-            playerCleanUp();
-            ParsePush.unsubscribeInBackground(JavaScriptInterface.getCurrentChannel());
-        }*/
-
-
+        return super.onKeyDown(keyKode, event);
     }
+
     private void sendMasterHasLeft(){
         JSONObject data=null;
         try{
@@ -132,6 +134,9 @@ public class LobbyActivity extends Activity {
         push.setData(data);
         push.sendInBackground();
 
+
+    }
+    private void startingQuiz(){
 
     }
     private void playerCleanUp(){
