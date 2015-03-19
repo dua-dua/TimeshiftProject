@@ -85,12 +85,6 @@ public class LobbyActivity extends Activity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        //handler.removeCallbacksAndMessages(addBotsRun);
-        //handler.removeCallbacksAndMessages(addBotsWithTimerRun);
-        //handler.removeCallbacksAndMessages(setBotReadyRun);
-        //leftQuizCleanup();
-
-
         if(LobbyInterface.getMaster()){
             Log.v("test", "in endQuiz as master");
             ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
@@ -103,7 +97,6 @@ public class LobbyActivity extends Activity {
                     parseObject.saveInBackground();
                     if(parseObject.getBoolean("locked")){
                         Log.v("endQuiz", "locked is true");
-
                     }
                 }
             });
@@ -115,7 +108,6 @@ public class LobbyActivity extends Activity {
                     endQuiz();
                 }
             }, 60000);
-
         }
         else{
             playerCleanUp();
@@ -154,7 +146,10 @@ public class LobbyActivity extends Activity {
                 }
                 else{
                     lobbyInterface.emptyLists();
+                    Log.v("endQuiz", "removing player:"+ ParseUser.getCurrentUser().getUsername());
+                    Log.v("endQuiz", "list before" +parseObject.getList("players").toString());
                     parseObject.getList("players").remove(ParseUser.getCurrentUser().getUsername());
+                    Log.v("endQuiz", "list after"+ parseObject.getList("players").toString());
                     parseObject.getList("readyPlayers").remove(ParseUser.getCurrentUser().getUsername());
                     parseObject.saveInBackground();
 
@@ -162,35 +157,7 @@ public class LobbyActivity extends Activity {
             }
         });
     }
-    private void leftQuizCleanup(){
-        final String channel = JavaScriptInterface.getCurrentChannel();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
-        query.whereEqualTo("lobbyId", channel);
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject parseObject, ParseException e) {
-                boolean quizLocked = parseObject.getBoolean("locked");
-                if(quizLocked){
-                    Log.v("test", "the quiz is running, no other action should be neccessary");
-                }
-                else{
-                    lobbyInterface.removeFromReady();
-                    lobbyInterface.emptyLists();
-                    Log.v("remove", "still in lobby");
-                    Log.v("remove", parseObject.getList("players").toString());
-                    List list =  parseObject.getList("players");
-                    parseObject.getList("players").remove(ParseUser.getCurrentUser().getUsername());
-                    parseObject.getList("readyPlayers").remove(ParseUser.getCurrentUser().getUsername());
-                    try {
-                        parseObject.save();
-                    } catch (ParseException e1) {
-                        e1.printStackTrace();
-                        Log.v("remove", "did not save");
-                    }
-                }
-            }
-        });
-    }
+
 
     private void endQuiz() {
         Log.v("endQuiz", "starting cleanup");
@@ -206,8 +173,11 @@ public class LobbyActivity extends Activity {
                 parseObject.put("counter", 0);
                 parseObject.put("locked", false);
                 parseObject.saveInBackground();
+                Log.v("endQuiz", parseObject.getList("players").toString());
+                parseObject.getList("players").clear();
             }
         });
+        ParsePush.unsubscribeInBackground(JavaScriptInterface.getCurrentChannel());
     }
 
     public void addChallengerBot(String challenger){
@@ -222,12 +192,9 @@ public class LobbyActivity extends Activity {
                 if(parseObject==null){
                     Log.v("test", "no object");
                 }
-
                 String challengerName = parseObject.getString("userid");
                 addBotsToLobbyWithTimer(challengerName, 1000);
                 setBotReadyTimer(challengerName, 5000 + (long)Math.random()*12000 );
-
-
             }
         });
 

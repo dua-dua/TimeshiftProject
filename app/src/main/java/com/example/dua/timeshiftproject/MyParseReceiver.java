@@ -58,6 +58,7 @@ public class MyParseReceiver extends ParsePushBroadcastReceiver {
             case "chat": chat(context, obj);
                 break;
             case "masterHasLeft": masterHasLeft(context);
+                break;
             default: Toast.makeText(context, "Did not recognize the JSON D:", Toast.LENGTH_LONG).show();
                 break;
         }
