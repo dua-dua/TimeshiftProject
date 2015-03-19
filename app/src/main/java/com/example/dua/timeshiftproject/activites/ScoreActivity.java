@@ -48,6 +48,7 @@ public class ScoreActivity extends Activity {
         counter = intent.getIntExtra("counter", 1);
         if(isMaster==true){
             counter ++;
+            Log.v("lobbymaster","I am the master and am sending emotes for bots");
             scoreScreenInterface.sendEmotesAsMaster();
         }
         timer();
