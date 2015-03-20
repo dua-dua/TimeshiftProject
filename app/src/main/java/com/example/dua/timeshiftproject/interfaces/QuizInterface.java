@@ -39,6 +39,7 @@ public class QuizInterface {
         webViewStatic = webView;
         isMaster = master;
         this.counter = counter;
+        Log.v("count", "the count in QuizInterface" + String.valueOf(counter));
         mp = MediaPlayer.create(act, R.raw.waterdrop);
         Log.v("master", "am I the master in quizInterface?" +isMaster);
     }

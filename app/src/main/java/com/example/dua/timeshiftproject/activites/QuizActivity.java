@@ -42,6 +42,7 @@ public class QuizActivity extends Activity{
         boolean isMaster = intent.getBooleanExtra("isMaster", false);
         Log.v("master", "am I the master here in quizactivity? "+ isMaster);
         int counter = intent.getIntExtra("counter",1);
+        Log.v("counter", "the value of count in QuizActivity " + String.valueOf(counter));
 
 
         if(isMaster==true){
