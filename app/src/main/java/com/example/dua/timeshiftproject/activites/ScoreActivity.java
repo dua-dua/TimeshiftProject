@@ -68,8 +68,9 @@ public class ScoreActivity extends Activity {
 
     public void toNextQuestion(){
         Intent intent = new Intent(this, QuizActivity.class);
+        intent.putExtra("counter", counter);
         if(isMaster){
-            intent.putExtra("counter", counter);
+
             intent.putExtra("isMaster", true);
         }
 
