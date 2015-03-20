@@ -122,7 +122,7 @@ public class ScoreScreenInterface {
     @JavascriptInterface
     public void sendChatJSON(String message){
         Log.v("playeremote","got "+message+" from user");
-        if(message.equals("")){
+        if(!message.equals("")){
             Log.v("playeremote","in JSON with "+message);
             ParseUser pUser = ParseUser.getCurrentUser();
             String name = "";
@@ -144,10 +144,9 @@ public class ScoreScreenInterface {
             push.setChannel(channel);
             push.setData(data);
             push.sendInBackground();
-            Log.v("playeremote","done in JSON as "+name);
-
-            saveEmoteInDatabase(message);
+            Log.v("playeremote","done in JSON as "+name);  
         }
+        saveEmoteInDatabase(message);
 
     }
 
@@ -233,6 +232,8 @@ public class ScoreScreenInterface {
                                     }
                                 }, time);
                             }
+                        }else{
+                            Log.v("emotetag","not legal emote");
                         }
                     }
                 }
