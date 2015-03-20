@@ -120,30 +120,33 @@ public class ScoreScreenInterface {
 
     @JavascriptInterface
     public void sendChatJSON(String message){
-        Log.v("playerchatqwer","in JSON with "+message);
-        ParseUser pUser = ParseUser.getCurrentUser();
-        String name = "";
+        if(message.equals("")){
+            Log.v("playerchatqwer","in JSON with "+message);
+            ParseUser pUser = ParseUser.getCurrentUser();
+            String name = "";
 
-        name = pUser.getUsername();
-        String channel = JavaScriptInterface.getCurrentChannel();
-        JSONObject data = null;
+            name = pUser.getUsername();
+            String channel = JavaScriptInterface.getCurrentChannel();
+            JSONObject data = null;
 
-        try {
-            data = new JSONObject();
-            data.put("type","chat");
-            data.put("name", name);
-            data.put("message", message);
-        } catch (JSONException e) {
-            e.printStackTrace();
+            try {
+                data = new JSONObject();
+                data.put("type","chat");
+                data.put("name", name);
+                data.put("message", message);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            ParsePush push = new ParsePush();
+            push.setChannel(channel);
+            push.setData(data);
+            push.sendInBackground();
+            Log.v("playerchatqwer","done in JSON as "+name);
+
+            saveEmoteInDatabase(message);
         }
 
-        ParsePush push = new ParsePush();
-        push.setChannel(channel);
-        push.setData(data);
-        push.sendInBackground();
-        Log.v("playerchatqwer","done in JSON as "+name);
-
-        saveEmoteInDatabase(message);
     }
 
     public void sendChatJSONforBot(String message, String name, String channel){
@@ -213,18 +216,20 @@ public class ScoreScreenInterface {
                         List emoteList = parseObjects.get(i).getList("emotes");
                         Log.v("emotetag","counter is "+activity.getCounter());
                         final String emote = emoteList.get(activity.getCounter()-2).toString();
-                        double rollDice = Math.random();
-                        Log.v("emotetag","dice rolled "+rollDice);
-                        if(rollDice > 0.4){
-                            Log.v("emotetag","sending json for bot "+name+" with emote "+emote);
-                            long time = (long)(Math.random()*2000) + 500;
-                            Log.v("emotetag","sending JSON for bot in "+time);
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                public void run() {
-                                    sendChatJSONforBot(emote, name, channel);
-                                }
-                            }, time);
+                        if(!emote.equals("")){
+                            double rollDice = Math.random();
+                            Log.v("emotetag","dice rolled "+rollDice);
+                            if(rollDice > 0.5){
+                                Log.v("emotetag","sending json for bot "+name+" with emote "+emote);
+                                long time = (long)(Math.random()*2000) + 500;
+                                Log.v("emotetag","sending JSON for bot in "+time);
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        sendChatJSONforBot(emote, name, channel);
+                                    }
+                                }, time);
+                            }
                         }
                     }
                 }

@@ -1,7 +1,9 @@
 TODO:
 -----
-- add handler for addbotsToLobby <- Jon
 - sett delay så man ikke kan trykke ready når man er alene i lobby
+- master i lobbyinterface
+- restrict til en emote per scorecreen
+- add "" ved ingen emotes
 -----
 
 Extras (not timeshifting):

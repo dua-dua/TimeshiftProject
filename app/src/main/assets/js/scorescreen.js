@@ -1,11 +1,16 @@
+var hasAnswered = false;
+
 $(function(){
     $('#chatbox').scrollbox({
         linear: true,
         autoPlay: false
     });
-    $('#yourScore').text("running");
     countdown();
-    var hasAnswered = 0;
+    setTimeout(function(){
+        if(!hasAnswered){
+            sendMessage("");
+        }
+    },9900);
 });
 
 function setScoreText(name, score, index){
@@ -65,8 +70,10 @@ function nextLine(){
 }
 
 function sendMessage(string){
+    if(!hasAnswered){
         window.SSInterface.sendChatJSON(string);
-        $("#timer").text(string);
+        hasAnswered = true;
+    }
 }
 
 function chatHTML(name, message){

@@ -72,16 +72,6 @@ public class LobbyInterface {
     }
 
     @JavascriptInterface
-    public void redir(){
-        Intent intent = new Intent(staticActivity, QuizActivity.class);
-        intent.putExtra("isMaster", true);
-        intent.putExtra("counter", 1);
-
-        staticActivity.startActivity(intent);
-        staticActivity.finish();
-    }
-
-    @JavascriptInterface
     public void getPlayers(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();

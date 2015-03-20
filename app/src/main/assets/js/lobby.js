@@ -13,8 +13,8 @@ function addToList(name){
             }
             if(addit){
                 $("#playerList").append("<li>"+name+"<span id="+name+"></span></li>");
+                enableReadyButton();
             }
-
         });
 }
 
@@ -36,6 +36,14 @@ function count(wait, string){
     setTimeout(function(){
         $("#countdown").text(string);
     },wait);
+}
+
+function enableReadyButton(){
+    if($("#playerList li").size() < 3){
+        $("#readyButton").hide();
+    }else{
+        $("#readyButton").show();
+    }
 }
 
 $(function(){
