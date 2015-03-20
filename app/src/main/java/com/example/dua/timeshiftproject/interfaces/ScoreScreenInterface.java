@@ -218,7 +218,7 @@ public class ScoreScreenInterface {
                         List emoteList = parseObjects.get(i).getList("emotes");
                         Log.v("emotetag","counter is "+activity.getCounter());
                         final String emote = emoteList.get(activity.getCounter()-2).toString();
-                        if(!(emote.equals("empty"))){
+                        if(!emote.equals("empty")){
                             double rollDice = Math.random();
                             Log.v("emotetag","dice rolled "+rollDice);
                             if(rollDice > 0.5){

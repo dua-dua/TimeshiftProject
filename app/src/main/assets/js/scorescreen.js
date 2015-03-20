@@ -5,8 +5,8 @@ $(function(){
         linear: true,
         autoPlay: false
     });
+    emptyEmote();
     countdown();
-    emptyEmote()
 });
 
 function setScoreText(name, score, index){
@@ -73,9 +73,9 @@ function sendMessage(string){
 }
 
 function emptyEmote(){
-    setTimeout(function() {
-        sendMessage("empty");
-        $("#timer").text("empty");},6000);
+    setTimeout(function(){
+            sendMessage("empty");
+        },9000);
 }
 
 
