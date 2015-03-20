@@ -22,9 +22,6 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by dualap on 03.03.2015.
- */
 public class FriendInterface {
 
     private WebView webView;
@@ -55,9 +52,11 @@ public class FriendInterface {
             ParseUser.getCurrentUser().put("friends", Arrays.asList(friends));
             ParseUser.getCurrentUser().saveInBackground();
         }else{
-            friendArray.add(name);
-            ParseUser.getCurrentUser().put("friends", friendArray);
-            ParseUser.getCurrentUser().saveInBackground();
+            if(!friendArray.contains(name)){
+                friendArray.add(name);
+                ParseUser.getCurrentUser().put("friends", friendArray);
+                ParseUser.getCurrentUser().saveInBackground();
+            }
         }
         Log.v("friendreq", "finished addtomylist");
     }
