@@ -74,6 +74,7 @@ public class ScoreActivity extends Activity {
             intent.putExtra("isMaster", true);
         }
 
+
         this.startActivity(intent);
         this.finish();
     }

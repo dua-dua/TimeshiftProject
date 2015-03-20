@@ -6,11 +6,7 @@ $(function(){
         autoPlay: false
     });
     countdown();
-    setTimeout(function(){
-        if(!hasAnswered){
-            sendMessage("");
-        }
-    },9900);
+    emptyEmote()
 });
 
 function setScoreText(name, score, index){
@@ -75,6 +71,15 @@ function sendMessage(string){
         hasAnswered = true;
     }
 }
+
+function emptyEmote(){
+    setTimeout(function() {
+       if(!hasAnswered){
+           sendMessage("");
+           $("#timer").text("empty");
+           };},6000);
+}
+
 
 function chatHTML(name, message){
     $("#chatList").append("<li><p>"+name+": "+message+"</p></li>");

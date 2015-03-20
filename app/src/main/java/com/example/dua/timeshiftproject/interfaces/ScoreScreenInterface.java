@@ -144,7 +144,7 @@ public class ScoreScreenInterface {
             push.setChannel(channel);
             push.setData(data);
             push.sendInBackground();
-            Log.v("playeremote","done in JSON as "+name);  
+            Log.v("playeremote","done in JSON as "+name);
         }
         saveEmoteInDatabase(message);
 
