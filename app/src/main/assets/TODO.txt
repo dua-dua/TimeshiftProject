@@ -1,6 +1,6 @@
 TODO:
 -----
-- gjør at man bare kan adde en venn
+- når master går ut av lobby så fucker det max
 -----
 
 Extras (not timeshifting):
