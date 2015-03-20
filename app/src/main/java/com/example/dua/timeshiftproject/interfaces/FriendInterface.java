@@ -90,7 +90,19 @@ public class FriendInterface {
                     Log.v("friendreq", "no friend requests");
                 }else {
                     for (int i = 0; i < parseObjects.size(); i++) {
-                        addToHTMLList(parseObjects.get(i).getString("sender"));
+                        Log.v("friends", ParseUser.getCurrentUser().getList("friends").toString());
+                        Log.v("friends", parseObjects.get(i).getString("sender"));
+                        if(ParseUser.getCurrentUser().getList("friends").contains(parseObjects.get(i).getString("sender"))){
+                            try {
+                                parseObjects.get(i).delete();
+                            } catch (ParseException e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                        else{
+                            addToHTMLList(parseObjects.get(i).getString("sender"));
+                        }
+
                     }
                 }
             }
