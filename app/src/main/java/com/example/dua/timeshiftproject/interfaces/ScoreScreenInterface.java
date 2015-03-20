@@ -121,8 +121,9 @@ public class ScoreScreenInterface {
 
     @JavascriptInterface
     public void sendChatJSON(String message){
+        Log.v("playeremote","got "+message+" from user");
         if(message.equals("")){
-            Log.v("playerchatqwer","in JSON with "+message);
+            Log.v("playeremote","in JSON with "+message);
             ParseUser pUser = ParseUser.getCurrentUser();
             String name = "";
 
@@ -143,7 +144,7 @@ public class ScoreScreenInterface {
             push.setChannel(channel);
             push.setData(data);
             push.sendInBackground();
-            Log.v("playerchatqwer","done in JSON as "+name);
+            Log.v("playeremote","done in JSON as "+name);
 
             saveEmoteInDatabase(message);
         }
@@ -151,7 +152,7 @@ public class ScoreScreenInterface {
     }
 
     public void sendChatJSONforBot(String message, String name, String channel){
-        Log.v("botchatqwer","in JSON with "+message);
+        Log.v("botemote","in JSON with "+message);
         JSONObject data = null;
 
         try {
@@ -167,12 +168,13 @@ public class ScoreScreenInterface {
         push.setChannel(channel);
         push.setData(data);
         push.sendInBackground();
-        Log.v("botchatqwer","done in JSON as the bot "+name);
+        Log.v("botemote","done in JSON as the bot "+name);
     }
 
     public void saveEmoteInDatabase(final String message){
+        Log.v("playeremote","entered saveemoteinDB with "+message);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Scores");
-        Log.v("emotetagplayer", "Entered saveEmote");
+        Log.v("playeremote", "Entered saveEmote");
         String channel = JavaScriptInterface.getCurrentChannel();
         query.whereEqualTo("quizid", channel);
         query.whereEqualTo("userid", ParseUser.getCurrentUser().getUsername());
@@ -180,22 +182,22 @@ public class ScoreScreenInterface {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
                 //If null, make new emotearray
-                Log.v("emotetagplayer", "done with the call");
+                Log.v("playeremote", "done with the call");
                 if (parseObject.getList("emotes") == null) {
-                    Log.v("emotetagplayer", "No matching emotearray, creating a new one");
+                    Log.v("playeremote", "No matching emotearray, creating a new one");
                     String[] emotes = {message};
                     parseObject.put("emotes", Arrays.asList(emotes));
                     parseObject.saveInBackground();
-                    Log.v("emotetagplayer","Done creating new emotearray");
+                    Log.v("playeremote","Done creating new emotearray");
                     //If exists, append score and update total score
                 } else {
                     //List scoreArray = parseObject.getList("scores");
-                    Log.v("emotetagplayer", "Found list, appending "+message);
+                    Log.v("playeremote", "Found list, appending "+message);
                     List emoteArray = parseObject.getList("emotes");
                     emoteArray.add(message);
                     parseObject.put("emotes",emoteArray);
                     parseObject.saveInBackground();
-                    Log.v("emotetagplayer", "Appended "+message);
+                    Log.v("playeremote", "Appended "+message);
                 }
             }
         });
