@@ -45,6 +45,7 @@ public class QuizInterface {
 
     @JavascriptInterface
     public static void getQuestionArray(String quizcode, final int count){
+        Log.v("count", "the count in getQuestionArray "+ String.valueOf(count));
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Quiz");
         query.whereEqualTo("code", quizcode);
         query.getFirstInBackground(new GetCallback<ParseObject>() {

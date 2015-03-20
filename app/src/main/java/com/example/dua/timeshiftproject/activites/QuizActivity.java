@@ -43,6 +43,7 @@ public class QuizActivity extends Activity{
         Log.v("master", "am I the master here in quizactivity? "+ isMaster);
         int counter = intent.getIntExtra("counter",1);
 
+
         if(isMaster==true){
             setBotAnswers(counter);
         }
