@@ -122,7 +122,7 @@ public class ScoreScreenInterface {
     @JavascriptInterface
     public void sendChatJSON(String message){
         Log.v("playeremote","got "+message+" from user");
-        if(!message.equals("")){
+        if(!message.equals("empty")){
             Log.v("playeremote","in JSON with "+message);
             ParseUser pUser = ParseUser.getCurrentUser();
             String name = "";
@@ -218,7 +218,7 @@ public class ScoreScreenInterface {
                         List emoteList = parseObjects.get(i).getList("emotes");
                         Log.v("emotetag","counter is "+activity.getCounter());
                         final String emote = emoteList.get(activity.getCounter()-2).toString();
-                        if(!emote.equals("")){
+                        if(!(emote.equals("empty"))){
                             double rollDice = Math.random();
                             Log.v("emotetag","dice rolled "+rollDice);
                             if(rollDice > 0.5){

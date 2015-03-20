@@ -74,7 +74,7 @@ function sendMessage(string){
 
 function emptyEmote(){
     setTimeout(function() {
-        sendMessage("");
+        sendMessage("empty");
         $("#timer").text("empty");},6000);
 }
 
