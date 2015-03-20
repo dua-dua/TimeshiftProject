@@ -43,6 +43,7 @@ public class ScoreScreenInterface {
         this.activity = act;
         this.webView = webView;
         webViewStatic = webView;
+
     }
 
     public void setHTMLText(String name, String score, int index){

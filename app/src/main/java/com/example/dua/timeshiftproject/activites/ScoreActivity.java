@@ -45,6 +45,7 @@ public class ScoreActivity extends Activity {
 
         Intent intent = getIntent();
         isMaster = intent.getBooleanExtra("isMaster", false);
+        Log.v("master", "am I the master in scoreScreen?" + isMaster);
         counter = intent.getIntExtra("counter", 1);
         if(isMaster==true){
             counter ++;

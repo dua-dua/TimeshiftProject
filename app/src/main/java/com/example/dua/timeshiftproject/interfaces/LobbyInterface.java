@@ -41,6 +41,7 @@ public class LobbyInterface {
         staticActivity = act;
         this.isMaster = isMaster;
         inLobby = true;
+        Log.v("master", "am I the master in LobbyInterface?" +isMaster);
     }
 
     @JavascriptInterface
@@ -138,7 +139,13 @@ public class LobbyInterface {
     public static void startQuiz() {
       Intent intent = new Intent(staticActivity, QuizActivity.class);
       intent.putExtra("test", "test");
-      intent.putExtra("isMaster", true);
+        if(isMaster==true){
+            intent.putExtra("isMaster", true);
+        }
+        else{
+            intent.putExtra("isMaster", false);
+        }
+
       intent.putExtra("counter", 1);
       staticActivity.startActivity(intent);
       staticActivity.finish();

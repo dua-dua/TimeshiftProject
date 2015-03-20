@@ -2,6 +2,7 @@ package com.example.dua.timeshiftproject.interfaces;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -124,12 +125,19 @@ public class FinalScoreScreenInterface {
         query.getFirstInBackground(new GetCallback(){
             @Override
 
-            public void done(ParseObject parseObject, ParseException e) {
+            public void done(final ParseObject parseObject, ParseException e) {
                 if(e != null){
                 }else{
                     parseObject.put("players", Arrays.asList(empty));
                     parseObject.put("readyPlayers", Arrays.asList(empty));
-                    parseObject.put("counter", 0);
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            parseObject.put("counter", 0);
+                        }
+                    }, 5000);
                     parseObject.put("locked", false);
                     parseObject.saveInBackground();
                 }

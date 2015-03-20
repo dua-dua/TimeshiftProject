@@ -33,12 +33,14 @@ public class QuizActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.activity_quiz);
         quizWebView = (WebView)findViewById(R.id.webview6);
         quizWebView.getSettings().setJavaScriptEnabled(true);
         quizWebView.loadUrl("File:///android_asset/www/quiz.html");
         Intent intent = getIntent();
         boolean isMaster = intent.getBooleanExtra("isMaster", false);
+        Log.v("master", "am I the master here in quizactivity? "+ isMaster);
         int counter = intent.getIntExtra("counter",1);
 
         if(isMaster==true){

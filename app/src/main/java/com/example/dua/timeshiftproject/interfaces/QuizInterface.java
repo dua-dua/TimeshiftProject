@@ -40,6 +40,7 @@ public class QuizInterface {
         isMaster = master;
         this.counter = counter;
         mp = MediaPlayer.create(act, R.raw.waterdrop);
+        Log.v("master", "am I the master in quizInterface?" +isMaster);
     }
 
     @JavascriptInterface
