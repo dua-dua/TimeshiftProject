@@ -48,8 +48,9 @@ public class ScoreActivity extends Activity {
         Log.v("master", "am I the master in scoreScreen?" + isMaster);
         counter = intent.getIntExtra("counter", 1);
         Log.v("count", "the value of count in ScoreActivity" + String.valueOf(counter));
+        counter ++;
         if(isMaster==true){
-            counter ++;
+
             Log.v("lobbymaster","I am the master and am sending emotes for bots");
             scoreScreenInterface.sendEmotesAsMaster();
         }
@@ -69,6 +70,7 @@ public class ScoreActivity extends Activity {
 
     public void toNextQuestion(){
         Intent intent = new Intent(this, QuizActivity.class);
+        Log.v("counter", "the counter in scoreAct inside toNextQuestion "+  String.valueOf(counter));
         intent.putExtra("counter", counter);
         if(isMaster){
 
