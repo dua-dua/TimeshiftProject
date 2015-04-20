@@ -1,6 +1,7 @@
 TODO:
 -----
-- når master går ut av lobby så fucker det max
+- når master går ut av lobby så fucker det maxy
+
 -----
 
 Extras (not timeshifting):
