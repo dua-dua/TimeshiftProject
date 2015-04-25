@@ -46,9 +46,9 @@ public class ScoreActivity extends Activity {
         Intent intent = getIntent();
         isMaster = intent.getBooleanExtra("isMaster", false);
         Log.v("master", "am I the master in scoreScreen?" + isMaster);
-        counter = intent.getIntExtra("counter", 1);
+        counter = intent.getIntExtra("counter", 2);
         Log.v("count", "the value of count in ScoreActivity" + String.valueOf(counter));
-        counter ++;
+        counter++;
         if(isMaster==true){
 
             Log.v("lobbymaster","I am the master and am sending emotes for bots");

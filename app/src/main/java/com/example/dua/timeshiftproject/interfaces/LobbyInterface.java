@@ -222,6 +222,8 @@ public class LobbyInterface {
     }
 
     public static void allReady(){
+        Log.v("master","ready" + readyList.toString());
+        Log.v("master","player" + playerList.toString());
         if(readyList.containsAll(playerList)){
             ParseQuery<ParseObject> query = ParseQuery.getQuery("LobbyList");
             query.whereEqualTo("lobbyId", JavaScriptInterface.getCurrentChannel());
