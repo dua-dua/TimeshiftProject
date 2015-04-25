@@ -238,10 +238,11 @@ public class QuizInterface {
                         playerAnswered(0, false, null);
                     }
                     Intent intent = new Intent(activity, ScoreActivity.class);
+                    intent.putExtra("counter", count);
 
                     if(isMaster==true){
                         intent.putExtra("isMaster", true);
-                        intent.putExtra("counter", count);
+
                     }
                     activity.startActivity(intent);
                     activity.finish();
