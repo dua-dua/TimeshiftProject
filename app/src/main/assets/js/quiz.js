@@ -88,8 +88,19 @@ function stopTimeOut(){
     window.clearTimeout(timeOut);
 }
 
+function zeroScore(){
+    if(!hasAnswered){
+        var score = 0;
+        var bot = false;
+        var ans = zero;
+        window.QuizInterface.playerAnswered(score, bot, ans);
+        hasAnswered = true;
+    }
+}
+
 $(function(){
     window.QuizInterface.getNextQuestion();
     progressbar();
+    setTimeout(zeroScore, 22400);
     timeOut = setTimeout(toScore, 22500);
 });
