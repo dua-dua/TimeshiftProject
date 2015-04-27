@@ -223,7 +223,7 @@ public class ScoreScreenInterface {
                             Log.v("emotetag","dice rolled "+rollDice);
                             if(rollDice > 0.5){
                                 Log.v("emotetag","sending json for bot "+name+" with emote "+emote);
-                                long time = (long)(Math.random()*2000) + 500;
+                                long time = (long)(Math.random()*8000) + 1000;
                                 Log.v("emotetag","sending JSON for bot in "+time);
                                 Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {

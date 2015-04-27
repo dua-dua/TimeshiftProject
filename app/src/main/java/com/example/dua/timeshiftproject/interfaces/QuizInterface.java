@@ -106,14 +106,14 @@ public class QuizInterface {
                     score.put("totalScore", numScore);
                     score.put("userid", user);
                     score.saveInBackground();
-                    Log.v("tag","Done creating new score");
+                    Log.v("setscore","Done creating new score");
 
                 //If exists, append score and update total score
                 } else {
+                    Log.v("setscore","Done adding new score");
                     List scoreArray = parseObject.getList("scores");
                     scoreArray.add(Integer.toString(numScore));
                     int score = parseObject.getInt("totalScore")+numScore;
-
                     parseObject.put("scores",scoreArray);
                     parseObject.put("totalScore", score);
                     parseObject.saveInBackground();
