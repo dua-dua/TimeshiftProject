@@ -79,13 +79,6 @@ function progressbar(){
 }
 
 function toScore(){
-    if(!hasAnswered){
-        var score = 0;
-        var bot = false;
-        var ans = "zero";
-        window.QuizInterface.playerAnswered(score, bot, ans);
-        hasAnswered = true;
-    }
     QuizInterface.toScore();
 }
 
@@ -108,5 +101,6 @@ function zeroScore(){
 $(function(){
     window.QuizInterface.getNextQuestion();
     progressbar();
+    setTimeout(zeroScore, 22200);
     timeOut = setTimeout(toScore, 22500);
 });
