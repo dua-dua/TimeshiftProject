@@ -101,6 +101,6 @@ function zeroScore(){
 $(function(){
     window.QuizInterface.getNextQuestion();
     progressbar();
-    setTimeout(zeroScore(), 22200);
+    setTimeout(function(){zeroScore();}, 22200);
     timeOut = setTimeout(toScore, 22500);
 });
