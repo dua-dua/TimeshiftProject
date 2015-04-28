@@ -206,9 +206,11 @@ public class LobbyActivity extends Activity {
     }
 
     public void addBotsToLobby(final boolean fromChallenge) {
+        Log.v("master", "in addBotsToLobby");
         addBotsRun = new Runnable() {
             @Override
             public void run() {
+                Log.v("master", "inaddBotsRun");
                 addBotQuery = ParseQuery.getQuery("Scores");
                 addBotQuery.whereEqualTo("quizid", JavaScriptInterface.getCurrentChannel());
                 addBotQuery.whereEqualTo("bot", true);
@@ -245,6 +247,7 @@ public class LobbyActivity extends Activity {
 
 
     public void addBotsToLobbyWithTimer(final String name, final long time) {
+        Log.v("master", "in addBotsToLobbywithTimer");
         addBotsWithTimerRun = new Runnable() {
             @Override
             public void run() {
@@ -277,6 +280,7 @@ public class LobbyActivity extends Activity {
     }
 
     public void setBotReadyTimer(final String name, final long time) {
+        Log.v("master", "setBotReadyTimer");
         setBotReadyRun = new Runnable() {
             @Override
             public void run() {
