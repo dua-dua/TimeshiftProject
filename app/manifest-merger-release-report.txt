@@ -33,10 +33,6 @@ uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
 ADDED from AndroidManifest.xml:9:5
 	android:name
 		ADDED from AndroidManifest.xml:9:22
-uses-permission#android.permission.GET_ACCOUNTS
-ADDED from AndroidManifest.xml:10:5
-	android:name
-		ADDED from AndroidManifest.xml:10:22
 uses-permission#com.google.android.c2dm.permission.RECEIVE
 ADDED from AndroidManifest.xml:11:5
 	android:name
